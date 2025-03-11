@@ -12,7 +12,7 @@ En esta carpeta encontrarás enlaces a las hojas de cálculo de Google Sheets do
 ### 1. **Materiales, Costos y Presupuestos**
 
 En esta hoja de cálculo se registran los materiales necesarios, sus costos y el presupuesto general del proyecto.  
-🔗 [Acceder a la hoja de Materiales y Costos](https://docs.google.com/spreadsheets/d/1LOxhQEmcM6evnwdrAWcRN7D1zLW_roQlpSf_YRhr3oU/edit?usp=sharing)
+🔗 [Acceder a la hoja de Materiales y Costos]()
 
 ### 2. **Planeación del Proyecto**
 
