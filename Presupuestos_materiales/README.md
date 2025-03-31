@@ -12,12 +12,12 @@ En esta carpeta encontrarás enlaces a las hojas de cálculo de Google Sheets do
 ### 1. **Materiales, Costos y Presupuestos**
 
 En esta hoja de cálculo se registran los materiales necesarios, sus costos y el presupuesto general del proyecto.  
-🔗 [Acceder a la hoja de Materiales y Costos]()
+🔗 [Acceder a la hoja de Materiales y Costos](https://docs.google.com/spreadsheets/d/1Pkg865LjIHZMhdOI8Zw5kfKJXSPQQNmTVtWCSFDnemY/edit?usp=sharing)
 
 ### 2. **Planeación del Proyecto**
 
 En esta hoja se detallan las tareas, cronogramas y responsables del proyecto.  
-🔗 [Acceder a la hoja de Planeación](URL_DEL_SEGUNDO_ENLACE) <!-- Reemplaza con el enlace correcto -->
+🔗 [Acceder a la hoja de Planeación](https://docs.google.com/spreadsheets/d/1Pkg865LjIHZMhdOI8Zw5kfKJXSPQQNmTVtWCSFDnemY/edit?gid=0#gid=0) <!-- Reemplaza con el enlace correcto -->
 
 ---
 
@@ -52,4 +52,4 @@ Este proyecto está licenciado bajo [MIT License](../LICENSE) - ver detalles [aq
 
 _¿Preguntas?_ Abre un **Issue** en el repositorio principal o contáctanos en [adriansilpa@gmail.com](mailto:adriansilpa@gmail.com)
 
-[![Visitas](https://visitor-badge.glitch.me/badge?page_id=tu_usuario.tu_repositorio)](https://github.com/tu_usuario/tu_repositorio)
+[![Visitas](https://visitor-badge.glitch.me/badge?page_id=La-guajolota.Horno_reflujo)](https://github.com/La-guajolota/Horno_reflujo)
