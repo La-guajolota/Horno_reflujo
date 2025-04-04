@@ -15692,7 +15692,7 @@
 				)
 			)
 		)
-		(property "Value" "5k  1W"
+		(property "Value" "5k  2W"
 			(at 185.42 78.74 90)
 			(effects
 				(font
@@ -17408,7 +17408,7 @@
 				)
 			)
 		)
-		(property "Value" "5k  1W"
+		(property "Value" "5k  2W"
 			(at 186.69 53.34 90)
 			(effects
 				(font
