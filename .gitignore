@@ -1,0 +1,4 @@
+# Ignorar archivos de IDE/build
+Firmware/.metadata/
+Firmware/reflow_oven/Debug/
+Firmware/reflow_oven/reflow_oven.ioc
