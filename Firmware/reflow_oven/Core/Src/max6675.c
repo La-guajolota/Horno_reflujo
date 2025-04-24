@@ -102,11 +102,8 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
         GPIO_PIN_RESET
     ); /* Assert CS (active low) */
 
-    /* Short delay to ensure CS stabilizes */
-    for(volatile int i = 0; i < 10; i++);
-
-    /* Read 2 bytes (16 bits) from the MAX6675 */
-    status = HAL_SPI_Receive(driver->hspi, data, 2, 50);
+    /* Read (16 bits) from the MAX6675 */
+    status = HAL_SPI_Receive(driver->hspi, data, 1, 50);
 
     /* End SPI communication sequence */
     HAL_GPIO_WritePin(
@@ -122,15 +119,17 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
     }
 
     /* Combine the two bytes into a 16-bit value */
-    driver->devices[device_id].raw_data = ((uint16_t)data[0] << 8) | data[1];
+    driver->devices[device_id].raw_data = (data[1] << 8) | data[0];
 
     /*
      * Verify device integrity by checking:
      * 1. Thermocouple input bit (should be 0 if connected)
      * 2. Dummy bit (should be 0 for proper operation)
+     * 3. Full zeros??? ambient's temperature is present
      */
-    if (((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) ==
-        ((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15)) {
+    if ((((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) ==
+        ((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15)) &&
+        (driver->devices[device_id].raw_data != 0x0000)) {
 
         /* Extract temperature data (12-bit value shifted right by 3) */
         raw_temp = (driver->devices[device_id].raw_data & MAX6675_TEMP_BITS) >> 3;
@@ -140,6 +139,7 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
         driver->devices[device_id].is_connected = 1;
     } else {
         /* No thermocouple detected or communication error */
+        driver->devices[device_id].temperature = -404.0;
         driver->devices[device_id].is_connected = 0;
         status = HAL_ERROR;
     }

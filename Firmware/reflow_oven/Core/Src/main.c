@@ -22,7 +22,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
+#include <stdio.h>
 #include "gui_backend.h"
+#include "max6675.h"
 #include "pid.h"
 /* USER CODE END Includes */
 
@@ -48,12 +50,23 @@ SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
 
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
+// GUI and OLEDscreen related
 encoder_t encoder;
+
+// PID controller related
 PIDController PID;
+uint8_t timers_isr = 0;
+
+// Sensors
+float chamber_temp = 0; // Celcius
+float tempReadings[4] = {0};  // Stores each sensor's temperature
+MAX6675_Driver_t tempSensors;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,6 +77,7 @@ static void MX_TIM1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -107,6 +121,7 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM2_Init();
   MX_USART1_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
   encoder.prev_dir = 0;
@@ -123,8 +138,13 @@ int main(void)
 		  0, 	//limMAX
 		  0, 	//limMinInt
 		  0, 	//limMaxInt
-		  0);	// tsample
-
+		0.4);	// tsample
+  MAX6675_Init(&tempSensors, &hspi1);
+  MAX6675_AddDevice(&tempSensors, 0);
+  MAX6675_AddDevice(&tempSensors, 1);
+  MAX6675_AddDevice(&tempSensors, 2);
+  MAX6675_AddDevice(&tempSensors, 3);
+  HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -135,8 +155,10 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	ENCODER_EVENT_UPDATE(&encoder);
+	// REFLOW PROCESS
 
+	// GUI PROCESS
+	ENCODER_EVENT_UPDATE(&encoder);
 	switch (gui_sm.current_page) {
 		case MAIN_PAGE:
 			main_page_handler(&gui_sm, encoder.ev);
@@ -151,6 +173,30 @@ int main(void)
 			break;
 	}
 
+	// Check bti0 for temperature sensing and PID feedback-input update
+	if (timers_isr & 0x01) {
+		timers_isr &= ~0x01;
+
+		// Sample chamber's temperature
+		uint8_t sensor;
+		for (sensor = 0; sensor < 4; sensor++) {
+			// Individual max6675 sensor's reading
+			MAX6675_ReadTemperature(&tempSensors, sensor);
+			HAL_Delay(1);
+			// HAL_Delay(250); // Waits for Chip Ready(according to Datasheet, the max time for conversion is 220ms)
+		}
+		// Take each measurements and compute chamber's temperature
+		chamber_temp = 0;
+		for (sensor = 0; sensor < 4; sensor++) {
+			MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
+			chamber_temp +=  tempReadings[sensor];
+		}
+		chamber_temp /= 4; //media
+
+		// REFLOW OVEN SM
+		// PID_Update(&PID, 0, chamber_temp);
+		// FIRE_func(PID.out);
+	}
   }
   /* USER CODE END 3 */
 }
@@ -257,11 +303,11 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -414,6 +460,51 @@ static void MX_TIM2_Init(void)
 }
 
 /**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 10000-1;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 2500-1;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -468,10 +559,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(built_in_led_GPIO_Port, built_in_led_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_0_GPIO_Port, CS_0_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(CS_0_GPIO_Port, CS_0_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, CS_1_Pin|CS_2_Pin|CS_3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, CS_1_Pin|CS_2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CS_3_GPIO_Port, CS_3_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : built_in_led_Pin */
   GPIO_InitStruct.Pin = built_in_led_Pin;
@@ -489,15 +583,15 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : CS_0_Pin */
   GPIO_InitStruct.Pin = CS_0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(CS_0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CS_1_Pin CS_2_Pin CS_3_Pin */
   GPIO_InitStruct.Pin = CS_1_Pin|CS_2_Pin|CS_3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
@@ -510,11 +604,20 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+// ISR
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if (GPIO_Pin == encoder_pulse_Pin) {
-		encoder.isr_reg |= 0b00000001;
+		encoder.isr_reg |= 0x01;
 	}
 }
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim == &htim3){
+		timers_isr |= 0x01;
+	}
+}
+
 /* USER CODE END 4 */
 
 /**

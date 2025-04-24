@@ -23,6 +23,7 @@
 /******************************************************************************
  * EXTERNAL REFERENCES
  *****************************************************************************/
+/* PID's data type instance */
 extern PIDController PID;
 /* Microcontroller's hardware related to rotary encoder for user's interaction with GUI */
 extern TIM_HandleTypeDef htim2;
@@ -180,11 +181,6 @@ void pid_settings_page_handler(state_machine_t *sm, encoder_event_t ev);
 /* extern void LCD_DrawElement(ui_element_t*);        Draw an element on the LCD */
 /* extern void LCD_DrawPage(ui_page_t*);              Draw a complete page */
 
-/**
- * @brief  Read encoder hardware event
- * @retval Current encoder event type
- */
-extern encoder_event_t Encoder_ReadEvent(void);
 
 /******************************************************************************
  * PUBLIC FUNCTION DECLARATIONS

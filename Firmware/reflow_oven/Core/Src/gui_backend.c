@@ -272,8 +272,8 @@ ui_element_t ui_pid_settings_page_elements_arr[NUM_PID_BOXES] = {
 state_machine_t gui_sm;         /* GUI state machine instance */
 uint8_t rotateMode = 1;         /* 1=navigate elements, 0=edit values */
 float* param;                   /* Pointer to the currently selected parameter being edited */
-float param_max_val;                  /* Maximum allowable value for the current parameter */
-float param_min_val;                  /* Minimum allowable value for the current parameter */
+float param_max_val;            /* Maximum allowable value for the current parameter */
+float param_min_val;            /* Minimum allowable value for the current parameter */
 float step_val;                 /* Incremental step size for parameter value changes */
 
 /******************************************************************************
