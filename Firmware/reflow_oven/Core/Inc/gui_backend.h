@@ -26,7 +26,8 @@
 /* PID's data type instance */
 extern PIDController PID;
 /* Microcontroller's hardware related to rotary encoder for user's interaction with GUI */
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim2; // Encoder
+extern TIM_HandleTypeDef htim3; // Periodic sample of sensors
 
 /******************************************************************************
  * USER INPUT DEFINITIONS
@@ -34,26 +35,28 @@ extern TIM_HandleTypeDef htim2;
 /**
  * @brief  Encoder event types
  */
-typedef enum {
-    IDLE_EVENT,              /* No event detected */
-    CLOCK_WISE_EVENT,        /* Encoder rotated clockwise */
-    ANTI_CLCOK_WISE_EVENT,   /* Encoder rotated counter-clockwise */
-    PULSE_BUTTON_EVENT,      /* Encoder button pressed briefly */
-    LONG_PRESS_EVENT,        /* Encoder button held down */
-    TIMEOUT_EVENT,           /* Timeout elapsed with no activity */
-    NUM_EVENTS               /* Total number of event types */
+typedef enum
+{
+    IDLE_EVENT,            /* No event detected */
+    CLOCK_WISE_EVENT,      /* Encoder rotated clockwise */
+    ANTI_CLCOK_WISE_EVENT, /* Encoder rotated counter-clockwise */
+    PULSE_BUTTON_EVENT,    /* Encoder button pressed briefly */
+    LONG_PRESS_EVENT,      /* Encoder button held down */
+    TIMEOUT_EVENT,         /* Timeout elapsed with no activity */
+    NUM_EVENTS             /* Total number of event types */
 } encoder_event_t;
 
 /**
  * @brief  Encoder structure tracking physical encoder state
  */
-typedef struct {
-    encoder_event_t ev;      /* Current event type */
-    uint8_t isr_reg;         /* Bit 0 is pulse_flag */
-    uint8_t prev_cnt;        /* Previous counter value */
-    uint8_t current_cnt;     /* Current counter value */
-    uint8_t prev_dir;        /* Previous direction */
-    uint8_t current_dir;     /* Current direction */
+typedef struct
+{
+    encoder_event_t ev;  /* Current event type */
+    uint8_t isr_reg;     /* Bit 0 is pulse_flag */
+    uint8_t prev_cnt;    /* Previous counter value */
+    uint8_t current_cnt; /* Current counter value */
+    uint8_t prev_dir;    /* Previous direction */
+    uint8_t current_dir; /* Current direction */
 } encoder_t;
 
 /******************************************************************************
@@ -62,48 +65,52 @@ typedef struct {
 /**
  * @brief  UI page identifiers
  */
-typedef enum {
-    MAIN_PAGE,               /* Display graph and running parameters */
-    OVEN_SETTINGS_PAGE,      /* Configure reflow oven parameters */
-    PID_SETTINGS_PAGE,       /* Configure PID controller parameters */
-    NUM_STATES               /* Total number of UI pages */
+typedef enum
+{
+    MAIN_PAGE,          /* Display graph and running parameters */
+    OVEN_SETTINGS_PAGE, /* Configure reflow oven parameters */
+    PID_SETTINGS_PAGE,  /* Configure PID controller parameters */
+    NUM_STATES          /* Total number of UI pages */
 } ui_pages_t;
 
 /**
  * @brief  Main page elements
  */
-typedef enum {
-    START_BTN,               /* Starts reflow process */
-    STOP_BTN,                /* Stops reflow process */
-    OVEN_SETTINGS_BTN,       /* Navigate to oven settings page */
-    PID_SETTINGS_BTN,        /* Navigate to PID settings page */
-    NUM_MAIN_PAGE_BTN        /* Total number of main page elements */
+typedef enum
+{
+    START_BTN,         /* Starts reflow process */
+    STOP_BTN,          /* Stops reflow process */
+    OVEN_SETTINGS_BTN, /* Navigate to oven settings page */
+    PID_SETTINGS_BTN,  /* Navigate to PID settings page */
+    NUM_MAIN_PAGE_BTN  /* Total number of main page elements */
 } ui_main_page_boxes_t;
 
 /**
  * @brief  Oven settings page elements
  */
-typedef enum {
-    PREHEAT_RISE_TIME_BOX,   /* Preheat rise time (°C/s) */
-    SOAK_TIME_BOX,           /* Soak duration (seconds) */
-    SOAK_TEMP_BOX,           /* Soak temperature (°C) */
-    REFLOW_RISE_TIME_BOX,    /* Reflow rise time (°C/s) */
-    REFLOW_TEMP_BOX,         /* Reflow temperature (°C) */
-    COOL_TIME_BOX,           /* Cooling duration (seconds) */
-    COOL_TEMP_BOX,           /* Cooling temperature (°C) */
-    OVEN_RETURN_BTN,         /* Return to main page */
-    NUM_OVEN_BOXES           /* Total number of oven settings elements */
+typedef enum
+{
+    PREHEAT_RISE_TIME_BOX, /* Preheat rise time (°C/s) */
+    SOAK_TIME_BOX,         /* Soak duration (seconds) */
+    SOAK_TEMP_BOX,         /* Soak temperature (°C) */
+    REFLOW_RISE_TIME_BOX,  /* Reflow rise time (°C/s) */
+    REFLOW_TEMP_BOX,       /* Reflow temperature (°C) */
+    COOL_TIME_BOX,         /* Cooling duration (seconds) */
+    COOL_TEMP_BOX,         /* Cooling temperature (°C) */
+    OVEN_RETURN_BTN,       /* Return to main page */
+    NUM_OVEN_BOXES         /* Total number of oven settings elements */
 } ui_oven_settings_page_boxes_t;
 
 /**
  * @brief  PID settings page elements
  */
-typedef enum {
-    PID_KP_BOX,              /* Proportional gain */
-    PID_KI_BOX,              /* Integral gain */
-    PID_KD_BOX,              /* Derivative gain */
-    PID_RETURN_BTN,          /* Return to main page */
-    NUM_PID_BOXES            /* Total number of PID settings elements */
+typedef enum
+{
+    PID_KP_BOX,     /* Proportional gain */
+    PID_KI_BOX,     /* Integral gain */
+    PID_KD_BOX,     /* Derivative gain */
+    PID_RETURN_BTN, /* Return to main page */
+    NUM_PID_BOXES   /* Total number of PID settings elements */
 } ui_pid_settings_page_boxes_t;
 
 /******************************************************************************
@@ -112,27 +119,29 @@ typedef enum {
 /**
  * @brief  UI element structure (represents boxes, buttons, etc.)
  */
-typedef struct {
-    uint16_t x, y;           /* Position coordinates */
-    uint16_t width, height;  /* Element dimensions */
-    bool selectable;         /* If this element can be selected/focused */
-    bool selected;           /* If this element is currently selected */
-    bool editable;           /* If this element's value can be edited */
-    void* value_ptr;         /* Pointer to the actual data value */
-    uint16_t value_min;      /* Minimum value allowed */
-    uint16_t value_max;      /* Maximum value allowed */
-    float value_step;        /* Increment/decrement step size */
-    char label[20];          /* Text label for this element */
-    void (*draw_func)(void*); /* Function to draw this element */
+typedef struct
+{
+    uint16_t x, y;             /* Position coordinates */
+    uint16_t width, height;    /* Element dimensions */
+    bool selectable;           /* If this element can be selected/focused */
+    bool selected;             /* If this element is currently selected */
+    bool editable;             /* If this element's value can be edited */
+    void *value_ptr;           /* Pointer to the actual data value */
+    uint16_t value_min;        /* Minimum value allowed */
+    uint16_t value_max;        /* Maximum value allowed */
+    float value_step;          /* Increment/decrement step size */
+    char label[20];            /* Text label for this element */
+    void (*draw_func)(void *); /* Function to draw this element */
 } ui_element_t;
 
 /**
  * @brief  UI page structure
  */
-typedef struct {
+typedef struct
+{
     ui_pages_t id;           /* Page identifier */
     uint8_t num_elements;    /* Number of elements in this page */
-    ui_element_t* elements;  /* Array of elements */
+    ui_element_t *elements;  /* Array of elements */
     uint8_t current_element; /* Index of the currently selected element */
     void (*draw_func)(void); /* Function to draw this page */
 } ui_page_t;
@@ -140,16 +149,17 @@ typedef struct {
 /**
  * @brief  State machine structure for UI navigation
  */
-typedef struct {
+typedef struct
+{
     ui_pages_t current_page;     /* Currently displayed page */
     ui_pages_t previous_page;    /* Previous page (for back navigation) */
-    ui_page_t* page_array;       /* Array of all pages */
+    ui_page_t *page_array;       /* Array of all pages */
     uint8_t current_element_idx; /* Index of currently selected element */
     /* uint32_t last_event_time;    Time of the last user event */
     /* uint32_t timeout_ms;         Timeout for returning to main screen */
-    bool needs_redraw;           /* Flag indicating if redraw is needed */
-    bool is_editing;             /* Flag indicating if in edit mode */
-    bool is_process_running;     /* Flag indicating if reflow process is running */
+    bool needs_redraw;       /* Flag indicating if redraw is needed */
+    bool is_editing;         /* Flag indicating if in edit mode */
+    bool is_process_running; /* Flag indicating if reflow process is running */
 } state_machine_t;
 
 /******************************************************************************
@@ -164,7 +174,7 @@ extern state_machine_t gui_sm;
 /**
  * @brief  Function pointer type for page event handlers
  */
-typedef void (*state_handler_t)(state_machine_t*, encoder_event_t);
+typedef void (*state_handler_t)(state_machine_t *, encoder_event_t);
 
 /**
  * @brief  Event handlers for each page
@@ -181,7 +191,6 @@ void pid_settings_page_handler(state_machine_t *sm, encoder_event_t ev);
 /* extern void LCD_DrawElement(ui_element_t*);        Draw an element on the LCD */
 /* extern void LCD_DrawPage(ui_page_t*);              Draw a complete page */
 
-
 /******************************************************************************
  * PUBLIC FUNCTION DECLARATIONS
  *****************************************************************************/
@@ -190,7 +199,7 @@ void pid_settings_page_handler(state_machine_t *sm, encoder_event_t ev);
  * @param  encoder: Pointer to encoder structure
  * @retval None
  */
-void ENCODER_EVENT_UPDATE(encoder_t* encoder);
+void ENCODER_EVENT_UPDATE(encoder_t *encoder);
 
 /**
  * @brief  Initialize GUI system including pages and state machine

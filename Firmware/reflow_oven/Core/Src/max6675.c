@@ -21,7 +21,8 @@
 HAL_StatusTypeDef MAX6675_Init(MAX6675_Driver_t *driver, SPI_HandleTypeDef *hspi)
 {
     /* Validate input parameters */
-    if (driver == NULL || hspi == NULL) {
+    if (driver == NULL || hspi == NULL)
+    {
         return HAL_ERROR;
     }
 
@@ -30,11 +31,12 @@ HAL_StatusTypeDef MAX6675_Init(MAX6675_Driver_t *driver, SPI_HandleTypeDef *hspi
     driver->device_count = 0;
 
     /* Define CS port array */
-    GPIO_TypeDef* cs_ports[] = MAX6675_CS_PORTS;
+    GPIO_TypeDef *cs_ports[] = MAX6675_CS_PORTS;
     uint16_t cs_pins[] = MAX6675_CS_PINS;
 
     /* Copy CS port/pin information to driver structure */
-    for (uint8_t i = 0; i < MAX6675_MAX_DEVICES; i++) {
+    for (uint8_t i = 0; i < MAX6675_MAX_DEVICES; i++)
+    {
         driver->cs_ports[i] = cs_ports[i];
         driver->cs_pins[i] = cs_pins[i];
 
@@ -55,12 +57,14 @@ HAL_StatusTypeDef MAX6675_Init(MAX6675_Driver_t *driver, SPI_HandleTypeDef *hspi
 HAL_StatusTypeDef MAX6675_AddDevice(MAX6675_Driver_t *driver, uint8_t device_id)
 {
     /* Validate input parameters */
-    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES) {
+    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES)
+    {
         return HAL_ERROR;
     }
 
     /* Check if we have room for more devices */
-    if (driver->device_count >= MAX6675_MAX_DEVICES) {
+    if (driver->device_count >= MAX6675_MAX_DEVICES)
+    {
         return HAL_ERROR;
     }
 
@@ -88,10 +92,11 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
 {
     HAL_StatusTypeDef status = HAL_OK;
     uint16_t raw_temp = 0;
-    uint8_t data[2] = {0};  /* Buffer for raw data from MAX6675 */
+    uint8_t data[2] = {0}; /* Buffer for raw data from MAX6675 */
 
     /* Validate input parameters */
-    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES) {
+    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES)
+    {
         return HAL_ERROR;
     }
 
@@ -99,8 +104,7 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
     HAL_GPIO_WritePin(
         driver->cs_ports[device_id],
         driver->cs_pins[device_id],
-        GPIO_PIN_RESET
-    ); /* Assert CS (active low) */
+        GPIO_PIN_RESET); /* Assert CS (active low) */
 
     /* Read (16 bits) from the MAX6675 */
     status = HAL_SPI_Receive(driver->hspi, data, 1, 50);
@@ -109,11 +113,11 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
     HAL_GPIO_WritePin(
         driver->cs_ports[device_id],
         driver->cs_pins[device_id],
-        GPIO_PIN_SET
-    ); /* Deassert CS */
+        GPIO_PIN_SET); /* Deassert CS */
 
     /* Check if SPI communication was successful */
-    if (status != HAL_OK) {
+    if (status != HAL_OK)
+    {
         driver->devices[device_id].is_connected = 0;
         return status;
     }
@@ -128,8 +132,9 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
      * 3. Full zeros??? ambient's temperature is present
      */
     if ((((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) ==
-        ((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15)) &&
-        (driver->devices[device_id].raw_data != 0x0000)) {
+         ((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15)) &&
+        (driver->devices[device_id].raw_data != 0x0000))
+    {
 
         /* Extract temperature data (12-bit value shifted right by 3) */
         raw_temp = (driver->devices[device_id].raw_data & MAX6675_TEMP_BITS) >> 3;
@@ -137,7 +142,9 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
         /* Convert to Celsius (0.25°C per count) */
         driver->devices[device_id].temperature = raw_temp * MAX6675_TEMP_FACTOR;
         driver->devices[device_id].is_connected = 1;
-    } else {
+    }
+    else
+    {
         /* No thermocouple detected or communication error */
         driver->devices[device_id].temperature = -404.0;
         driver->devices[device_id].is_connected = 0;
@@ -158,12 +165,14 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
 HAL_StatusTypeDef MAX6675_GetTemperature(MAX6675_Driver_t *driver, uint8_t device_id, float *temperature)
 {
     /* Validate input parameters */
-    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES || temperature == NULL) {
+    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES || temperature == NULL)
+    {
         return HAL_ERROR;
     }
 
     /* Check if device is connected */
-    if (!driver->devices[device_id].is_connected) {
+    if (!driver->devices[device_id].is_connected)
+    {
         return HAL_ERROR;
     }
 
@@ -183,7 +192,8 @@ HAL_StatusTypeDef MAX6675_GetTemperature(MAX6675_Driver_t *driver, uint8_t devic
 uint8_t MAX6675_IsConnected(MAX6675_Driver_t *driver, uint8_t device_id)
 {
     /* Validate input parameters */
-    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES) {
+    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES)
+    {
         return 0;
     }
 

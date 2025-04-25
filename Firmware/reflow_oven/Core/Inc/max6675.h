@@ -17,57 +17,57 @@
 #define INC_MAX6675_H_
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx.h"  /* STM32F4 HAL library for SPI communication */
-#include "main.h"       /* For Chip Select pin and port definitions */
+#include "stm32f4xx.h" /* STM32F4 HAL library for SPI communication */
+#include "main.h"      /* For Chip Select pin and port definitions */
 
 /* Configuration Constants --------------------------------------------------*/
 /**
  * @brief Maximum number of supported MAX6675 devices
  */
-#define MAX6675_MAX_DEVICES     4
+#define MAX6675_MAX_DEVICES 4
 
 /* MAX6675 Chip Select Pin Definitions --------------------------------------*/
 /**
  * @brief Array of GPIO ports for all CS pins (do not use directly)
  */
 #define MAX6675_CS_PORTS \
-    { CS_0_GPIO_Port, CS_1_GPIO_Port, CS_2_GPIO_Port, CS_3_GPIO_Port }
+    {CS_0_GPIO_Port, CS_1_GPIO_Port, CS_2_GPIO_Port, CS_3_GPIO_Port}
 
 /**
  * @brief Array of GPIO pins for all CS pins (do not use directly)
  */
 #define MAX6675_CS_PINS \
-    { CS_0_Pin, CS_1_Pin, CS_2_Pin, CS_3_Pin }
+    {CS_0_Pin, CS_1_Pin, CS_2_Pin, CS_3_Pin}
 
 /* MAX6675 Register Bit Definitions -----------------------------------------*/
 /**
  * @brief Dummy bit (D15) - Should always read as 0
  * @note  Can be used to verify proper communication
  */
-#define MAX6675_DUMMY_BIT       0x8000
+#define MAX6675_DUMMY_BIT 0x8000
 
 /**
  * @brief Open circuit detection bit (D2)
  * @note  0 = Thermocouple connected, 1 = Thermocouple open circuit
  */
-#define MAX6675_INPUT_BIT       0x0004
+#define MAX6675_INPUT_BIT 0x0004
 
 /**
  * @brief Temperature data bits (D14-D3)
  * @note  12-bit temperature value
  */
-#define MAX6675_TEMP_BITS       0x7FF8
+#define MAX6675_TEMP_BITS 0x7FF8
 
 /**
  * @brief Device ID bit (D1)
  * @note  Should always read as 0
  */
-#define MAX6675_ID_BIT          0x0002
+#define MAX6675_ID_BIT 0x0002
 
 /**
  * @brief Temperature conversion factor (°C per bit)
  */
-#define MAX6675_TEMP_FACTOR     0.25f
+#define MAX6675_TEMP_FACTOR 0.25f
 
 /* Type Definitions ---------------------------------------------------------*/
 /**
@@ -75,21 +75,22 @@
  */
 typedef struct
 {
-    uint8_t  id;         /**< Device ID (0-3, used for CS pin selection) */
-    uint16_t raw_data;   /**< Raw 16-bit data from the MAX6675 register */
-    float    temperature; /**< Processed temperature reading in Celsius */
-    uint8_t  is_connected; /**< Connection status (1=connected, 0=disconnected) */
+    uint8_t id;           /**< Device ID (0-3, used for CS pin selection) */
+    uint16_t raw_data;    /**< Raw 16-bit data from the MAX6675 register */
+    float temperature;    /**< Processed temperature reading in Celsius */
+    uint8_t is_connected; /**< Connection status (1=connected, 0=disconnected) */
 } MAX6675_Device_t;
 
 /**
  * @brief MAX6675 driver control structure
  */
-typedef struct {
+typedef struct
+{
     MAX6675_Device_t devices[MAX6675_MAX_DEVICES]; /**< Array of MAX6675 device structures */
-    uint8_t device_count;                       /**< Number of initialized devices */
-    SPI_HandleTypeDef *hspi;                   /**< SPI handle for communication */
-    GPIO_TypeDef* cs_ports[MAX6675_MAX_DEVICES]; /**< Array of CS GPIO ports */
-    uint16_t cs_pins[MAX6675_MAX_DEVICES];     /**< Array of CS GPIO pins */
+    uint8_t device_count;                          /**< Number of initialized devices */
+    SPI_HandleTypeDef *hspi;                       /**< SPI handle for communication */
+    GPIO_TypeDef *cs_ports[MAX6675_MAX_DEVICES];   /**< Array of CS GPIO ports */
+    uint16_t cs_pins[MAX6675_MAX_DEVICES];         /**< Array of CS GPIO pins */
 } MAX6675_Driver_t;
 
 /* Function Prototypes ------------------------------------------------------*/

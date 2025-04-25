@@ -9,7 +9,7 @@
  * Author: Adrian Silva Palafox
  * Creation date: November 2024
  *
- * License: This code is open source under the license [Your License Here].
+ * License: This code is open source under the license MIT.
  *          It can be modified and distributed for educational or commercial purposes.
  *
  * Note: It is assumed that the necessary libraries such as "pid.h" and other
@@ -21,7 +21,7 @@
 #include "pid.h"
 
 // Function to initialize the PID controller
-void PID_Init(PIDController* pid, float kp, float ki, float kd,
+void PID_Init(PIDController *pid, float kp, float ki, float kd,
               float tau,
               float limMin, float limMax,
               float limMinInt, float limMaxInt,
@@ -63,7 +63,7 @@ void PID_Init(PIDController* pid, float kp, float ki, float kd,
 }
 
 // Function to reset the PID controller
-void PID_Reset(PIDController* pid)
+void PID_Reset(PIDController *pid)
 {
     pid->integrator = 0.0f;      // Reset integrator
     pid->prevError = 0.0f;       // Reset previous error
@@ -73,7 +73,7 @@ void PID_Reset(PIDController* pid)
 }
 
 // Function that updates the PID controller each time it is called
-float PID_Update(PIDController* pid, float setpoint, float measurement)
+float PID_Update(PIDController *pid, float setpoint, float measurement)
 {
     // Calculate error (difference between setpoint and measurement)
     float error = setpoint - measurement;
@@ -96,8 +96,8 @@ float PID_Update(PIDController* pid, float setpoint, float measurement)
 
     // Calculate derivative term (with low-pass filter to avoid noise)
     pid->differentiator = -(2.0f * pid->Kd * (measurement - pid->prevMeasurement) +
-                         (2.0f * pid->tau - pid->T) * pid->differentiator) /
-                         (2.0f * pid->tau + pid->T);
+                            (2.0f * pid->tau - pid->T) * pid->differentiator) /
+                          (2.0f * pid->tau + pid->T);
 
     // Calculate total controller output (Sum of proportional, integral, and derivative)
     pid->out = proportional + pid->integrator + pid->differentiator;
@@ -121,7 +121,7 @@ float PID_Update(PIDController* pid, float setpoint, float measurement)
 }
 
 // Function to update Kp, Ki, and Kd gains at runtime
-void PID_UpdateGains(PIDController* pid, float kp, float ki, float kd)
+void PID_UpdateGains(PIDController *pid, float kp, float ki, float kd)
 {
     pid->Kp = kp; // Update proportional gain
     pid->Ki = ki; // Update integral gain
@@ -129,23 +129,23 @@ void PID_UpdateGains(PIDController* pid, float kp, float ki, float kd)
 }
 
 // Functions to get Kp, Ki, and Kd gains individually
-float PID_GetKp(const PIDController* pid)
+float PID_GetKp(const PIDController *pid)
 {
     return pid->Kp; // Return proportional gain
 }
 
-float PID_GetKi(const PIDController* pid)
+float PID_GetKi(const PIDController *pid)
 {
     return pid->Ki; // Return integral gain
 }
 
-float PID_GetKd(const PIDController* pid)
+float PID_GetKd(const PIDController *pid)
 {
     return pid->Kd; // Return derivative gain
 }
 
 // Function to get all gains together as a struct (useful for sending via serial or other methods)
-PIDGains PID_GetGains(const PIDController* pid)
+PIDGains PID_GetGains(const PIDController *pid)
 {
     PIDGains gains;
     gains.Kp = pid->Kp;

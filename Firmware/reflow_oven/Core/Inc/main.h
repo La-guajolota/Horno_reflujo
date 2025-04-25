@@ -76,6 +76,10 @@ void Error_Handler(void);
 #define CS_2_GPIO_Port GPIOB
 #define CS_3_Pin GPIO_PIN_2
 #define CS_3_GPIO_Port GPIOB
+#define fire_Pin GPIO_PIN_8
+#define fire_GPIO_Port GPIOA
+#define zc_crossing_Pin GPIO_PIN_12
+#define zc_crossing_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 
