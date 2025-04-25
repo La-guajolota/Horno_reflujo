@@ -166,22 +166,11 @@ int main(void)
     if (timers_isr & 0x01)
     {
       timers_isr &= ~0x01;
-
+      // Get temperature inside oven
       chamber_sense_temperature();
-
-      // REFLOW OVEN SM
-
-      PID_Update(&PID, 0, chamber_temp);
-
-      // DEBUG
-      //		if (cont < 120) {
-      //			cont++;
-      //		}else{
-      //			cont = 0;
-      //		}
-      //		__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,cont);
-
-      // Update heaters' power through Cross-ever control
+      // Process data and update state
+      ReflowOven_operate();
+      // Act on heat elements
       update_randomCrossover_actuator((uint8_t)PID.out);
     }
     else

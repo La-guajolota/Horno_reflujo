@@ -126,9 +126,8 @@ void ReflowOven_stopProcess(void);
  * @param currentTemperature Current measured temperature in degrees Celsius
  * @param currentTimeMs Current system time in milliseconds
  *
- * @return float - The PID controller output value
  */
-float ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs);
+void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs);
 
 /**
  * @brief Get the current phase of the reflow process

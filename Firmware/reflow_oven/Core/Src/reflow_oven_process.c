@@ -171,9 +171,8 @@ void ReflowOven_stopProcess(void)
     }
 }
 
-float ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs)
+void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs)
 {
-    float pidOutput = 0.0f;
     uint32_t elapsedTimeMs;
     float targetSetpoint = 0.0f;
 
@@ -287,9 +286,7 @@ float ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t 
     }
 
     // Update PID controller with current setpoint
-    pidOutput = PID_Update(PID, ReflowOven.currentSetpoint, currentTemperature);
-
-    return pidOutput;
+    PID_Update(PID, ReflowOven.currentSetpoint, currentTemperature);
 }
 
 ReflowPhases_t ReflowOven_getCurrentPhase(void)
