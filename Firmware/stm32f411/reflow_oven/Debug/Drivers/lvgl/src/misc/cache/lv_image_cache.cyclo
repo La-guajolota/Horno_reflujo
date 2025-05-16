@@ -1,0 +1,7 @@
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:54:13:lv_image_cache_init	2
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:71:6:lv_image_cache_resize	2
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:79:6:lv_image_cache_drop	2
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:97:6:lv_image_cache_is_enabled	1
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:106:38:image_cache_common_compare	9
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:126:31:image_cache_compare_cb	1
+../Drivers/lvgl/src/misc/cache/lv_image_cache.c:133:13:image_cache_free_cb	3

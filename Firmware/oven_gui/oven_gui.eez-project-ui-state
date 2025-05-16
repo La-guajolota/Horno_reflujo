@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "selectedUserPageObject": "[oven_gui.eez-project]:/userPages/1",
+    "selectedUserPageObject": "[oven_gui.eez-project]:/userPages/0",
     "subnavigationSelectedItems": {
       "variables-tab/sub-navigation/selected-item": "Global"
     }
@@ -23,7 +23,6 @@
           },
           {
             "type": "border",
-            "selected": 0,
             "size": 0,
             "location": "right",
             "children": [
@@ -58,12 +57,20 @@
                 "component": "themesSideView",
                 "enableClose": false,
                 "icon": "svg:palette"
+              },
+              {
+                "type": "tab",
+                "id": "fonts",
+                "name": "Fonts",
+                "component": "fonts",
+                "enableClose": false,
+                "icon": "material:font_download"
               }
             ]
           },
           {
             "type": "border",
-            "selected": 3,
+            "selected": 0,
             "size": 0,
             "location": "bottom",
             "children": [
@@ -182,43 +189,49 @@
             {
               "type": "tabset",
               "id": "EDITORS",
-              "weight": 2.5596950606007494,
+              "weight": 3.95383712010361,
               "enableDeleteWhenEmpty": false,
               "enableClose": false,
               "children": [
                 {
                   "type": "tab",
-                  "id": "#238d640f-6fe4-41eb-ba72-26a327c917bf",
-                  "name": "Oven_settings",
+                  "id": "#b7a1c194-a408-48be-b017-cb59738e6850",
+                  "name": "Settings",
                   "component": "editor",
                   "config": {
-                    "objectPath": "[oven_gui.eez-project]:/userPages/1",
-                    "permanent": true
+                    "objectPath": "[oven_gui.eez-project]:/settings",
+                    "subObjectPath": "[oven_gui.eez-project]:/settings",
+                    "permanent": false
                   },
-                  "icon": "svg:page"
-                },
-                {
-                  "type": "tab",
-                  "id": "#1ca6be4c-49dd-4daf-893e-4b73e3884a78",
-                  "name": "Main",
-                  "component": "editor",
-                  "config": {
-                    "objectPath": "[oven_gui.eez-project]:/userPages/0",
-                    "permanent": true
-                  },
-                  "icon": "svg:page"
+                  "icon": "material:settings"
                 }
               ],
               "active": true
             },
             {
               "type": "row",
-              "id": "#7473b3a7-7d23-44b3-92f3-e0d8c1fcc5ca",
-              "weight": 2.5596950606007494,
+              "id": "#038a4346-4d8c-41bc-86a0-3e8653227338",
+              "weight": 1.1655530010978876,
               "children": [
                 {
                   "type": "tabset",
-                  "id": "#c669264e-2cd1-4ebd-86bf-9fd9fd119a83",
+                  "id": "#6b8f0c67-8f18-4a30-b6fb-a3de714beef1",
+                  "weight": 50,
+                  "children": [
+                    {
+                      "type": "tab",
+                      "id": "COMPONENTS_PALETTE",
+                      "name": "Components Palette",
+                      "component": "componentsPalette",
+                      "enableClose": false,
+                      "icon": "svg:components"
+                    }
+                  ]
+                },
+                {
+                  "type": "tabset",
+                  "id": "#9aba00bc-07ac-470c-adfa-311003b6dbb6",
+                  "weight": 50,
                   "children": [
                     {
                       "type": "tab",
@@ -227,29 +240,6 @@
                       "component": "propertiesPanel",
                       "enableClose": false,
                       "icon": "svg:properties"
-                    }
-                  ]
-                },
-                {
-                  "type": "tabset",
-                  "id": "#38912f14-0b2b-489d-bc1c-48a34bf51cc7",
-                  "weight": 0,
-                  "children": [
-                    {
-                      "type": "tab",
-                      "id": "fonts",
-                      "name": "Fonts",
-                      "component": "fonts",
-                      "enableClose": false,
-                      "icon": "material:font_download"
-                    },
-                    {
-                      "type": "tab",
-                      "id": "COMPONENTS_PALETTE",
-                      "name": "Components Palette",
-                      "component": "componentsPalette",
-                      "enableClose": false,
-                      "icon": "svg:components"
                     }
                   ]
                 }
@@ -461,11 +451,11 @@
               "children": [
                 {
                   "type": "tab",
-                  "id": "#e15ad610-decf-4129-8158-766232905eb6",
-                  "name": "Oven_settings",
+                  "id": "#6bd61a6e-1b4f-419e-82cb-260cf57df58c",
+                  "name": "Main",
                   "component": "editor",
                   "config": {
-                    "objectPath": "[oven_gui.eez-project]:/userPages/1",
+                    "objectPath": "[oven_gui.eez-project]:/userPages/0",
                     "permanent": false
                   },
                   "icon": "svg:page"
@@ -1013,7 +1003,7 @@
       "transform": {
         "translate": {
           "x": -114.35499999999999,
-          "y": -368.0475
+          "y": -248.0475
         },
         "scale": 4
       },
@@ -1026,12 +1016,14 @@
     },
     "[oven_gui.eez-project]:/userPages/1[flow-state]": {
       "selection": {
-        "0": {}
+        "0": {
+          "0": {}
+        }
       },
       "transform": {
         "translate": {
-          "x": -72.23333333333335,
-          "y": -197.63333333333333
+          "x": -41.733333333333334,
+          "y": -356.63333333333327
         },
         "scale": 4
       },
@@ -1047,7 +1039,7 @@
       "transform": {
         "translate": {
           "x": -66,
-          "y": -216
+          "y": -456
         },
         "scale": 4
       },
@@ -1065,7 +1057,7 @@
   "searchMatchWholeWord": false,
   "replaceEnabled": false,
   "replaceText": "",
-  "pageRuntimeFrontFace": false,
+  "pageRuntimeFrontFace": true,
   "breakpoints": {},
   "watchExpressions": [],
   "showComponentDescriptions": true,
@@ -1074,7 +1066,8 @@
   "lvglPart": "MAIN",
   "lvglState": "DEFAULT",
   "lvglExpandedPropertiesGroup": [
-    "TEXT"
+    "BACKGROUND",
+    "MISCELLANEOUS"
   ],
   "showInactiveFlowsInDebugger": true,
   "globalFlowZoom": true,

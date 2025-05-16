@@ -1,0 +1,4 @@
+../Drivers/ui/ui.c:34:18:getLvglObjectFromIndex	2
+../Drivers/ui/ui.c:41:6:loadScreen	1
+../Drivers/ui/ui.c:47:6:ui_init	1
+../Drivers/ui/ui.c:53:6:ui_tick	1

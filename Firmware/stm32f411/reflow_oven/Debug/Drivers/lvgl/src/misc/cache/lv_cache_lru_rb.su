@@ -1,0 +1,16 @@
+../Drivers/lvgl/src/misc/cache/../../stdlib/lv_string.h:73:20:lv_memzero	16	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:139:15:alloc_new_node	40	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:175:23:get_lru_node	16	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:180:15:alloc_cb	16	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:193:13:init_cnt_cb	32	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:216:13:init_size_cb	32	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:239:13:destroy_cb	24	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:254:27:get_cb	56	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:291:27:add_cb	40	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:316:13:remove_cb	40	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:343:13:drop_cb	48	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:374:13:drop_all_cb	40	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:408:27:get_victim_cb	32	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:428:36:reserve_cond_cb	32	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:452:17:cnt_get_data_size_cb	16	static
+../Drivers/lvgl/src/misc/cache/lv_cache_lru_rb.c:458:17:size_get_data_size_cb	24	static

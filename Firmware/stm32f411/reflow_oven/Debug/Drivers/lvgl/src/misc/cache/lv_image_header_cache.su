@@ -1,0 +1,7 @@
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:52:13:lv_image_header_cache_init	40	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:69:6:lv_image_header_cache_resize	16	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:77:6:lv_image_header_cache_drop	40	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:92:6:lv_image_header_cache_is_enabled	8	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:101:38:image_cache_common_compare	32	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:121:31:image_header_cache_compare_cb	16	static
+../Drivers/lvgl/src/misc/cache/lv_image_header_cache.c:128:13:image_header_cache_free_cb	16	static

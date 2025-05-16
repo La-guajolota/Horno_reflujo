@@ -1,0 +1,40 @@
+2025-04-24 00:13:39,020 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 985847936 Bytes (1073741824)
+2025-04-24 00:13:39,356 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SPI
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8
+2025-04-24 00:13:39,358 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2025-04-24 00:13:39,359 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2025-04-24 00:13:39,359 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2025-04-24 00:13:39,359 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: I2C
+2025-04-24 00:13:39,359 [INFO] CodeGenerator:882 - code generatio: config db path: /home/adrian/st/stm32cubeide_1.17.0/plugins/com.st.stm32cube.common.mx_6.14.0.202502271554//db/
+2025-04-24 00:13:39,362 [WARN] IP:2250 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2025-04-24 00:13:39,362 [WARN] IP:2250 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2025-04-24 00:13:39,496 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/license.tmp_save
+2025-04-24 00:13:39,803 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/license.tmp
+2025-04-24 00:13:39,842 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/gpio.tmp_save
+2025-04-24 00:13:40,000 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/gpio.tmp
+2025-04-24 00:13:40,342 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/stm32f4xx_it.c_save
+2025-04-24 00:13:40,606 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/stm32f4xx_it.c
+2025-04-24 00:13:40,608 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/stm32f4xx_it.h_save
+2025-04-24 00:13:40,708 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/stm32f4xx_it.h
+2025-04-24 00:13:40,714 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/stm32f4xx_hal_msp.c_save
+2025-04-24 00:13:40,893 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/stm32f4xx_hal_msp.c
+2025-04-24 00:13:40,895 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/system.tmp_save
+2025-04-24 00:13:40,990 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/MXTmpFiles/system.tmp
+2025-04-24 00:13:40,995 [INFO] CodeEngine:319 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/stm32f4xx_hal_conf.h_save
+2025-04-24 00:13:41,106 [INFO] CodeEngine:343 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/stm32f4xx_hal_conf.h
+2025-04-24 00:13:41,134 [WARN] IPConfigManager:3747 - IP not found : TIM
+2025-04-24 00:13:41,135 [WARN] CodeGenerator:4198 - IP not found : null
+2025-04-24 00:13:41,138 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/main.h_save
+2025-04-24 00:13:41,269 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Inc/main.h
+2025-04-24 00:13:41,271 [INFO] CodeEngine:263 - oldGeneratedFile, /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/main.c_save
+2025-04-24 00:13:41,441 [INFO] CodeEngine:287 - Generated code: /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/reflow_oven/Core/Src/main.c
+2025-04-24 00:13:41,647 [INFO] ProjectBuilder:3324 - Time for Copy HAL[1] : 47mS.
+2025-04-24 00:13:41,649 [INFO] ProjectBuilder:4912 - Project Generator version: 4.6.0-B36
+2025-04-24 00:13:41,728 [INFO] ConfigFileManager:1590 - The Die is : DIE431
+2025-04-24 00:13:42,373 [INFO] ProjectBuilder:5191 - Time for Generating toolchain IDE Files: 725mS.
+2025-04-24 00:13:42,373 [INFO] ProjectBuilder:3181 - Time for Copy CMSIS : 0mS.
+2025-04-24 00:13:42,375 [INFO] ProjectBuilder:3181 - Time for Copy CMSIS : 0mS.

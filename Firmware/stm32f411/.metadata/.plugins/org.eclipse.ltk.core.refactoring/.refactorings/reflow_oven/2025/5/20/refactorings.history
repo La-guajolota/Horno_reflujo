@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;reflow_oven/Drivers/lv_conf_template.h&apos; to &apos;lv_conf.h&apos;" description="Rename resource &apos;lv_conf_template.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Drivers/lv_conf_template.h" name="lv_conf.h" stamp="1747344986408" updateReferences="true"/>
+</session>

@@ -1,0 +1,7 @@
+../Drivers/lvgl/src/stdlib/lv_string.h:73:20:lv_memzero	1
+../Drivers/lvgl/src/stdlib/lv_mem.c:62:8:lv_malloc	3
+../Drivers/lvgl/src/stdlib/lv_mem.c:92:8:lv_malloc_zeroed	3
+../Drivers/lvgl/src/stdlib/lv_mem.c:119:6:lv_free	3
+../Drivers/lvgl/src/stdlib/lv_mem.c:128:8:lv_realloc	4
+../Drivers/lvgl/src/stdlib/lv_mem.c:150:13:lv_mem_test	2
+../Drivers/lvgl/src/stdlib/lv_mem.c:160:6:lv_mem_monitor	1
