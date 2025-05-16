@@ -29,7 +29,7 @@ ReflowOven_t ReflowOven;
  * PRIVATE FUNCTION PROTOTYPES
  ******************************************************************************/
 static void ReflowOven_transitionToPhase(ReflowPhases_t newPhase, float currentTemperature, uint32_t currentTimeMs);
-static float ReflowOven_calculateSetpoint(float currentTemperature, uint32_t elapsedTimeMs);
+// static float ReflowOven_calculateSetpoint(float currentTemperature, uint32_t elapsedTimeMs);
 
 /******************************************************************************
  * FUNCTION DEFINITIONS
