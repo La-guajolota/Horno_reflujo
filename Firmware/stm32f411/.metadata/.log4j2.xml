@@ -2,7 +2,7 @@
 <Configuration status="info">
     <ThresholdFilter level="INFO"/>
     <Appenders>
-        <RollingFile name="DEBUGFILE" fileName="/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/.metadata/.ide.log" filePattern="/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/.metadata/.ide.log-%d{yyyy-MM-dd}.log">
+        <RollingFile name="DEBUGFILE" fileName="/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/.metadata/.ide.log" filePattern="/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/.metadata/.ide.log-%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %c{1}:%L - %m%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />

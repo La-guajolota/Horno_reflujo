@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;reflow_oven/Core/Inc/gui_frontend.h&apos;" deleteContents="false" description="Delete resource &apos;reflow_oven/Core/Inc/gui_frontend.h&apos;" element1="/reflow_oven/Core/Inc/gui_frontend.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1745375602878"/>&#x0A;<refactoring comment="Delete resource &apos;reflow_oven/Core/Src/gui_frontend.c&apos;" deleteContents="false" description="Delete resource &apos;reflow_oven/Core/Src/gui_frontend.c&apos;" element1="/reflow_oven/Core/Src/gui_frontend.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1745375611932"/>
-</session>

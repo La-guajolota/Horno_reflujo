@@ -23,6 +23,7 @@
           },
           {
             "type": "border",
+            "selected": 2,
             "size": 0,
             "location": "right",
             "children": [
@@ -190,9 +191,32 @@
               "type": "tabset",
               "id": "EDITORS",
               "weight": 3.95383712010361,
+              "selected": 1,
               "enableDeleteWhenEmpty": false,
               "enableClose": false,
               "children": [
+                {
+                  "type": "tab",
+                  "id": "#80da3f8f-5341-4581-8978-a1f065b38718",
+                  "name": "PID_settings",
+                  "component": "editor",
+                  "config": {
+                    "objectPath": "[oven_gui.eez-project]:/userPages/2",
+                    "permanent": false
+                  },
+                  "icon": "svg:page"
+                },
+                {
+                  "type": "tab",
+                  "id": "#a940e6ec-4465-4366-a057-a6176671c374",
+                  "name": "Main",
+                  "component": "editor",
+                  "config": {
+                    "objectPath": "[oven_gui.eez-project]:/userPages/0",
+                    "permanent": true
+                  },
+                  "icon": "svg:page"
+                },
                 {
                   "type": "tab",
                   "id": "#b7a1c194-a408-48be-b017-cb59738e6850",
@@ -451,12 +475,34 @@
               "children": [
                 {
                   "type": "tab",
-                  "id": "#6bd61a6e-1b4f-419e-82cb-260cf57df58c",
+                  "id": "#72d2deed-5b8f-4e33-8d3b-23afabe6d4ff",
                   "name": "Main",
                   "component": "editor",
                   "config": {
                     "objectPath": "[oven_gui.eez-project]:/userPages/0",
                     "permanent": false
+                  },
+                  "icon": "svg:page"
+                },
+                {
+                  "type": "tab",
+                  "id": "#6f668beb-0a4c-457b-9dc2-8a5b8a19d6d0",
+                  "name": "PID_settings",
+                  "component": "editor",
+                  "config": {
+                    "objectPath": "[oven_gui.eez-project]:/userPages/2",
+                    "permanent": true
+                  },
+                  "icon": "svg:page"
+                },
+                {
+                  "type": "tab",
+                  "id": "#6bd61a6e-1b4f-419e-82cb-260cf57df58c",
+                  "name": "Oven_settings",
+                  "component": "editor",
+                  "config": {
+                    "objectPath": "[oven_gui.eez-project]:/userPages/1",
+                    "permanent": true
                   },
                   "icon": "svg:page"
                 }
@@ -994,9 +1040,7 @@
             "0": {}
           },
           "2": {},
-          "3": {
-            "$selected": true
-          },
+          "3": {},
           "4": {}
         }
       },
