@@ -23,7 +23,7 @@
           },
           {
             "type": "border",
-            "selected": 2,
+            "selected": 4,
             "size": 0,
             "location": "right",
             "children": [
@@ -58,6 +58,14 @@
                 "component": "themesSideView",
                 "enableClose": false,
                 "icon": "svg:palette"
+              },
+              {
+                "type": "tab",
+                "id": "COMPONENTS_PALETTE",
+                "name": "Components Palette",
+                "component": "componentsPalette",
+                "enableClose": false,
+                "icon": "svg:components"
               },
               {
                 "type": "tab",
@@ -125,6 +133,7 @@
                   "type": "tabset",
                   "id": "#1dab858c-6830-4736-a48d-3636ec20559f",
                   "weight": 1,
+                  "selected": 1,
                   "enableClose": false,
                   "children": [
                     {
@@ -151,7 +160,8 @@
                       "enableClose": false,
                       "icon": "material:code"
                     }
-                  ]
+                  ],
+                  "active": true
                 },
                 {
                   "type": "tabset",
@@ -190,7 +200,7 @@
             {
               "type": "tabset",
               "id": "EDITORS",
-              "weight": 3.95383712010361,
+              "weight": 2.897292637491005,
               "selected": 1,
               "enableDeleteWhenEmpty": false,
               "enableClose": false,
@@ -229,43 +239,20 @@
                   },
                   "icon": "material:settings"
                 }
-              ],
-              "active": true
+              ]
             },
             {
-              "type": "row",
-              "id": "#038a4346-4d8c-41bc-86a0-3e8653227338",
-              "weight": 1.1655530010978876,
+              "type": "tabset",
+              "id": "#6c12f023-0299-402f-9a6a-6e6a65d40507",
+              "weight": 2.2220974837104928,
               "children": [
                 {
-                  "type": "tabset",
-                  "id": "#6b8f0c67-8f18-4a30-b6fb-a3de714beef1",
-                  "weight": 50,
-                  "children": [
-                    {
-                      "type": "tab",
-                      "id": "COMPONENTS_PALETTE",
-                      "name": "Components Palette",
-                      "component": "componentsPalette",
-                      "enableClose": false,
-                      "icon": "svg:components"
-                    }
-                  ]
-                },
-                {
-                  "type": "tabset",
-                  "id": "#9aba00bc-07ac-470c-adfa-311003b6dbb6",
-                  "weight": 50,
-                  "children": [
-                    {
-                      "type": "tab",
-                      "id": "PROPERTIES",
-                      "name": "Properties",
-                      "component": "propertiesPanel",
-                      "enableClose": false,
-                      "icon": "svg:properties"
-                    }
-                  ]
+                  "type": "tab",
+                  "id": "PROPERTIES",
+                  "name": "Properties",
+                  "component": "propertiesPanel",
+                  "enableClose": false,
+                  "icon": "svg:properties"
                 }
               ]
             }
@@ -1035,7 +1022,9 @@
     "[oven_gui.eez-project]:/userPages/0[flow-state]": {
       "selection": {
         "0": {
-          "0": {},
+          "0": {
+            "$selected": true
+          },
           "1": {
             "0": {}
           },
@@ -1047,7 +1036,7 @@
       "transform": {
         "translate": {
           "x": -114.35499999999999,
-          "y": -248.0475
+          "y": -368.0475
         },
         "scale": 4
       },

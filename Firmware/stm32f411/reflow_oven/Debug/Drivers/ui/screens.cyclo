@@ -1,9 +1,5 @@
 ../Drivers/ui/screens.c:17:6:create_screen_main	1
-../Drivers/ui/screens.c:153:6:tick_screen_main	1
-../Drivers/ui/screens.c:156:6:create_screen_oven_settings	1
-../Drivers/ui/screens.c:188:6:tick_screen_oven_settings	1
-../Drivers/ui/screens.c:191:6:create_screen_pid_settings	1
-../Drivers/ui/screens.c:223:6:tick_screen_pid_settings	1
-../Drivers/ui/screens.c:234:6:tick_screen	1
-../Drivers/ui/screens.c:237:6:tick_screen_by_id	1
-../Drivers/ui/screens.c:241:6:create_screens	1
+../Drivers/ui/screens.c:35:6:tick_screen_main	1
+../Drivers/ui/screens.c:44:6:tick_screen	1
+../Drivers/ui/screens.c:47:6:tick_screen_by_id	1
+../Drivers/ui/screens.c:51:6:create_screens	1

@@ -3,6 +3,8 @@
  ******************************************************************************
  * @file           : main.c
  * @brief          : Main program body
+ * @author 		   : Adrián Silva Palfox
+ * @company 	   : Inbiodroid
  ******************************************************************************
  * @attention
  *
@@ -26,6 +28,7 @@
 #include <stdio.h>
 // GUI related
 #include "lvgl.h"
+#include "ssd1306.h"
 #include "ui.h"
 #include "gui_backend.h"
 // Hardware libs
@@ -40,6 +43,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+/* Declare buffer for 1/10 screen size; BYTES_PER_PIXEL will be 1 for I1. */
+#define BYTES_PER_PIXEL (LV_COLOR_FORMAT_GET_SIZE(LV_COLOR_FORMAT_I1))
 
 /* USER CODE END PD */
 
@@ -74,6 +80,9 @@ float chamber_temp = 0;      // Celcius
 float tempReadings[4] = {0}; // Stores each sensor's temperature
 MAX6675_Driver_t tempSensors;
 
+// lvgl
+static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,6 +99,7 @@ static void MX_TIM3_Init(void);
 
 void chamber_sense_temperature();
 void update_randomCrossover_actuator(uint8_t);
+void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
 
 /* USER CODE END PFP */
 
@@ -161,7 +171,16 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 
   // GUI
+  // Hardware oled screen
+  ssd1306_Init();
+  // lvgl middleware
   lv_init();
+  lv_tick_set_cb(HAL_GetTick);
+  lv_display_t *display1 = lv_display_create(SSD1306_WIDTH, SSD1306_HEIGHT);
+  lv_display_set_buffers(display1, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+  lv_display_set_flush_cb(display1, my_flush_cb);
+  // Initialize an LVGL input device object
+  // EEZ studio GUI design
   ui_init();
 
   /* USER CODE END 2 */
@@ -181,7 +200,7 @@ int main(void)
       // Get temperature inside oven
       chamber_sense_temperature();
       // Process data and update state
-      ReflowOven_operate();
+      // ReflowOven_operate(&PID, chamber_temp, currentTimeMs);
       // Act on heat elements
       update_randomCrossover_actuator((uint8_t)PID.out);
     }
@@ -201,11 +220,11 @@ int main(void)
         pid_settings_page_handler(&gui_sm, encoder.ev);
         break;
       default:
-    	lv_timer_handler();  // to be added
-    	ui_tick();	         //
-    	// HAL_Delay(5);     // to be added
         break;
       }
+
+      lv_timer_handler();  // to be added
+      HAL_Delay(5);     // to be added
     }
 
   }
@@ -277,7 +296,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -666,6 +685,27 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
     timers_isr |= 0x01;
   }
+}
+
+// lvgl
+void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+{
+    /* The most simple case (also the slowest) to send all rendered pixels to the
+     * screen one-by-one.  `put_px` is just an example.  It needs to be implemented by you. */
+    uint8_t * buf8 = px_map; /* It's a 8 bit (I1) display */
+    int32_t x, y;
+    for(y = area->y1; y <= area->y2; y++) {
+        for(x = area->x1; x <= area->x2; x++) {
+            //put_px(x, y, *buf16);
+        	ssd1306_DrawPixel(x,y,*buf8);
+        	buf8++;
+        }
+    }
+    ssd1306_UpdateScreen();
+
+    /* IMPORTANT!!!
+     * Inform LVGL that flushing is complete so buffer can be modified again. */
+    lv_display_flush_ready(display);
 }
 
 /* USER CODE END 4 */
