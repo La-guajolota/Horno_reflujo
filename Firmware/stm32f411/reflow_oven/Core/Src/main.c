@@ -222,9 +222,7 @@ int main(void)
       default:
         break;
       }
-
       lv_timer_handler();  // to be added
-      HAL_Delay(5);     // to be added
     }
 
   }

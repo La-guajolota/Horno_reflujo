@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;reflow_oven/Core/Src/ssd1306_conf_template.h&apos; to &apos;ssd1306_conf.h&apos;" description="Rename resource &apos;ssd1306_conf_template.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/ssd1306_conf_template.h" name="ssd1306_conf.h" stamp="1748736602527" updateReferences="true"/>
+</session>

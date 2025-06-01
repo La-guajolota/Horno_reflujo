@@ -4,6 +4,7 @@
 "./Core/Src/pid.o"
 "./Core/Src/reflow_oven_process.o"
 "./Core/Src/ssd1306.o"
+"./Core/Src/ssd1306_fonts.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
 "./Core/Src/stm32f4xx_it.o"
 "./Core/Src/syscalls.o"
