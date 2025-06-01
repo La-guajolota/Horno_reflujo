@@ -1,4 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "speedy_hardware_items")(type "KiCad")(uri "${KIPRJMOD}/speedy_hardware_items.kicad_sym")(options "")(descr ""))
-)
