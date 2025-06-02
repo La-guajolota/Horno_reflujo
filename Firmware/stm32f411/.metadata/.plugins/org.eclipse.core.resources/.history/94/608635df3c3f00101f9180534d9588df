@@ -1,0 +1,111 @@
+// Cambios en ssd1306_conf.h para SSD1309
+#ifndef __SSD1309_CONF_H__
+#define __SSD1309_CONF_H__
+
+// Microcontrolador
+#define STM32F4
+
+// Protocolo de comunicación
+#define SSD1309_USE_I2C  // o SSD1309_USE_SPI
+
+// Configuración I2C (similar a SSD1306)
+#define SSD1309_I2C_PORT        hi2c1
+#define SSD1309_I2C_ADDR        (0x3C << 1)  // Dirección típica, puede variar
+
+// Resolución (igual que SSD1306)
+#define SSD1309_WIDTH           128
+#define SSD1309_HEIGHT          64
+#define SSD1309_BUFFER_SIZE     (SSD1309_WIDTH * SSD1309_HEIGHT / 8)
+
+// Configuraciones específicas del SSD1309
+#define SSD1309_PAGE_ADDRESSING_MODE    // Modo recomendado para SSD1309
+#define SSD1309_SEGMENT_REMAP_A0        // Usar A0h para evitar offset
+
+#endif
+
+// Cambios en la función de inicialización para SSD1309
+void ssd1309_Init(void) {
+    // Reset OLED
+    ssd1309_Reset();
+    HAL_Delay(100);
+
+    // Display off
+    ssd1309_SetDisplayOn(0);
+
+    // IMPORTANTE: Page Addressing Mode para SSD1309
+    ssd1309_WriteCommand(0x20); // Set Memory Addressing Mode
+    ssd1309_WriteCommand(0x02); // 10b = Page Addressing Mode (recomendado para SSD1309)
+
+    ssd1309_WriteCommand(0xB0); // Set Page Start Address for Page Addressing Mode,0-7
+
+    // Configuración de orientación
+#ifdef SSD1309_MIRROR_VERT
+    ssd1309_WriteCommand(0xC0); // Mirror vertically
+#else
+    ssd1309_WriteCommand(0xC8); // Set COM Output Scan Direction
+#endif
+
+    ssd1309_WriteCommand(0x00); // Set low column address
+    ssd1309_WriteCommand(0x10); // Set high column address
+    ssd1309_WriteCommand(0x40); // Set start line address
+
+    ssd1309_SetContrast(0xFF);
+
+    // IMPORTANTE: Usar A0h para Segment Remap (específico SSD1309)
+#ifdef SSD1309_MIRROR_HORIZ
+    ssd1309_WriteCommand(0xA1); // Segment re-map
+#else
+    ssd1309_WriteCommand(0xA0); // Segment re-map A0h (recomendado para SSD1309)
+#endif
+
+    ssd1309_WriteCommand(0xA6); // Set normal color
+
+    // Multiplex ratio para 64 líneas
+    ssd1309_WriteCommand(0xA8);
+    ssd1309_WriteCommand(0x3F); // 64-1
+
+    ssd1309_WriteCommand(0xA4); // Output follows RAM content
+
+    ssd1309_WriteCommand(0xD3); // Set display offset
+    ssd1309_WriteCommand(0x00); // No offset
+
+    ssd1309_WriteCommand(0xD5); // Set display clock divide ratio/oscillator frequency
+    ssd1309_WriteCommand(0xF0); // Set divide ratio
+
+    ssd1309_WriteCommand(0xD9); // Set pre-charge period
+    ssd1309_WriteCommand(0x22);
+
+    ssd1309_WriteCommand(0xDA); // Set com pins hardware configuration
+    ssd1309_WriteCommand(0x12); // Para displays de 64 líneas
+
+    ssd1309_WriteCommand(0xDB); // Set vcomh
+    ssd1309_WriteCommand(0x20); // 0.77xVcc
+
+    // IMPORTANTE: Configuración DC-DC para SSD1309
+    ssd1309_WriteCommand(0x8D); // Set DC-DC enable
+    ssd1309_WriteCommand(0x14); // Enable charge pump
+
+    ssd1309_SetDisplayOn(1); // Turn on SSD1309 panel
+
+    // Clear screen
+    ssd1309_Fill(Black);
+    ssd1309_UpdateScreen();
+
+    // Set default values
+    SSD1309.CurrentX = 0;
+    SSD1309.CurrentY = 0;
+    SSD1309.Initialized = 1;
+}
+
+// Función de actualización adaptada para Page Addressing Mode
+void ssd1309_UpdateScreen(void) {
+    // En Page Addressing Mode, debemos escribir página por página
+    for(uint8_t page = 0; page < (SSD1309_HEIGHT/8); page++) {
+        ssd1309_WriteCommand(0xB0 + page);  // Set page address
+        ssd1309_WriteCommand(0x00);         // Set lower column address
+        ssd1309_WriteCommand(0x10);         // Set higher column address
+
+        // Escribir una página completa (128 bytes)
+        ssd1309_WriteData(&SSD1309_Buffer[SSD1309_WIDTH * page], SSD1309_WIDTH);
+    }
+}

@@ -118,11 +118,7 @@ Drivers/lvgl/src/draw/sw/lv_draw_sw_arc.o: \
  ../Drivers/lvgl/src/draw/sw/../lv_draw_image.h \
  ../Drivers/lvgl/src/draw/sw/../lv_draw_line.h \
  ../Drivers/lvgl/src/draw/sw/../lv_draw_arc.h \
- ../Drivers/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_log.h \
- ../Drivers/lvgl/src/draw/sw/../../stdlib/lv_mem.h \
- ../Drivers/lvgl/src/draw/sw/../../stdlib/lv_string.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_private.h
+ ../Drivers/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h
 ../Drivers/lvgl/src/draw/sw/../../misc/lv_area_private.h:
 ../Drivers/lvgl/src/draw/sw/../../misc/lv_area.h:
 ../Drivers/lvgl/src/draw/sw/../../misc/../lv_conf_internal.h:
@@ -242,7 +238,3 @@ Drivers/lvgl/src/draw/sw/lv_draw_sw_arc.o: \
 ../Drivers/lvgl/src/draw/sw/../lv_draw_line.h:
 ../Drivers/lvgl/src/draw/sw/../lv_draw_arc.h:
 ../Drivers/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_log.h:
-../Drivers/lvgl/src/draw/sw/../../stdlib/lv_mem.h:
-../Drivers/lvgl/src/draw/sw/../../stdlib/lv_string.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_private.h:

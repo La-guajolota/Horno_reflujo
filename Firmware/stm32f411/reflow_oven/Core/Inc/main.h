@@ -78,6 +78,8 @@ void Error_Handler(void);
 #define CS_3_GPIO_Port GPIOB
 #define fire_Pin GPIO_PIN_8
 #define fire_GPIO_Port GPIOA
+#define fan_relay_Pin GPIO_PIN_11
+#define fan_relay_GPIO_Port GPIOA
 #define zc_crossing_Pin GPIO_PIN_12
 #define zc_crossing_GPIO_Port GPIOA
 

@@ -75,49 +75,7 @@ Drivers/lvgl/src/draw/sw/lv_draw_sw_mask_rect.o: \
  ../Drivers/lvgl/src/draw/sw/../../misc/lv_fs.h \
  ../Drivers/lvgl/src/draw/sw/../../misc/cache/lv_cache.h \
  ../Drivers/lvgl/src/draw/sw/../../osal/lv_os.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_private.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_math.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_log.h \
- ../Drivers/lvgl/src/draw/sw/../../stdlib/lv_mem.h \
- ../Drivers/lvgl/src/draw/sw/../../stdlib/lv_string.h \
- ../Drivers/lvgl/src/draw/sw/lv_draw_sw.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_area.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_color.h \
- ../Drivers/lvgl/src/draw/sw/../../display/lv_display.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_types.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_timer.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_event.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_types.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/../lv_conf_internal.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_array.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_color.h \
- ../Drivers/lvgl/src/draw/sw/../../display/../draw/lv_draw.h \
- ../Drivers/lvgl/src/draw/sw/../../osal/lv_os.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_vector.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_array.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_image.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_triangle.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_rect.h \
- ../Drivers/lvgl/src/draw/sw/../sw/lv_draw_sw_gradient.h \
- ../Drivers/lvgl/src/draw/sw/../sw/../../misc/lv_color.h \
- ../Drivers/lvgl/src/draw/sw/../sw/../../misc/lv_style.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_label.h \
- ../Drivers/lvgl/src/draw/sw/../../misc/lv_bidi.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_image.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_line.h \
- ../Drivers/lvgl/src/draw/sw/../lv_draw_arc.h \
- ../Drivers/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h \
- ../Drivers/lvgl/src/draw/sw/blend/../lv_draw_sw_mask.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_area.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_color.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_math.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_types.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_color.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_area.h \
- ../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_style.h \
- ../Drivers/lvgl/src/draw/sw/lv_draw_sw_mask_private.h \
- ../Drivers/lvgl/src/draw/sw/lv_draw_sw_mask.h
+ ../Drivers/lvgl/src/draw/sw/../lv_draw_private.h
 ../Drivers/lvgl/src/draw/sw/../../misc/lv_area_private.h:
 ../Drivers/lvgl/src/draw/sw/../../misc/lv_area.h:
 ../Drivers/lvgl/src/draw/sw/../../misc/../lv_conf_internal.h:
@@ -194,45 +152,3 @@ Drivers/lvgl/src/draw/sw/lv_draw_sw_mask_rect.o: \
 ../Drivers/lvgl/src/draw/sw/../../misc/cache/lv_cache.h:
 ../Drivers/lvgl/src/draw/sw/../../osal/lv_os.h:
 ../Drivers/lvgl/src/draw/sw/../lv_draw_private.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_math.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_log.h:
-../Drivers/lvgl/src/draw/sw/../../stdlib/lv_mem.h:
-../Drivers/lvgl/src/draw/sw/../../stdlib/lv_string.h:
-../Drivers/lvgl/src/draw/sw/lv_draw_sw.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_area.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_color.h:
-../Drivers/lvgl/src/draw/sw/../../display/lv_display.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_types.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_timer.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_event.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_types.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/../lv_conf_internal.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_array.h:
-../Drivers/lvgl/src/draw/sw/../../display/../misc/lv_color.h:
-../Drivers/lvgl/src/draw/sw/../../display/../draw/lv_draw.h:
-../Drivers/lvgl/src/draw/sw/../../osal/lv_os.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_vector.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_array.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_image.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_triangle.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_rect.h:
-../Drivers/lvgl/src/draw/sw/../sw/lv_draw_sw_gradient.h:
-../Drivers/lvgl/src/draw/sw/../sw/../../misc/lv_color.h:
-../Drivers/lvgl/src/draw/sw/../sw/../../misc/lv_style.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_label.h:
-../Drivers/lvgl/src/draw/sw/../../misc/lv_bidi.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_image.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_line.h:
-../Drivers/lvgl/src/draw/sw/../lv_draw_arc.h:
-../Drivers/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h:
-../Drivers/lvgl/src/draw/sw/blend/../lv_draw_sw_mask.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_area.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_color.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_math.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_types.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_color.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_area.h:
-../Drivers/lvgl/src/draw/sw/blend/../../../misc/lv_style.h:
-../Drivers/lvgl/src/draw/sw/lv_draw_sw_mask_private.h:
-../Drivers/lvgl/src/draw/sw/lv_draw_sw_mask.h:

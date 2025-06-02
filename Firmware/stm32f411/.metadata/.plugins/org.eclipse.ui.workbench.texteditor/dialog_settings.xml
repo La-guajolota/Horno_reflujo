@@ -3,6 +3,11 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
+		<item value="LV_COLOR_"/>
+		<item value="LV_COLOR_1_"/>
+		<item value="LV_COLOR_1_BIT"/>
+		<item value="USE_LV_THEME_MONO"/>
+		<item value="LV_HOR_RES"/>
 		<item value="ssd1306_Reset();"/>
 	</list>
 	<list key="replacehistory">

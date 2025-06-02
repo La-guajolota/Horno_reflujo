@@ -13,11 +13,12 @@
       "flowSupport": false,
       "displayWidth": 128,
       "displayHeight": 64,
+      "circularDisplay": false,
       "displayBorderRadius": 0,
       "darkTheme": true,
       "colorFormat": "BGR",
       "resourceFiles": [],
-      "hiddenWidgetLines": "dimmed",
+      "hiddenWidgetLines": "visible",
       "dimmedLinesOpacity": "20"
     },
     "build": {
@@ -60,11 +61,6 @@
           "template": "#ifndef EEZ_LVGL_UI_IMAGES_H\r\n#define EEZ_LVGL_UI_IMAGES_H\r\n\r\n//${eez-studio LVGL_INCLUDE}\r\n\r\n#ifdef __cplusplus\r\nextern \"C\" {\r\n#endif\r\n\r\n//${eez-studio LVGL_IMAGES_DECL}\r\n\r\n#ifdef __cplusplus\r\n}\r\n#endif\r\n\r\n#endif /*EEZ_LVGL_UI_IMAGES_H*/"
         },
         {
-          "objID": "ee2d4ad1-b9a6-4223-eb6a-4998a774def9",
-          "fileName": "images.c",
-          "template": "#include \"images.h\"\n\n//${eez-studio LVGL_IMAGES_DEF}"
-        },
-        {
           "objID": "b9328df8-bc10-455a-b83e-9ba239d4a96d",
           "fileName": "fonts.h",
           "template": "#ifndef EEZ_LVGL_UI_FONTS_H\r\n#define EEZ_LVGL_UI_FONTS_H\r\n\r\n//${eez-studio LVGL_INCLUDE}\r\n\r\n#ifdef __cplusplus\r\nextern \"C\" {\r\n#endif\r\n\r\n//${eez-studio LVGL_FONTS_DECL}\r\n\r\n#ifdef __cplusplus\r\n}\r\n#endif\r\n\r\n#endif /*EEZ_LVGL_UI_FONTS_H*/"
@@ -90,7 +86,7 @@
           "template": "#if defined(EEZ_FOR_LVGL)\n#include <eez/core/vars.h>\n#endif\n\n#include \"ui.h\"\n#include \"screens.h\"\n#include \"images.h\"\n#include \"actions.h\"\n#include \"vars.h\"\n\n//${eez-studio GUI_ASSETS_DEF}\n\n//${eez-studio LVGL_NATIVE_VARS_TABLE_DEF}\n\n//${eez-studio LVGL_ACTIONS_ARRAY_DEF}\n\n#if defined(EEZ_FOR_LVGL)\n\nvoid ui_init() {\n    eez_flow_init(assets, sizeof(assets), (lv_obj_t **)&objects, sizeof(objects), images, sizeof(images), actions);\n}\n\nvoid ui_tick() {\n    eez_flow_tick();\n    tick_screen(g_currentScreen);\n}\n\n#else\n\n#include <string.h>\n\nstatic int16_t currentScreen = -1;\n\nstatic lv_obj_t *getLvglObjectFromIndex(int32_t index) {\n    if (index == -1) {\n        return 0;\n    }\n    return ((lv_obj_t **)&objects)[index];\n}\n\nvoid loadScreen(enum ScreensEnum screenId) {\n    currentScreen = screenId - 1;\n    lv_obj_t *screen = getLvglObjectFromIndex(currentScreen);\n    lv_scr_load_anim(screen, LV_SCR_LOAD_ANIM_FADE_IN, 200, 0, false);\n}\n\nvoid ui_init() {\n    create_screens();\n//${eez-studio LVGL_LOAD_FIRST_SCREEN}\n}\n\nvoid ui_tick() {\n    tick_screen(currentScreen);\n}\n\n#endif\n"
         }
       ],
-      "destinationFolder": "src\\ui",
+      "destinationFolder": "../stm32f411/reflow_oven/Drivers/ui",
       "separateFolderForImagesAndFonts": false,
       "imageExportMode": "source",
       "fontExportMode": "source",
@@ -137,16 +133,16 @@
           "heightUnit": "px",
           "children": [
             {
-              "objID": "f8000a50-8d13-4193-82b7-9c83fe43fb28",
-              "type": "LVGLLabelWidget",
-              "left": 9,
-              "top": 8,
-              "width": 111,
-              "height": 48,
+              "objID": "43ae2cc9-e1af-4002-bddd-586977defe21",
+              "type": "LVGLImageWidget",
+              "left": 57,
+              "top": 24,
+              "width": 14,
+              "height": 16,
               "customInputs": [],
               "customOutputs": [],
               "style": {
-                "objID": "8222c994-1c80-44e3-e57e-dba792cf63fc",
+                "objID": "66a72b38-2aab-46df-eedc-457dc655a1e0",
                 "useStyle": "default",
                 "conditionalStyles": [],
                 "childStyles": []
@@ -158,7 +154,7 @@
               "widthUnit": "content",
               "heightUnit": "content",
               "children": [],
-              "widgetFlags": "CLICK_FOCUSABLE|GESTURE_BUBBLE|PRESS_LOCK|SCROLLABLE|SCROLL_CHAIN_HOR|SCROLL_CHAIN_VER|SCROLL_ELASTIC|SCROLL_MOMENTUM|SCROLL_WITH_ARROW|SNAPPABLE",
+              "widgetFlags": "ADV_HITTEST|CLICK_FOCUSABLE|GESTURE_BUBBLE|PRESS_LOCK|SCROLLABLE|SCROLL_CHAIN_HOR|SCROLL_CHAIN_VER|SCROLL_ELASTIC|SCROLL_MOMENTUM|SCROLL_WITH_ARROW|SNAPPABLE",
               "hiddenFlagType": "literal",
               "clickableFlagType": "literal",
               "flagScrollbarMode": "",
@@ -169,14 +165,17 @@
               "disabledStateType": "literal",
               "states": "",
               "localStyles": {
-                "objID": "8d74751e-1f69-4b58-ec66-5551fd3363bd"
+                "objID": "9ed767d4-1997-4913-bd5f-f2563ac5ba61"
               },
               "group": "",
               "groupIndex": 0,
-              "text": "HOLA SOY \nLA GUAJOLOTA\nUSANDO LVGL",
-              "textType": "literal",
-              "longMode": "WRAP",
-              "recolor": false
+              "image": "cube_test",
+              "setPivot": false,
+              "pivotX": 0,
+              "pivotY": 0,
+              "zoom": 256,
+              "angle": 0,
+              "innerAlign": "CENTER"
             }
           ],
           "widgetFlags": "CLICKABLE|PRESS_LOCK|CLICK_FOCUSABLE|GESTURE_BUBBLE|SNAPPABLE|SCROLLABLE|SCROLL_ELASTIC|SCROLL_MOMENTUM|SCROLL_CHAIN_HOR|SCROLL_CHAIN_VER",
@@ -187,7 +186,20 @@
           "disabledStateType": "literal",
           "states": "",
           "localStyles": {
-            "objID": "8eb86917-c831-b762-5685-8d01972e8a22"
+            "objID": "8eb86917-c831-b762-5685-8d01972e8a22",
+            "definition": {
+              "MAIN": {
+                "CHECKED|PRESSED": {
+                  "bg_color": "#ffffff",
+                  "bg_grad_color": "#000000",
+                  "border_color": "#000000",
+                  "bg_img_recolor": "#000000",
+                  "outline_color": "#000000",
+                  "shadow_color": "#000000",
+                  "text_color": "#ffffff"
+                }
+              }
+            }
           },
           "groupIndex": 0
         }
@@ -200,6 +212,106 @@
       "top": 0,
       "width": 128,
       "height": 64,
+      "createAtStart": true,
+      "deleteOnScreenUnload": false
+    },
+    {
+      "objID": "3e10853e-f3b2-495b-ea68-a87a4511a220",
+      "components": [
+        {
+          "objID": "a58e8bc7-ba78-415e-8cbf-3f9c0f03e1d9",
+          "type": "LVGLScreenWidget",
+          "left": 0,
+          "top": 0,
+          "width": 128,
+          "height": 64,
+          "customInputs": [],
+          "customOutputs": [],
+          "style": {
+            "objID": "e194cac8-393f-4d36-f032-38b538bb4b32",
+            "useStyle": "default",
+            "conditionalStyles": [],
+            "childStyles": []
+          },
+          "timeline": [],
+          "eventHandlers": [],
+          "leftUnit": "px",
+          "topUnit": "px",
+          "widthUnit": "px",
+          "heightUnit": "px",
+          "children": [],
+          "widgetFlags": "CLICKABLE|PRESS_LOCK|CLICK_FOCUSABLE|GESTURE_BUBBLE|SNAPPABLE|SCROLLABLE|SCROLL_ELASTIC|SCROLL_MOMENTUM|SCROLL_CHAIN_HOR|SCROLL_CHAIN_VER",
+          "hiddenFlagType": "literal",
+          "clickableFlag": true,
+          "clickableFlagType": "literal",
+          "checkedStateType": "literal",
+          "disabledStateType": "literal",
+          "states": "",
+          "localStyles": {
+            "objID": "365ab9c8-0401-4bbe-d669-f4fae4c0a786"
+          },
+          "groupIndex": 0
+        }
+      ],
+      "connectionLines": [],
+      "localVariables": [],
+      "userProperties": [],
+      "name": "reflow",
+      "left": 0,
+      "top": 0,
+      "width": 128,
+      "height": 64,
+      "isUsedAsUserWidget": false,
+      "createAtStart": true,
+      "deleteOnScreenUnload": false
+    },
+    {
+      "objID": "d75daf99-1f94-4ced-8c28-ea0cc425b390",
+      "components": [
+        {
+          "objID": "6f61176b-c96c-4afe-c5cb-4d6c9743163d",
+          "type": "LVGLScreenWidget",
+          "left": 0,
+          "top": 0,
+          "width": 128,
+          "height": 64,
+          "customInputs": [],
+          "customOutputs": [],
+          "style": {
+            "objID": "ab0a9760-a7c6-4644-a249-9f5ae9ca6a81",
+            "useStyle": "default",
+            "conditionalStyles": [],
+            "childStyles": []
+          },
+          "timeline": [],
+          "eventHandlers": [],
+          "leftUnit": "px",
+          "topUnit": "px",
+          "widthUnit": "px",
+          "heightUnit": "px",
+          "children": [],
+          "widgetFlags": "CLICKABLE|PRESS_LOCK|CLICK_FOCUSABLE|GESTURE_BUBBLE|SNAPPABLE|SCROLLABLE|SCROLL_ELASTIC|SCROLL_MOMENTUM|SCROLL_CHAIN_HOR|SCROLL_CHAIN_VER",
+          "hiddenFlagType": "literal",
+          "clickableFlag": true,
+          "clickableFlagType": "literal",
+          "checkedStateType": "literal",
+          "disabledStateType": "literal",
+          "states": "",
+          "localStyles": {
+            "objID": "a3ddabe1-7167-4848-fafb-d4c4cb937265"
+          },
+          "groupIndex": 0
+        }
+      ],
+      "connectionLines": [],
+      "localVariables": [],
+      "userProperties": [],
+      "name": "pid",
+      "left": 0,
+      "top": 0,
+      "width": 128,
+      "height": 64,
+      "isUsedAsUserWidget": false,
       "createAtStart": true,
       "deleteOnScreenUnload": false
     }
@@ -215,7 +327,17 @@
     "groups": []
   },
   "fonts": [],
-  "bitmaps": [],
+  "bitmaps": [
+    {
+      "objID": "6dc6be3d-a074-4096-a835-011b4f7d78af",
+      "name": "cube_test",
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAQdJREFUOE91UwEOAzEIkt7/nzxZwNq6LWuW7HIeikAR5yAiGBEIgEHqqY7e9oHfsmqkPvND1bEh1ece0pC1AAgE6Ev9eNs3ATeqUk83hkxCLboAkSmqe7xRRU0VEUuCSWI1N28Y9OTd4KdRhDEN3J+dIUeRsYHZIyIbKKYlSkuoqSXWXLXJF1UtauTd60MXDDu2ymaZTC48VT7GfSm8Za3VEfnyxCSw5HpAPu1xcsgDdhKuyq3q8XHsOHatJUd2jjjfAWg5RoiMGwniywFQckT1T2qO3EpiCWhMklT0jo9yRjb47wZ/iueJAj5Y6jX4TP9+wcx0rkIddhj3JbHI92r1ZZFjiBDDN4l+1dXkzQNuAAAAAElFTkSuQmCC",
+      "bpp": 41,
+      "alwaysBuild": false,
+      "lvglBinaryOutputFormat": 3,
+      "lvglDither": false
+    }
+  ],
   "colors": [],
   "themes": [
     {

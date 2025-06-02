@@ -1,5 +1,9 @@
-../Drivers/ui/screens.c:17:6:create_screen_main	24	static
-../Drivers/ui/screens.c:35:6:tick_screen_main	4	static
-../Drivers/ui/screens.c:44:6:tick_screen	16	static
-../Drivers/ui/screens.c:47:6:tick_screen_by_id	16	static
-../Drivers/ui/screens.c:51:6:create_screens	32	static
+../Drivers/ui/screens.c:17:6:create_screen_main	48	static
+../Drivers/ui/screens.c:42:6:tick_screen_main	4	static
+../Drivers/ui/screens.c:45:6:create_screen_reflow	16	static
+../Drivers/ui/screens.c:54:6:tick_screen_reflow	4	static
+../Drivers/ui/screens.c:57:6:create_screen_pid	16	static
+../Drivers/ui/screens.c:66:6:tick_screen_pid	4	static
+../Drivers/ui/screens.c:77:6:tick_screen	16	static
+../Drivers/ui/screens.c:80:6:tick_screen_by_id	16	static
+../Drivers/ui/screens.c:84:6:create_screens	32	static

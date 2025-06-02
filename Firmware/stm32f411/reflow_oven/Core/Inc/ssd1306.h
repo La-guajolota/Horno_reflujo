@@ -119,7 +119,7 @@ extern SPI_HandleTypeDef SSD1306_SPI_PORT;
 #endif
 
 #ifndef SSD1306_BUFFER_SIZE
-#define SSD1306_BUFFER_SIZE   SSD1306_WIDTH * SSD1306_HEIGHT / 8
+#define SSD1306_BUFFER_SIZE   SSD1306_WIDTH * SSD1306_HEIGHT / 8 // in bytes
 #endif
 
 // Enumeration for screen colors

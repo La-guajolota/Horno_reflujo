@@ -347,3 +347,6 @@
 "./Drivers/ui/screens.o"
 "./Drivers/ui/styles.o"
 "./Drivers/ui/ui.o"
+"./Drivers/ui/ui_image_cube_test.o"
+"./Drivers/ui/ui_image_lins.o"
+"./Drivers/ui/ui_image_pic_test.o"
