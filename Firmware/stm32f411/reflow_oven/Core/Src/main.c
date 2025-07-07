@@ -26,14 +26,15 @@
 // Standar libs
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 // GUI related
 #include "lvgl.h"
 #include "ui.h"
-#include "ssd1306.h"
-#include "gui_backend.h"
+#include "UI/screen/ssd1306.h"
+#include "UI/gui_backend.h"
 // Hardware libs
-#include "max6675.h"
-#include "pid.h"
+#include "sensors/max6675.h"
+#include "logic_control/pid.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,6 +98,8 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
+void put_webserver_data(float data, char wrapper);
+void get_webserver_data();
 void chamber_sense_temperature();
 void update_randomCrossover_actuator(uint8_t);
 void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
@@ -173,20 +176,22 @@ int main(void)
 
   // GUI
   // Hardware oled screen
-  ssd1306_Init();
+//  ssd1306_Init();
+//
+//  // lvgl middleware
+//  lv_init();
+//  lv_tick_set_cb(HAL_GetTick);
+//  lv_display_t *display1 = lv_display_create(SSD1306_WIDTH, SSD1306_HEIGHT);
+//  lv_display_set_antialiasing(display1, false);
+//  lv_display_set_buffers(display1, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+//  lv_display_set_color_format(display1, LV_COLOR_FORMAT_I1);
+//  lv_display_set_flush_cb(display1, my_flush_cb);
+//
+//  // Initialize an LVGL input device object
+//  // EEZ studio GUI design
+//  ui_init();
 
-  // lvgl middleware
-  lv_init();
-  lv_tick_set_cb(HAL_GetTick);
-  lv_display_t *display1 = lv_display_create(SSD1306_WIDTH, SSD1306_HEIGHT);
-  lv_display_set_antialiasing(display1, false);
-  lv_display_set_buffers(display1, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
-  lv_display_set_color_format(display1, LV_COLOR_FORMAT_I1);
-  lv_display_set_flush_cb(display1, my_flush_cb);
-
-  // Initialize an LVGL input device object
-  // EEZ studio GUI design
-  ui_init();
+  float data = 0;
 
   /* USER CODE END 2 */
 
@@ -204,6 +209,9 @@ int main(void)
       timers_isr &= ~0x01;
       // Get temperature inside oven
       chamber_sense_temperature();
+      // Update web UI buffet so the DMA can send data
+      put_webserver_data(data, 't');
+      data++;
       // Process data and update state
       //ReflowOven_operate(&PID, chamber_temp, currentTimeMs);
       // Act on heat elements
@@ -227,8 +235,8 @@ int main(void)
       default:
         break;
       }
-      lv_timer_handler();
-      ui_tick();
+//      lv_timer_handler();
+//      ui_tick();
     }
 
   }
@@ -655,13 +663,13 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-//
+// Update phase-angle firing
 void update_randomCrossover_actuator(uint8_t ON_semiCicles)
 {
   __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, ON_semiCicles);
 }
 
-//
+// Get chamber's temperature
 void chamber_sense_temperature()
 {
   // Sample chamber's temperature
@@ -680,6 +688,18 @@ void chamber_sense_temperature()
     chamber_temp += tempReadings[sensor];
   }
   chamber_temp /= 4; // media
+}
+
+// Prepares data to be sent
+void put_webserver_data(float data, char wrapper){
+	char webserv_buf[10] = {0};
+	uint8_t len;
+
+	sprintf(webserv_buf, "t%.2f", data);
+    strcat(webserv_buf, wrapper);
+    len = strlen(webserv_buf);
+
+    HAL_UART_Transmit(&huart1,(uint8_t*)webserv_buf,len,10);
 }
 
 // ISR

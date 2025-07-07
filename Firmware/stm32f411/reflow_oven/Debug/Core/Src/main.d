@@ -444,9 +444,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl/src/lv_api_map_v9_1.h \
  /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui/ui.h \
  /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui/screens.h \
- ../Core/Inc/ssd1306.h ../Core/Inc/ssd1306_conf.h \
- ../Core/Inc/gui_backend.h ../Core/Inc/pid.h ../Core/Inc/max6675.h \
- ../Core/Inc/main.h ../Core/Inc/pid.h
+ ../Core/Inc/UI/screen/ssd1306.h ../Core/Inc/UI/screen/ssd1306_conf.h \
+ ../Core/Inc/UI/gui_backend.h ../Core/Inc/logic_control/pid.h \
+ ../Core/Inc/sensors/max6675.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -893,10 +893,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl/src/lv_api_map_v9_1.h:
 /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui/ui.h:
 /media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui/screens.h:
-../Core/Inc/ssd1306.h:
-../Core/Inc/ssd1306_conf.h:
-../Core/Inc/gui_backend.h:
-../Core/Inc/pid.h:
-../Core/Inc/max6675.h:
-../Core/Inc/main.h:
-../Core/Inc/pid.h:
+../Core/Inc/UI/screen/ssd1306.h:
+../Core/Inc/UI/screen/ssd1306_conf.h:
+../Core/Inc/UI/gui_backend.h:
+../Core/Inc/logic_control/pid.h:
+../Core/Inc/sensors/max6675.h:

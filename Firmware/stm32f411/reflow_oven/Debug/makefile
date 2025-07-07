@@ -120,6 +120,10 @@ RM := rm -rf
 -include Drivers/lvgl/src/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/sensors/subdir.mk
+-include Core/Src/logic_control/subdir.mk
+-include Core/Src/UI/screen/subdir.mk
+-include Core/Src/UI/subdir.mk
 -include Core/Src/subdir.mk
 -include Core/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Debug/Core/Startup/subdir.mk
