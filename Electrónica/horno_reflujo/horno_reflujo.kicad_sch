@@ -6876,7 +6876,7 @@
 	)
 	(text "Potencia\n"
 		(exclude_from_sim no)
-		(at 128.016 15.24 0)
+		(at 152.4 16.256 0)
 		(effects
 			(font
 				(size 3.81 3.81)
@@ -6965,6 +6965,12 @@
 		(uuid "4a6287d0-669c-48fd-b2b8-979578712523")
 	)
 	(junction
+		(at 212.09 152.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "53cd25ae-dd36-4f9c-86e5-d7031cf8b545")
+	)
+	(junction
 		(at 44.45 80.01)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6993,6 +6999,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bbd75f77-f1a2-4a2f-a5d0-fce0f45f9e36")
+	)
+	(junction
+		(at 116.84 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bfb4ebe1-9a31-4a3b-b473-18e6989840d7")
 	)
 	(junction
 		(at 158.75 173.99)
@@ -7111,6 +7123,16 @@
 			(type default)
 		)
 		(uuid "02a09987-852d-43e9-b6b2-2e66443da817")
+	)
+	(wire
+		(pts
+			(xy 114.3 35.56) (xy 116.84 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02b8cbef-3025-47d2-ba57-d7aa5dbc50da")
 	)
 	(wire
 		(pts
@@ -7694,6 +7716,16 @@
 	)
 	(wire
 		(pts
+			(xy 212.09 152.4) (xy 213.36 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "534e4e5a-e2c5-46be-8674-0225cf9012f1")
+	)
+	(wire
+		(pts
 			(xy 154.94 66.04) (xy 154.94 67.31)
 		)
 		(stroke
@@ -7741,6 +7773,16 @@
 			(type default)
 		)
 		(uuid "58e101da-a4de-4029-82e7-5fe01f4ca607")
+	)
+	(wire
+		(pts
+			(xy 116.84 33.02) (xy 116.84 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59c8495a-34dc-4a5c-9a7f-df252b8792d3")
 	)
 	(wire
 		(pts
@@ -7804,7 +7846,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 138.43) (xy 68.58 138.43)
+			(xy 78.74 138.43) (xy 68.58 138.43)
 		)
 		(stroke
 			(width 0)
@@ -7871,6 +7913,16 @@
 			(type default)
 		)
 		(uuid "6bf7612d-fa56-4a9e-8bed-6cbe7f5e09f8")
+	)
+	(wire
+		(pts
+			(xy 212.09 148.59) (xy 212.09 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6df51067-93c6-4e83-8ad1-af04c3d65477")
 	)
 	(wire
 		(pts
@@ -8554,6 +8606,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 25.4) (xy 116.84 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c58aed3f-0476-44cb-b972-01950c07e238")
+	)
+	(wire
+		(pts
 			(xy 153.67 121.92) (xy 144.78 121.92)
 		)
 		(stroke
@@ -8681,6 +8743,16 @@
 			(type default)
 		)
 		(uuid "d83d5ebe-f6d2-4c7e-ad41-a32a6dcae460")
+	)
+	(wire
+		(pts
+			(xy 212.09 139.7) (xy 212.09 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da33181e-71a1-4fe8-85dc-3bf497a98636")
 	)
 	(wire
 		(pts
@@ -8964,6 +9036,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 152.4) (xy 212.09 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fadf2381-423e-48b2-8da3-149763e1a270")
+	)
+	(wire
+		(pts
 			(xy 171.45 57.15) (xy 171.45 58.42)
 		)
 		(stroke
@@ -9013,7 +9095,7 @@
 		(uuid "058c1ea9-978d-4e69-a604-81e2e6e683ee")
 	)
 	(label "fan"
-		(at 213.36 152.4 180)
+		(at 210.82 152.4 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9043,7 +9125,7 @@
 		(uuid "a84dc573-1c5b-46fa-90ee-c525ff9fc1f8")
 	)
 	(label "fire"
-		(at 116.84 35.56 180)
+		(at 114.3 35.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9053,7 +9135,7 @@
 		(uuid "ce7ffb29-ac7d-4eec-adc7-422ae269a0fc")
 	)
 	(label "+3.3Vmc"
-		(at 74.93 138.43 0)
+		(at 78.74 138.43 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10220,10 +10302,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0e377995-468a-4c10-95f2-68a27987713f")
 		(property "Reference" "U2"
-			(at 227.33 82.55 0)
+			(at 228.6 81.28 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10231,7 +10312,7 @@
 			)
 		)
 		(property "Value" "74LS14"
-			(at 229.87 82.55 0)
+			(at 228.6 83.82 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10955,10 +11036,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "1d2fd415-9a3e-48d5-95db-399207ce1105")
 		(property "Reference" "U2"
-			(at 240.03 82.55 0)
+			(at 241.3 83.82 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10966,7 +11046,7 @@
 			)
 		)
 		(property "Value" "74LS14"
-			(at 242.57 82.55 0)
+			(at 241.3 81.28 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13397,6 +13477,72 @@
 		)
 	)
 	(symbol
+		(lib_id "PCM_4ms_Power-symbol:+3.3V")
+		(at 212.09 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6755f1c2-938a-4e2e-bafe-6fc404694582")
+		(property "Reference" "#PWR026"
+			(at 212.09 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 212.09 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 212.09 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 212.09 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 212.09 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6f80892b-1b12-4235-8b37-dfd7f204d93e")
+		)
+		(instances
+			(project "horno_reflujo"
+				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x06_Pin")
 		(at 139.7 124.46 0)
 		(unit 1)
@@ -13624,10 +13770,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "74e9781a-1964-4381-8c85-7d32146f49b3")
 		(property "Reference" "U2"
-			(at 254 82.55 0)
+			(at 255.27 83.82 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13635,7 +13780,7 @@
 			)
 		)
 		(property "Value" "74LS14"
-			(at 256.54 82.55 0)
+			(at 255.27 81.28 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14676,6 +14821,74 @@
 			(project "horno_reflujo"
 				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
 					(reference "J7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 212.09 144.78 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a28e33da-889b-4706-89ac-b9e37444f569")
+		(property "Reference" "R3"
+			(at 215.138 143.002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 215.646 145.288 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
+			(at 223.774 143.256 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 212.09 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 212.09 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "82a2efc1-cf0e-42a5-80bc-be58a88a1f72")
+		)
+		(pin "2"
+			(uuid "dba37bed-c723-47ad-865e-e13498c89299")
+		)
+		(instances
+			(project "horno_reflujo"
+				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -16124,7 +16337,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "cd679582-d7b4-4af3-95fe-5382700e2ac8")
 		(property "Reference" "U1"
 			(at 34.29 73.66 0)
@@ -16135,7 +16347,7 @@
 			)
 		)
 		(property "Value" "LD1117S33TR_SOT223"
-			(at 34.29 76.2 0)
+			(at 34.29 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16317,6 +16529,139 @@
 			(project "horno_reflujo"
 				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
 					(reference "#PWR022")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 116.84 29.21 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dbd66d23-d29e-4d0a-8044-29c76f4b603c")
+		(property "Reference" "R2"
+			(at 113.792 27.432 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 113.284 29.718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
+			(at 105.156 27.686 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 116.84 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0cebe9bf-9815-4694-a660-bcd28c244307")
+		)
+		(pin "2"
+			(uuid "f13a46d6-c613-4fc8-a99f-1ae455cf070e")
+		)
+		(instances
+			(project "horno_reflujo"
+				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PCM_4ms_Power-symbol:+3.3V")
+		(at 116.84 24.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "df343fe2-d5cb-4a9f-a2d6-81bcae6c2073")
+		(property "Reference" "#PWR025"
+			(at 116.84 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 116.84 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3de63cf3-7f7d-4399-9f94-0918d56cd3e5")
+		)
+		(instances
+			(project "horno_reflujo"
+				(path "/1b1a784e-59ad-41a0-994e-bee51370b96a"
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -16758,10 +17103,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "fda45524-fac1-406a-a5dc-3ad5e129de1a")
 		(property "Reference" "U2"
-			(at 220.98 143.51 0)
+			(at 221.234 156.718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16769,7 +17113,7 @@
 			)
 		)
 		(property "Value" "74LS14"
-			(at 220.98 146.05 0)
+			(at 221.234 159.258 0)
 			(effects
 				(font
 					(size 1.27 1.27)
