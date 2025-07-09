@@ -1,158 +1,138 @@
-19:28:36 **** Incremental Build of configuration Debug for project reflow_oven ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c:84:16: warning: 'buf1' defined but not used [-Wunused-variable]
-   84 | static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
-      |                ^~~~
-arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: reflow_oven.elf
- 
-arm-none-eabi-size  reflow_oven.elf 
-arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
-   text	   data	    bss	    dec	    hex	filename
-  51520	   1240	   2752	  55512	   d8d8	reflow_oven.elf
-Finished building: default.size.stdout
- 
-Finished building: reflow_oven.list
- 
-19:28:39 **** Incremental Build of configuration Debug for project reflow_oven ****
+22:59:00 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
 arm-none-eabi-size  reflow_oven.elf 
    text	   data	    bss	    dec	    hex	filename
-  51520	   1240	   2752	  55512	   d8d8	reflow_oven.elf
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
 Finished building: default.size.stdout
  
-19:30:16 **** Incremental Build of configuration Debug for project reflow_oven ****
+22:59:10 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+22:59:14 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+22:59:22 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+22:59:30 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+22:59:51 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:00:01 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:00:46 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:00:56 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:01:41 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:03:00 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:03:44 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+23:04:12 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51200	   1240	   2944	  55384	   d858	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+01:08:48 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/logic_control/pid.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/logic_control/pid.d" -MT"Core/Src/logic_control/pid.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/logic_control/pid.o"
+arm-none-eabi-gcc "../Core/Src/logic_control/reflow_oven_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/logic_control/reflow_oven_process.d" -MT"Core/Src/logic_control/reflow_oven_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/logic_control/reflow_oven_process.o"
+arm-none-eabi-gcc "../Core/Src/UI/gui_backend.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UI/gui_backend.d" -MT"Core/Src/UI/gui_backend.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UI/gui_backend.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:210:33: warning: passing argument 2 of 'HAL_UART_Transmit' from incompatible pointer type [-Wincompatible-pointer-types]
-  210 |       HAL_UART_Transmit(&huart1,&data,1,10);
-      |                                 ^~~~~
-      |                                 |
-      |                                 float *
-In file included from ../Core/Inc/stm32f4xx_hal_conf.h:411,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:22:
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'float *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c: In function 'put_webserver_data':
+../Core/Src/main.c:717:53: error: 'len' undeclared (first use in this function)
+  717 |     HAL_UART_Transmit(&huart1,(uint8_t*)webserv_buf,len,10);
+      |                                                     ^~~
+../Core/Src/main.c:717:53: note: each undeclared identifier is reported only once for each function it appears in
 ../Core/Src/main.c: At top level:
-../Core/Src/main.c:84:16: warning: 'buf1' defined but not used [-Wunused-variable]
-   84 | static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
-      |                ^~~~
-arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: reflow_oven.elf
- 
-arm-none-eabi-size  reflow_oven.elf 
-arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
-   text	   data	    bss	    dec	    hex	filename
-  51512	   1240	   2752	  55504	   d8d0	reflow_oven.elf
-Finished building: default.size.stdout
- 
-Finished building: reflow_oven.list
- 
-19:30:19 **** Incremental Build of configuration Debug for project reflow_oven ****
-make -j12 all 
-arm-none-eabi-size  reflow_oven.elf 
-   text	   data	    bss	    dec	    hex	filename
-  51512	   1240	   2752	  55504	   d8d0	reflow_oven.elf
-Finished building: default.size.stdout
- 
-19:38:00 **** Incremental Build of configuration Debug for project reflow_oven ****
+../Core/Src/main.c:740:18: error: unknown type name 'lv_display_t'
+  740 | void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+      |                  ^~~~~~~~~~~~
+../Core/Src/main.c:740:48: error: unknown type name 'lv_area_t'
+  740 | void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+      |                                                ^~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:10:48 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:213:7: warning: implicit declaration of function 'strcat' [-Wimplicit-function-declaration]
-  213 |       strcat(webserv_buf, "t");
-      |       ^~~~~~
-../Core/Src/main.c:36:1: note: include '<string.h>' or provide a declaration of 'strcat'
-   35 | #include "sensors/max6675.h"
-  +++ |+#include <string.h>
-   36 | #include "logic_control/pid.h"
-../Core/Src/main.c:213:7: warning: incompatible implicit declaration of built-in function 'strcat' [-Wbuiltin-declaration-mismatch]
-  213 |       strcat(webserv_buf, "t");
-      |       ^~~~~~
-../Core/Src/main.c:213:7: note: include '<string.h>' or provide a declaration of 'strcat'
-../Core/Src/main.c:214:13: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
-  214 |       len = strlen(webserv_buf);
-      |             ^~~~~~
-../Core/Src/main.c:214:13: note: include '<string.h>' or provide a declaration of 'strlen'
-../Core/Src/main.c:214:13: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
-../Core/Src/main.c:214:13: note: include '<string.h>' or provide a declaration of 'strlen'
-../Core/Src/main.c:215:33: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  215 |       HAL_UART_Transmit(&huart1,webserv_buf,len,10);
-      |                                 ^~~~~~~~~~~
-      |                                 |
-      |                                 char *
-In file included from ../Core/Inc/stm32f4xx_hal_conf.h:411,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:22:
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: At top level:
-../Core/Src/main.c:84:16: warning: 'buf1' defined but not used [-Wunused-variable]
-   84 | static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
-      |                ^~~~
-arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: reflow_oven.elf
- 
-arm-none-eabi-size  reflow_oven.elf 
-arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
-   text	   data	    bss	    dec	    hex	filename
-  51608	   1240	   2752	  55600	   d930	reflow_oven.elf
-Finished building: default.size.stdout
- 
-Finished building: reflow_oven.list
- 
-19:39:02 **** Incremental Build of configuration Debug for project reflow_oven ****
+../Core/Src/main.c:740:18: error: unknown type name 'lv_display_t'
+  740 | void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+      |                  ^~~~~~~~~~~~
+../Core/Src/main.c:740:48: error: unknown type name 'lv_area_t'
+  740 | void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+      |                                                ^~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:19:33 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c:85:16: warning: 'buf1' defined but not used [-Wunused-variable]
-   85 | static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
-      |                ^~~~
 arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: reflow_oven.elf
  
 arm-none-eabi-size  reflow_oven.elf 
 arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
    text	   data	    bss	    dec	    hex	filename
-  51608	   1240	   2752	  55600	   d930	reflow_oven.elf
+  52064	   1240	   2944	  56248	   dbb8	reflow_oven.elf
 Finished building: default.size.stdout
  
 Finished building: reflow_oven.list
- 
-19:39:11 **** Incremental Build of configuration Debug for project reflow_oven ****
-make -j12 all 
-arm-none-eabi-size  reflow_oven.elf 
-   text	   data	    bss	    dec	    hex	filename
-  51608	   1240	   2752	  55600	   d930	reflow_oven.elf
-Finished building: default.size.stdout
- 
-19:40:38 **** Incremental Build of configuration Debug for project reflow_oven ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/lvgl" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/Drivers/ui" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c:85:16: warning: 'buf1' defined but not used [-Wunused-variable]
-   85 | static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
-      |                ^~~~
-arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: reflow_oven.elf
- 
-arm-none-eabi-size  reflow_oven.elf 
-arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
-   text	   data	    bss	    dec	    hex	filename
-  51624	   1240	   2752	  55616	   d940	reflow_oven.elf
-Finished building: default.size.stdout
- 
-Finished building: reflow_oven.list
- 
-19:40:47 **** Incremental Build of configuration Debug for project reflow_oven ****
-make -j12 all 
-arm-none-eabi-size  reflow_oven.elf 
-   text	   data	    bss	    dec	    hex	filename
-  51624	   1240	   2752	  55616	   d940	reflow_oven.elf
-Finished building: default.size.stdout
  

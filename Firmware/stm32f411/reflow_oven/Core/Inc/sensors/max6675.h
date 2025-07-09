@@ -1,6 +1,7 @@
 /**
  * @file      max6675.h
  * @author    Adrian Silva Palafox
+ * @github    https://github.com/La-guajolota
  * @brief     MAX6675 Thermocouple SPI Interface Driver with Multi-Device Support
  * @version   1.1
  * @date      April 5, 2024

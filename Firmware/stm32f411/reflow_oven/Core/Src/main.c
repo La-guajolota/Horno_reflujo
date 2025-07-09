@@ -2,6 +2,7 @@
 /**
  ******************************************************************************
  * @file           : main.c
+ * @github         : https://github.com/La-guajolota
  * @brief          : Main program body
  * @author 		   : Adrián Silva Palfox
  * @company 	   : Inbiodroid
@@ -23,13 +24,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-// Standar libs
+// Standard libs
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 // GUI related
-#include "lvgl.h"
-#include "ui.h"
+//#include "lvgl.h"
+//#include "ui.h"
 #include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
 // Hardware libs
@@ -46,7 +47,7 @@
 /* USER CODE BEGIN PD */
 
 /* Declare buffer for 1/10 screen size; BYTES_PER_PIXEL will be 1 for I1. */
-#define BYTES_PER_PIXEL (LV_COLOR_FORMAT_GET_SIZE(LV_COLOR_FORMAT_I1))
+// #define BYTES_PER_PIXEL (LV_COLOR_FORMAT_GET_SIZE(LV_COLOR_FORMAT_I1))
 
 /* USER CODE END PD */
 
@@ -66,6 +67,8 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_rx;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 // GUI and OLEDscreen related
@@ -82,7 +85,7 @@ float tempReadings[4] = {0}; // Stores each sensor's temperature
 MAX6675_Driver_t tempSensors;
 
 // lvgl
-static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
+// static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
 
 /* USER CODE END PV */
 
@@ -100,9 +103,13 @@ static void MX_TIM3_Init(void);
 
 void put_webserver_data(float data, char wrapper);
 void get_webserver_data();
+
 void chamber_sense_temperature();
+
 void update_randomCrossover_actuator(uint8_t);
-void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
+void fan_control(bool);
+
+// void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
 
 /* USER CODE END PFP */
 
@@ -164,6 +171,7 @@ int main(void)
            0,      // limMinInt
            0,      // limMaxInt
            0.100); // tsample	-> 100ms
+
   MAX6675_Init(&tempSensors, &hspi1);
   MAX6675_AddDevice(&tempSensors, 0);
   MAX6675_AddDevice(&tempSensors, 1);
@@ -173,6 +181,9 @@ int main(void)
   // Zero-Crossover control
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim3);
+
+  // Fan gpio. It is off
+  fan_control(false);
 
   // GUI
   // Hardware oled screen
@@ -191,8 +202,6 @@ int main(void)
 //  // EEZ studio GUI design
 //  ui_init();
 
-  float data = 0;
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -207,14 +216,15 @@ int main(void)
     if (timers_isr & 0x01)
     {
       timers_isr &= ~0x01;
-      // Get temperature inside oven
+      /*
+       *  Get temperature inside oven
+       *  Update web UI buffet so the DMA can send data
+       *  Process data and update state
+       *  Act on heat elements
+      */
       chamber_sense_temperature();
-      // Update web UI buffet so the DMA can send data
-      put_webserver_data(data, 't');
-      data++;
-      // Process data and update state
+      put_webserver_data(chamber_temp, 't');
       //ReflowOven_operate(&PID, chamber_temp, currentTimeMs);
-      // Act on heat elements
       update_randomCrossover_actuator((uint8_t)PID.out);
     }
     else
@@ -415,9 +425,9 @@ static void MX_TIM1_Init(void)
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
   sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -577,11 +587,18 @@ static void MX_DMA_Init(void)
 
   /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA2_CLK_ENABLE();
 
   /* DMA interrupt init */
   /* DMA1_Stream1_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+  /* DMA2_Stream7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
 
 }
 
@@ -607,16 +624,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(built_in_led_GPIO_Port, built_in_led_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_0_GPIO_Port, CS_0_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, CS_0_Pin|fan_relay_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, CS_1_Pin|CS_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(CS_3_GPIO_Port, CS_3_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(fan_relay_GPIO_Port, fan_relay_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : built_in_led_Pin */
   GPIO_InitStruct.Pin = built_in_led_Pin;
@@ -648,7 +662,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : fan_relay_Pin */
   GPIO_InitStruct.Pin = fan_relay_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(fan_relay_GPIO_Port, &GPIO_InitStruct);
 
@@ -667,6 +681,12 @@ static void MX_GPIO_Init(void)
 void update_randomCrossover_actuator(uint8_t ON_semiCicles)
 {
   __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, ON_semiCicles);
+}
+
+// Change fan's logic status ON/OFF
+void fan_control(bool state){
+	// Since the fan is driven by a NOT gate, this works in negative logic
+	HAL_GPIO_WritePin(fan_relay_GPIO_Port, fan_relay_Pin, !state);
 }
 
 // Get chamber's temperature
@@ -692,14 +712,9 @@ void chamber_sense_temperature()
 
 // Prepares data to be sent
 void put_webserver_data(float data, char wrapper){
-	char webserv_buf[10] = {0};
-	uint8_t len;
-
-	sprintf(webserv_buf, "t%.2f", data);
-    strcat(webserv_buf, wrapper);
-    len = strlen(webserv_buf);
-
-    HAL_UART_Transmit(&huart1,(uint8_t*)webserv_buf,len,10);
+	char webserv_buf[25] = {0};
+	snprintf(webserv_buf, sizeof(webserv_buf),"%c%.2f%c", wrapper, data, wrapper);
+    HAL_UART_Transmit(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf),10);
 }
 
 // ISR
@@ -722,21 +737,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 }
 
 // lvgl
-void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
-{
-    uint8_t * buf8 = px_map; /* Es un display de 8 bits (I1) */
-    int32_t x, y;
-
-    for(y = area->y1; y <= area->y2; y++){
-    	for(x = area->x1; x <= area->x2; x++){
-			ssd1306_DrawPixel((uint8_t)x, (uint8_t)y, (SSD1306_COLOR)(*buf8 >> 7));
-            buf8++;
-        }
-    }
-
-    ssd1306_UpdateScreen();
-    lv_display_flush_ready(display);
-}
+//void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
+//{
+//    uint8_t * buf8 = px_map; /* Es un display de 8 bits (I1) */
+//    int32_t x, y;
+//
+//    for(y = area->y1; y <= area->y2; y++){
+//    	for(x = area->x1; x <= area->x2; x++){
+//			ssd1306_DrawPixel((uint8_t)x, (uint8_t)y, (SSD1306_COLOR)(*buf8 >> 7));
+//            buf8++;
+//        }
+//    }
+//
+//    ssd1306_UpdateScreen();
+//    lv_display_flush_ready(display);
+//}
 
 /* USER CODE END 4 */
 
