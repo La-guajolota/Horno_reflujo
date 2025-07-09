@@ -24,18 +24,20 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+/******************
+ * Project includes
+ ******************/
 // Standard libs
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 // GUI related
-//#include "lvgl.h"
-//#include "ui.h"
-#include "UI/screen/ssd1306.h"
+//#include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
-// Hardware libs
+// Hardware and logic libs
 #include "sensors/max6675.h"
 #include "logic_control/pid.h"
+#include "logic_control/reflow_oven_process.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -71,21 +73,19 @@ DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
+
+/**************************
+ * PROJECT GLOBAL VARIABLES
+ *************************/
 // GUI and OLEDscreen related
 encoder_t encoder;
-
 // PID controller related
-uint8_t cont = 0; // used for debugging
 PIDController PID;
 uint8_t timers_isr = 0;
-
 // Sensors
 float chamber_temp = 0;      // Celcius
 float tempReadings[4] = {0}; // Stores each sensor's temperature
 MAX6675_Driver_t tempSensors;
-
-// lvgl
-// static uint8_t buf1[SSD1306_WIDTH * SSD1306_HEIGHT / 10 * BYTES_PER_PIXEL];
 
 /* USER CODE END PV */
 
@@ -101,14 +101,14 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
-void put_webserver_data(float data, char wrapper);
+/*********************
+ * PROTOTYPE FUNCTIONS
+ *********************/
+void put_webserver_data(float, char);
 void get_webserver_data();
-
 void chamber_sense_temperature();
-
 void update_randomCrossover_actuator(uint8_t);
 void fan_control(bool);
-
 // void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
 
 /* USER CODE END PFP */
@@ -156,11 +156,10 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  encoder.prev_dir = 0;
-  encoder.prev_cnt = 0;
-  GUI_Init();
-  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-
+  /****************************************************
+   * INITIALIZATION OF HARDWARE AND SOFTWARE COMPONETNS
+   ****************************************************/
+  // PID's parameters
   PID_Init(&PID,
            0,      // kp
            0,      // ki
@@ -171,36 +170,27 @@ int main(void)
            0,      // limMinInt
            0,      // limMaxInt
            0.100); // tsample	-> 100ms
-
+  // Temperature sensors
   MAX6675_Init(&tempSensors, &hspi1);
   MAX6675_AddDevice(&tempSensors, 0);
   MAX6675_AddDevice(&tempSensors, 1);
   MAX6675_AddDevice(&tempSensors, 2);
   MAX6675_AddDevice(&tempSensors, 3);
-
-  // Zero-Crossover control
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  // Sampling timer for sensors
   HAL_TIM_Base_Start_IT(&htim3);
-
-  // Fan gpio. It is off
-  fan_control(false);
-
-  // GUI
-  // Hardware oled screen
-//  ssd1306_Init();
-//
-//  // lvgl middleware
-//  lv_init();
-//  lv_tick_set_cb(HAL_GetTick);
-//  lv_display_t *display1 = lv_display_create(SSD1306_WIDTH, SSD1306_HEIGHT);
-//  lv_display_set_antialiasing(display1, false);
-//  lv_display_set_buffers(display1, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
-//  lv_display_set_color_format(display1, LV_COLOR_FORMAT_I1);
-//  lv_display_set_flush_cb(display1, my_flush_cb);
-//
-//  // Initialize an LVGL input device object
-//  // EEZ studio GUI design
-//  ui_init();
+  // Zero-Crossover and fan actuators
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  update_randomCrossover_actuator(0);	//off
+  fan_control(false); 					//off
+  // User's input via encoder
+  encoder.prev_dir = 0;
+  encoder.prev_cnt = 0;
+  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
+  // User's input via ESP01 web server
+  //HAL_UART_Receive_DMA(&huart1, pData, Size);
+  // GUI-logic|state-machine and Oled-screen
+  GUI_Init();
+  // ssd1306_Init();
 
   /* USER CODE END 2 */
 
@@ -217,19 +207,20 @@ int main(void)
     {
       timers_isr &= ~0x01;
       /*
-       *  Get temperature inside oven
-       *  Update web UI buffet so the DMA can send data
-       *  Process data and update state
-       *  Act on heat elements
+       *  1.- Get temperature inside oven
+       *  2.- Update web UI buffet so the DMA can send temperature and currentPhase data
+       *  3.- Process data and update state
+       *  4.- Act on heat elements
       */
       chamber_sense_temperature();
       put_webserver_data(chamber_temp, 't');
-      //ReflowOven_operate(&PID, chamber_temp, currentTimeMs);
+      put_webserver_data((float)ReflowOven.currentPhase, 'E');
+      //ReflowOven_operate(&PID, chamber_temp, 0); //currentTimeMs
       update_randomCrossover_actuator((uint8_t)PID.out);
     }
     else
     {
-      // GUI PROCESS
+      // User'input via encoder processing
       ENCODER_EVENT_UPDATE(&encoder);
       switch (gui_sm.current_page)
       {
@@ -243,10 +234,9 @@ int main(void)
         pid_settings_page_handler(&gui_sm, encoder.ev);
         break;
       default:
-        break;
+	  	break;
       }
-//      lv_timer_handler();
-//      ui_tick();
+      // Oled screen update
     }
 
   }
@@ -676,82 +666,91 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-// Update phase-angle firing
+/*************************
+ * PROTORYPES' DEFINITIONS
+ *************************/
+/**
+ * @brief Updates PWM duty cycle for AC heating elements
+ * @param ON_semiCicles Number of semi-cycles to turn on heating elements
+ */
 void update_randomCrossover_actuator(uint8_t ON_semiCicles)
 {
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, ON_semiCicles);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, ON_semiCicles);
 }
 
-// Change fan's logic status ON/OFF
+/**
+ * @brief Controls fan relay state
+ * @param state true = fan ON, false = fan OFF
+ * @note Uses inverted logic due to NOT gate in hardware
+ */
 void fan_control(bool state){
-	// Since the fan is driven by a NOT gate, this works in negative logic
-	HAL_GPIO_WritePin(fan_relay_GPIO_Port, fan_relay_Pin, !state);
+    HAL_GPIO_WritePin(fan_relay_GPIO_Port, fan_relay_Pin, !state);
 }
 
-// Get chamber's temperature
+/**
+ * @brief Reads temperature from 4 MAX6675 sensors and calculates chamber average
+ * @note Updates global variable chamber_temp with averaged result
+ */
 void chamber_sense_temperature()
 {
-  // Sample chamber's temperature
-  uint8_t sensor;
-  for (sensor = 0; sensor < 4; sensor++)
-  {
-    // Individual max6675 sensor's reading
-    MAX6675_ReadTemperature(&tempSensors, sensor);
-    HAL_Delay(1);
-  }
-  // Take each measurements and compute chamber's temperature
-  chamber_temp = 0;
-  for (sensor = 0; sensor < 4; sensor++)
-  {
-    MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
-    chamber_temp += tempReadings[sensor];
-  }
-  chamber_temp /= 4; // media
+    // Sample chamber's temperature
+    uint8_t sensor;
+    for (sensor = 0; sensor < 4; sensor++)
+    {
+        // Individual max6675 sensor's reading
+        MAX6675_ReadTemperature(&tempSensors, sensor);
+        HAL_Delay(1);
+    }
+    // Take each measurements and compute chamber's temperature
+    chamber_temp = 0;
+    for (sensor = 0; sensor < 4; sensor++)
+    {
+        MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
+        chamber_temp += tempReadings[sensor];
+    }
+    chamber_temp /= 4; // media
 }
 
-// Prepares data to be sent
+/**
+ * @brief Formats float data with wrapper characters and transmits via UART DMA
+ * @param data Float value to format and transmit
+ * @param wrapper Character to wrap around the formatted number
+ */
 void put_webserver_data(float data, char wrapper){
-	char webserv_buf[25] = {0};
-	snprintf(webserv_buf, sizeof(webserv_buf),"%c%.2f%c", wrapper, data, wrapper);
-    HAL_UART_Transmit(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf),10);
+    char webserv_buf[30] = {0};
+    snprintf(webserv_buf, sizeof(webserv_buf),"%c%.2f%c", wrapper, data, wrapper);
+    HAL_UART_Transmit_DMA(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf));
 }
 
-// ISR
+/************
+* CALLBACKS
+***********/
+
+/**
+ * @brief GPIO external interrupt callback
+ * @param GPIO_Pin Pin that triggered the interrupt
+ */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  if (GPIO_Pin == encoder_pulse_Pin)
-  {
-    // TODO: Add a anti-bouncing algorithm
-    encoder.isr_reg |= 0x01;
-  }
+    if (GPIO_Pin == encoder_pulse_Pin)
+    {
+        // TODO: Add a anti-bouncing algorithm
+        encoder.isr_reg |= 0x01;
+    }
 }
 
+/**
+ * @brief Timer period elapsed callback
+ * @param htim Timer handle that triggered the callback
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  // ISR for periodic sample of sensors
-  if (htim == &htim3)
-  {
-    timers_isr |= 0x01;
-  }
+    // ISR for periodic sample of sensors
+    if (htim == &htim3)
+    {
+        timers_isr |= 0x01;
+    }
 }
-
-// lvgl
-//void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
-//{
-//    uint8_t * buf8 = px_map; /* Es un display de 8 bits (I1) */
-//    int32_t x, y;
-//
-//    for(y = area->y1; y <= area->y2; y++){
-//    	for(x = area->x1; x <= area->x2; x++){
-//			ssd1306_DrawPixel((uint8_t)x, (uint8_t)y, (SSD1306_COLOR)(*buf8 >> 7));
-//            buf8++;
-//        }
-//    }
-//
-//    ssd1306_UpdateScreen();
-//    lv_display_flush_ready(display);
-//}
 
 /* USER CODE END 4 */
 

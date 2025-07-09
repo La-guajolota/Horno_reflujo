@@ -2,7 +2,8 @@
  * reflow_oven_process.c
  *
  * Created on: Apr 22, 2025
- * Author: adrian
+ * Author: Adrián Silva Palafox
+ * Github:
  *
  * Description: Implementation of reflow oven controller state machine
  *              for solder reflow process management.

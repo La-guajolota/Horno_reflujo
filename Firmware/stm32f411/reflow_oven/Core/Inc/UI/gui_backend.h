@@ -5,8 +5,8 @@
  * Defines UI structures, enumerations, and interface functions
  *
  * Created on: Apr 21, 2025
- * Author: Adrián Silva Palafox
- * Documentation: Apr 22, 2025
+ * Author: 	   Adrián Silva Palafox
+ * Github:     https://github.com/La-guajolota
  */
 
 #ifndef INC_GUI_BACKEND_H_

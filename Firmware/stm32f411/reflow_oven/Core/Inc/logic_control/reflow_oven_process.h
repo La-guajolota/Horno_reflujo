@@ -2,7 +2,8 @@
  * reflow_oven_process.h
  *
  * Created on: Apr 22, 2025
- * Author: adrian
+ * Author: Adrián Silva Palafox
+ * Github:
  *
  * Description: Header file for reflow oven controller, providing definitions
  *              for state machine, parameters, and function prototypes.

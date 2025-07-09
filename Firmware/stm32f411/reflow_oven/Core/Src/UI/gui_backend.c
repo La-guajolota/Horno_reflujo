@@ -5,7 +5,8 @@
  * using a state machine approach and rotary encoder interface.
  *
  * Created on: Apr 21, 2025
- * Author: Adrián Silva Palafox
+ * Author: 	   Adrián Silva Palafox
+ * Github:     https://github.com/La-guajolota
  */
 
 #include "UI/gui_backend.h"

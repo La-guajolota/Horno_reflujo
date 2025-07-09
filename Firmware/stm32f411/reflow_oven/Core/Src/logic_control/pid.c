@@ -7,6 +7,7 @@
  *              output limitation.
  *
  * Author: Adrian Silva Palafox
+ * Github: https://github.com/La-guajolota
  * Creation date: November 2024
  *
  * License: This code is open source under the license MIT.
