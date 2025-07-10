@@ -3,7 +3,7 @@
  *
  * Created on: Apr 22, 2025
  * Author: Adrián Silva Palafox
- * Github:
+ * Github: https://github.com/La-guajolota
  *
  * Description: Header file for reflow oven controller, providing definitions
  *              for state machine, parameters, and function prototypes.

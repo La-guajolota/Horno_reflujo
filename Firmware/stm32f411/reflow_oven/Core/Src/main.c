@@ -34,9 +34,8 @@
 // GUI related
 //#include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
-// Hardware and logic libs
+// Hardware and logic control libs
 #include "sensors/max6675.h"
-#include "logic_control/pid.h"
 #include "logic_control/reflow_oven_process.h"
 /* USER CODE END Includes */
 
@@ -47,9 +46,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-/* Declare buffer for 1/10 screen size; BYTES_PER_PIXEL will be 1 for I1. */
-// #define BYTES_PER_PIXEL (LV_COLOR_FORMAT_GET_SIZE(LV_COLOR_FORMAT_I1))
 
 /* USER CODE END PD */
 
@@ -77,8 +73,14 @@ DMA_HandleTypeDef hdma_usart1_tx;
 /**************************
  * PROJECT GLOBAL VARIABLES
  *************************/
-// GUI and OLEDscreen related
-encoder_t encoder;
+// GUI-SM | OLEDscreen | esp01 related
+encoder_t encoder;					// Encoder structure instance
+volatile uint8_t RXuart_size = 1;	// Size of data to handle DMA
+char RXbuffer[20];      			// RX uart buffer
+char* pend_buff;     				// character end pointer
+char pos_buff; 			 			// Buffer index
+volatile bool TXuart_flag = true; 	// DMA uart_tx data sent completed flag
+volatile bool RXuart_flag = false; 	// DMA uart_rx data sent completed flag
 // PID controller related
 PIDController PID;
 uint8_t timers_isr = 0;
@@ -109,7 +111,6 @@ void get_webserver_data();
 void chamber_sense_temperature();
 void update_randomCrossover_actuator(uint8_t);
 void fan_control(bool);
-// void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
 
 /* USER CODE END PFP */
 
@@ -176,8 +177,6 @@ int main(void)
   MAX6675_AddDevice(&tempSensors, 1);
   MAX6675_AddDevice(&tempSensors, 2);
   MAX6675_AddDevice(&tempSensors, 3);
-  // Sampling timer for sensors
-  HAL_TIM_Base_Start_IT(&htim3);
   // Zero-Crossover and fan actuators
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   update_randomCrossover_actuator(0);	//off
@@ -186,11 +185,15 @@ int main(void)
   encoder.prev_dir = 0;
   encoder.prev_cnt = 0;
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-  // User's input via ESP01 web server
-  //HAL_UART_Receive_DMA(&huart1, pData, Size);
-  // GUI-logic|state-machine and Oled-screen
+  // GUI-SM | Oled-screen | ESP01
   GUI_Init();
   // ssd1306_Init();
+  HAL_UART_Receive_DMA(&huart1, RXbuf, Size);
+
+  /************************
+   * UNCOMMENT FOR DEBUGING
+   ***********************/
+  // HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 
@@ -201,26 +204,31 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-    // Check bti0 for temperature sensing / PID feedback-input update
+	/****************************************************************
+	 * Check bti0 for temperature sensing / PID feedback-input update
+	 ****************************************************************/
     if (timers_isr & 0x01)
     {
       timers_isr &= ~0x01;
       /*
        *  1.- Get temperature inside oven
-       *  2.- Update web UI buffet so the DMA can send temperature and currentPhase data
+       *  2.- Update web UI buffet so the DMA can send temperature data
        *  3.- Process data and update state
-       *  4.- Act on heat elements
+       *  4.- Update web UI buffet so the DMA can send currentPhase data
+       *  5.- Act on heat elements
       */
       chamber_sense_temperature();
       put_webserver_data(chamber_temp, 't');
-      put_webserver_data((float)ReflowOven.currentPhase, 'E');
-      //ReflowOven_operate(&PID, chamber_temp, 0); //currentTimeMs
+      ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+      put_webserver_data((float)ReflowOven_getCurrentPhase(), 'E');
+      // PID_Update(&PID, 100, chamber_temp); // Debug
       update_randomCrossover_actuator((uint8_t)PID.out);
     }
     else
     {
-      // User'input via encoder processing
+      /************************************
+       *  User'input via encoder processing
+       ************************************/
       ENCODER_EVENT_UPDATE(&encoder);
       switch (gui_sm.current_page)
       {
@@ -234,11 +242,30 @@ int main(void)
         pid_settings_page_handler(&gui_sm, encoder.ev);
         break;
       default:
+    	// Not page found
 	  	break;
       }
-      // Oled screen update
-    }
+      /***********************************
+       * User's input via esp01 web server
+       ***********************************/
+      get_webserver_data();
+      //gui_sm.is_process_running = true;
+      //ReflowOven_modifyParameters(parameterUpdate, newParameterValue);
+      /***********************************
+       * Handle OVEN-SM with GUI-SM states
+       ***********************************/
+      if ((ReflowOven_getCurrentPhase()==REFLOW_IDLE) | ReflowOven.emergencyStop) {
+    	  fan_control(true); // Extract toxic fumes from chamber or cools down due to excessive temperature
+    	  if(gui_sm.is_process_running) {
+    		  fan_control(false);
+    		  ReflowOven_startProcess();
+    	  }
+      }
+      /********************
+       * Oled screen update
+       ********************/
 
+    }
   }
   /* USER CODE END 3 */
 }
@@ -717,14 +744,34 @@ void chamber_sense_temperature()
  * @param wrapper Character to wrap around the formatted number
  */
 void put_webserver_data(float data, char wrapper){
-    char webserv_buf[30] = {0};
+    char webserv_buf[10] = {0};
     snprintf(webserv_buf, sizeof(webserv_buf),"%c%.2f%c", wrapper, data, wrapper);
     HAL_UART_Transmit_DMA(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf));
+}
+
+void get_webserver_data(){
+
 }
 
 /************
 * CALLBACKS
 ***********/
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+	if (RXuart_flag) {
+		// We mark the end of valid information to parse
+		RXbuffer[RXuart_size] = '\0';
+		// We receive one byte first to determine the amount of data to be handled
+		RXuart_size = 1; // this variable is also used as a flag
+		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
+	} else {
+		RXuart_size = (uint8_t)(RXbuffer[0]);//New data length DMA will wait for
+		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
+		RXuart_flag = true;
+	}
+}
 
 /**
  * @brief GPIO external interrupt callback

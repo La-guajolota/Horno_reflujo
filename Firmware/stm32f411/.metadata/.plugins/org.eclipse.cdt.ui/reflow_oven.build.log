@@ -1,17 +1,18 @@
-14:29:40 **** Incremental Build of configuration Debug for project reflow_oven ****
+01:48:17 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_d_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: reflow_oven.elf
- 
-arm-none-eabi-size  reflow_oven.elf 
-arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
-   text	   data	    bss	    dec	    hex	filename
-  52616	   1240	   3000	  56856	   de18	reflow_oven.elf
-Finished building: default.size.stdout
- 
-Finished building: reflow_oven.list
- 
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:191:33: error: 'RXbuf' undeclared (first use in this function); did you mean 'RXbuffer'?
+  191 |   HAL_UART_Receive_DMA(&huart1, RXbuf, Size);
+      |                                 ^~~~~
+      |                                 RXbuffer
+../Core/Src/main.c:191:33: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:191:40: error: 'Size' undeclared (first use in this function); did you mean 'size_t'?
+  191 |   HAL_UART_Receive_DMA(&huart1, RXbuf, Size);
+      |                                        ^~~~
+      |                                        size_t
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-14:29:40 Build Finished. 0 errors, 0 warnings. (took 408ms)
+01:48:21 Build Failed. 3 errors, 0 warnings. (took 3s.901ms)
 

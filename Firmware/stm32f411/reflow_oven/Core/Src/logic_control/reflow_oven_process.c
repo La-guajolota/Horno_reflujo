@@ -3,7 +3,7 @@
  *
  * Created on: Apr 22, 2025
  * Author: Adrián Silva Palafox
- * Github:
+ * Github: https://github.com/La-guajolota
  *
  * Description: Implementation of reflow oven controller state machine
  *              for solder reflow process management.
@@ -15,7 +15,7 @@
 #include "logic_control/reflow_oven_process.h"
 
 // Maximum safe temperature (°C) - emergency stop if exceeded
-#define MAX_SAFE_TEMPERATURE   250.0f
+#define MAX_SAFE_TEMPERATURE   300.0f
 
 // Maximum phase duration (s) - safety timeout
 #define MAX_PHASE_DURATION     600    // 10 minutes
@@ -52,12 +52,12 @@ void ReflowOven_Init(void)
 
     // Initialize the reflow oven parameters
     ReflowOven.ReflowParameters.Pre_HeatUpRate = 0.5f;        // °C/s
-    ReflowOven.ReflowParameters.SoakTempeture = 150.0f;       // °C
+    ReflowOven.ReflowParameters.SoakTempeture = 110.0f;       // °C
     ReflowOven.ReflowParameters.SoakTime = 60.0f;             // seconds
     ReflowOven.ReflowParameters.HeatUpRate = 1.0f;            // °C/s
-    ReflowOven.ReflowParameters.ReflowTempeture = 220.0f;     // °C
+    ReflowOven.ReflowParameters.ReflowTempeture = 150.0f;     // °C
     ReflowOven.ReflowParameters.ReflowTime = 30.0f;           // seconds
-    ReflowOven.ReflowParameters.CoolDownRate = 1.0f;          // °C/s
+    ReflowOven.ReflowParameters.CoolDownRate = 2.0f;          // °C/s
     ReflowOven.ReflowParameters.CoolDownTempeture = 50.0f;    // °C
 
     // Set the initial phase to idle and initialize other control variables
@@ -321,9 +321,7 @@ static void ReflowOven_transitionToPhase(ReflowPhases_t newPhase, float currentT
     ReflowOven.currentPhase = newPhase;
 
     // Reset PID controller when entering new phase to prevent integral windup
-    if (newPhase == REFLOW_IDLE || newPhase == REFLOW_PREHEAT) {
-        PID_Reset(&PID);
-    }
+    if (newPhase == REFLOW_IDLE || newPhase == REFLOW_PREHEAT) PID_Reset(&PID);
 
     // Initialize setpoint based on new phase
     switch (newPhase) {
