@@ -137,7 +137,7 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
         (driver->devices[device_id].raw_data != 0x0000))
     {
 
-        /* Extract temperature data (12-bit value shifted right by 3) */
+        /* Extract temperature data */
         raw_temp = (driver->devices[device_id].raw_data & MAX6675_TEMP_BITS) >> 3;
 
         /* Convert to Celsius (0.25°C per count) */

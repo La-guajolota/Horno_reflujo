@@ -75,6 +75,11 @@ void PID_Reset(PIDController *pid);
 // Update the PID controller output based on the setpoint and current measurement
 float PID_Update(PIDController *pid, float setpoint, float measurement);
 
+// Update an individual PID controller gain in real time
+void PID_UpdateKp(PIDController *pid, float gain);
+void PID_UpdateKi(PIDController *pid, float gain);
+void PID_UpdateKd(PIDController *pid, float gain);
+
 // Update the PID controller gains (Kp, Ki, Kd) in real time
 void PID_UpdateGains(PIDController *pid, float kp, float ki, float kd);
 

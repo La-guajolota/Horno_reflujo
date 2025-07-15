@@ -1,18 +1,10 @@
-01:48:17 **** Incremental Build of configuration Debug for project reflow_oven ****
+19:44:14 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:191:33: error: 'RXbuf' undeclared (first use in this function); did you mean 'RXbuffer'?
-  191 |   HAL_UART_Receive_DMA(&huart1, RXbuf, Size);
-      |                                 ^~~~~
-      |                                 RXbuffer
-../Core/Src/main.c:191:33: note: each undeclared identifier is reported only once for each function it appears in
-../Core/Src/main.c:191:40: error: 'Size' undeclared (first use in this function); did you mean 'size_t'?
-  191 |   HAL_UART_Receive_DMA(&huart1, RXbuf, Size);
-      |                                        ^~~~
-      |                                        size_t
-make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
-"make -j12 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  58656	   1240	   3008	  62904	   f5b8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
 
-01:48:21 Build Failed. 3 errors, 0 warnings. (took 3s.901ms)
+19:44:14 Build Finished. 0 errors, 0 warnings. (took 243ms)
 

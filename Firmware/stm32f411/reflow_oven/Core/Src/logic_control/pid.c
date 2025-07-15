@@ -121,6 +121,18 @@ float PID_Update(PIDController *pid, float setpoint, float measurement)
     return pid->out;
 }
 
+
+// Funtions to update individual gains at runtime
+void PID_UpdateKp(PIDController *pid, float gain){
+	pid->Kp = gain;
+}
+void PID_UpdateKi(PIDController *pid, float gain){
+	pid->Ki = gain;
+}
+void PID_UpdateKd(PIDController *pid, float gain){
+	pid->Kd = gain;
+}
+
 // Function to update Kp, Ki, and Kd gains at runtime
 void PID_UpdateGains(PIDController *pid, float kp, float ki, float kd)
 {
