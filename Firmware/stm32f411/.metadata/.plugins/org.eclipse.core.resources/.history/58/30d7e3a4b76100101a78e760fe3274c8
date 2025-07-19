@@ -33,7 +33,7 @@
 #include <stdbool.h>
 #include <string.h>
 // GUI related
-#include "UI/screen/ssd1306.h"
+//#include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
 // Hardware and logic control libs
 #include "sensors/max6675.h"
@@ -160,7 +160,6 @@ int main(void)
   /****************************************************
    * INITIALIZATION OF HARDWARE AND SOFTWARE COMPONETNS
    ****************************************************/
-
   // PID's parameters
   PID_Init(&PID,
            0,      // kp
@@ -172,21 +171,17 @@ int main(void)
            0,      // limMinInt
            0,      // limMaxInt
            0.100); // tsample	-> 100ms
-
   // Temperature sensors
   MAX6675_Init(&tempSensors, &hspi1);
   for (int i=0; i<MAX6675_MAX_DEVICES; i++) MAX6675_AddDevice(&tempSensors, i);
-
   // Zero-Crossover and fan actuators
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   update_randomCrossover_actuator(0);	//off
   fan_control(false); 					//off
-
   // User's input via encoder
   encoder.prev_dir = 0;
   encoder.prev_cnt = 0;
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-
   // GUI-SM | Oled-screen | ESP01 | ReflowOven-SM
   GUI_Init();
   // ssd1306_Init();
@@ -757,8 +752,29 @@ void put_webserver_data(void){
  *
  * The expected format is: `<cmd><value>`, for example: `p2.0` sets PID Kp to 2.0.
  *
+ * Supported commands:
+ * - PID parameters:
+ *   - 'p' : Set PID proportional gain (Kp)
+ *   - 'i' : Set PID integral gain (Ki)
+ *   - 'd' : Set PID derivative gain (Kd)
+ *
+ * - Reflow oven profile parameters:
+ *   - 'a' : Set preheat ramp rate
+ *   - 'b' : Set soak temperature
+ *   - 'c' : Set soak time
+ *   - 'D' : Set heat-up ramp rate
+ *   - 'e' : Set reflow temperature
+ *   - 'f' : Set reflow time
+ *   - 'g' : Set cool-down rate
+ *   - 'h' : Set cool-down end temperature
+ *
+ * - Oven process control:
+ *   - 'B' : Start or stop the reflow process ('B1' to start, 'B0' to stop)
+ *
  * @note The function is triggered only when a full valid message has been received (flag + size check).
  *       The function resets the RX flag upon successful parsing.
+ *
+ * @retval None
  */
 void get_webserver_data(void){
 	if (RXuart_flag && RXuart_size == 1) {

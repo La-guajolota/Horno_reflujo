@@ -10,12 +10,15 @@ def main():
   
         # Update values via uart
         write_port(ser,"p123.456")
-        write_port(ser,"B0")
-
+        write_port(ser,"B1")
+    
         while True:
             raw, temp, st = read_port(ser)
             print(f"Raw RX message: {raw}")
             print(f"Temperature: {temp} | Oven's state: {REFLOW_PHASES_ES.get(st,"Unknow")}")
+
+            # Emulate sending temperature and reflow states
+            
             
     except KeyboardInterrupt:
         print("Exiting")
