@@ -1,0 +1,7 @@
+../Core/Src/UI/gui_backend.c:201:13:rotate_action	4
+../Core/Src/UI/gui_backend.c:227:13:update_value.constprop	1
+../Core/Src/UI/gui_backend.c:280:6:main_page_handler	8
+../Core/Src/UI/gui_backend.c:352:6:oven_settings_page_handler	5
+../Core/Src/UI/gui_backend.c:413:6:pid_settings_page_handler	6
+../Core/Src/UI/gui_backend.c:443:6:ENCODER_EVENT_UPDATE	4
+../Core/Src/UI/gui_backend.c:487:6:GUI_Init	1

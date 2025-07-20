@@ -254,11 +254,9 @@ static void selectElement_mainPage(state_machine_t *sm)
     {
     case START_BTN: // Does the user want to star the Reflow-oven process ?
         sm->is_process_running = true;
-        HAL_TIM_Base_Start_IT(&htim3); // Enable sampling timer ISR and in result the Reflow_ove_process, too
         break;
     case STOP_BTN:
         sm->is_process_running = false;
-        HAL_TIM_Base_Stop_IT(&htim3); // Disable
         break;
     case OVEN_SETTINGS_BTN:
         sm->current_page = OVEN_SETTINGS_PAGE;

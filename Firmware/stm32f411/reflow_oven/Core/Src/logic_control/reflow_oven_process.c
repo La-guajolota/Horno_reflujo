@@ -51,13 +51,13 @@ void ReflowOven_Init(void)
      */
 
     // Initialize the reflow oven parameters
-    ReflowOven.ReflowParameters.Pre_HeatUpRate = 0.5f;        // °C/s
+    ReflowOven.ReflowParameters.Pre_HeatUpRate = 1.0f;        // °C/s
     ReflowOven.ReflowParameters.SoakTempeture = 110.0f;       // °C
     ReflowOven.ReflowParameters.SoakTime = 60.0f;             // seconds
     ReflowOven.ReflowParameters.HeatUpRate = 1.0f;            // °C/s
     ReflowOven.ReflowParameters.ReflowTempeture = 150.0f;     // °C
     ReflowOven.ReflowParameters.ReflowTime = 30.0f;           // seconds
-    ReflowOven.ReflowParameters.CoolDownRate = 2.0f;          // °C/s
+    ReflowOven.ReflowParameters.CoolDownRate = 1.0f;          // °C/s
     ReflowOven.ReflowParameters.CoolDownTempeture = 50.0f;    // °C
 
     // Set the initial phase to idle and initialize other control variables
@@ -155,9 +155,7 @@ bool ReflowOven_modifyParameters(ReflowParameters_enum parameterUpdate, float ne
 bool ReflowOven_startProcess(void)
 {
     // Only allow starting from IDLE state
-    if (ReflowOven.currentPhase != REFLOW_IDLE) {
-        return false;
-    }
+    if (ReflowOven.currentPhase != REFLOW_IDLE) return false;
 
     // Transition to PREHEAT phase
     ReflowOven.NextPhase = REFLOW_PREHEAT;
@@ -166,9 +164,9 @@ bool ReflowOven_startProcess(void)
 
 void ReflowOven_stopProcess(void)
 {
-    // Force transition to cooldown regardless of current state
+    // Force transition to REFLOW_IDLE regardless of current state
     if (ReflowOven.currentPhase != REFLOW_IDLE) {
-        ReflowOven.NextPhase = REFLOW_COOLDOWN;
+        ReflowOven.NextPhase = REFLOW_IDLE;
     }
 }
 
@@ -272,6 +270,7 @@ void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t c
             // Check if cooldown is complete
             if (currentTemperature <= ReflowOven.ReflowParameters.CoolDownTempeture) {
                 ReflowOven.NextPhase = REFLOW_IDLE;
+                gui_sm.is_process_running = false;
             }
             break;
 

@@ -18,12 +18,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "pid.h"
+#include "UI/gui_backend.h"
 
 /******************************************************************************
  * EXTERNAL REFERENCES
  ******************************************************************************/
-/* PID's data type instance */
 extern PIDController PID;
+extern state_machine_t gui_sm;
 
 /**
  * @brief Enum defining the various phases of the reflow process

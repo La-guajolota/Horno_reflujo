@@ -1,44 +1,78 @@
+/**
+ * @file main.cpp
+ * @author José Antonio Gaecía García
+ * @author Adrian Silva Palafox
+ * @date July 2025
+ * @brief ESP8266 Reflow Oven Web GUI Firmware
+ * @github https://github.com/La-guajolota/Horno_reflujo
+ *
+ * This firmware provides a web-based interface for controlling a reflow oven using an ESP8266.
+ * It supports real-time monitoring, PID configuration, and thermal profile updates via WebSocket.
+ * User commands are sent to the oven controller via UART, following a protocol with message length and CR+LF.
+ */
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
-
 #include "configs.hpp"
 
-AsyncWebServer server(80);
-AsyncWebSocket ws("/ws");
+AsyncWebServer server(80); ///< Web server instance
+AsyncWebSocket ws("/ws");  ///< WebSocket handler
 
-// Variables globales
-String currentTemp = "0.00";
-String currentStateText = "REFLOW IDLE";
-String stateNames[6] = {
-  "REFLOW PREHEAT",
-  "REFLOW SOAK",
-  "REFLOW HEATUP",
-  "REFLOW REFLOW",
-  "REFLOW COOLDOWN",
-  "REFLOW IDLE"
-};
-unsigned long lastSend = 0;
+// -----------------------------------------------------------------------------
+// Global Variables
+// -----------------------------------------------------------------------------
 
-// Funciones
-void notifyClients() {
+String currentTemp = "0.00";             ///< Current temperature as string
+String currentStateText = "REFLOW IDLE"; ///< Current state text
+String stateNames[6] = {                 ///< State names for display
+    "REFLOW PREHEAT",
+    "REFLOW SOAK",
+    "REFLOW HEATUP",
+    "REFLOW REFLOW",
+    "REFLOW COOLDOWN",
+    "REFLOW IDLE"};
+unsigned long lastSend = 0; ///< Last time data was sent to clients
+
+// -----------------------------------------------------------------------------
+// Function Documentation
+// -----------------------------------------------------------------------------
+
+/**
+ * @brief Notify all WebSocket clients with current temperature and state.
+ *
+ * Sends a JSON string with temperature and state every second.
+ */
+void notifyClients()
+{
   unsigned long now = millis();
-  if (now - lastSend >= 1000) {
+  if (now - lastSend >= 1000)
+  {
     String data = "{\"temp\":\"" + currentTemp + "\",\"estado\":\"" + currentStateText + "\"}";
     ws.textAll(data);
     lastSend = now;
   }
 }
 
-void handleSerial() {
+/**
+ * @brief Handles incoming UART data from oven controller.
+ *
+ * Parses messages of the format "t<temp>E<state>", updates global variables,
+ * and notifies clients if valid data is received.
+ */
+void handleSerial()
+{
   static String input = "";
 
-  while (Serial.available()) {
+  while (Serial.available())
+  {
     char c = Serial.read();
 
-    if (c == '\n' || c == '\r') {
-      if (input.startsWith("t") && input.indexOf('E') > 0) {
+    if (c == '\n' || c == '\r')
+    {
+      if (input.startsWith("t") && input.indexOf('E') > 0)
+      {
         int eIndex = input.indexOf('E');
         String tempStr = input.substring(1, eIndex);
         String stateStr = input.substring(eIndex + 1);
@@ -49,50 +83,100 @@ void handleSerial() {
         float tempVal = tempStr.toFloat();
         int stateVal = stateStr.toInt();
 
-        if (!isnan(tempVal) && stateVal >= 0 && stateVal <= 5) {
+        if (!isnan(tempVal) && stateVal >= 0 && stateVal <= 5)
+        {
           currentTemp = String(tempVal, 2);
           currentStateText = stateNames[stateVal];
           notifyClients();
         }
       }
       input = "";
-    } else {
+    }
+    else
+    {
       input += c;
-      if (input.length() > 20) {
+      if (input.length() > 20)
+      {
         input = "";
       }
     }
   }
 }
 
-void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
-                      AwsEventType type, void *arg, uint8_t *data, size_t len) {
-  if (type == WS_EVT_CONNECT) {
-    Serial.println("Cliente WebSocket conectado");
-  } else if (type == WS_EVT_DISCONNECT) {
-    Serial.println("Cliente WebSocket desconectado");
-  } else if (type == WS_EVT_DATA) {
-    AwsFrameInfo *info = (AwsFrameInfo*)arg;
-    if (info->final && info->index == 0 && info->len == len) {
+/**
+ * @brief Sends a message to the oven controller via UART.
+ *
+ * The message is appended with CR+LF, then the length is sent as a byte,
+ * followed by the message itself.
+ * @param msg The message to send (without CR+LF).
+ */
+void sendUartMessage(const String &msg)
+{
+  String fullMsg = msg + "\r\n";
+  size_t fullLen = fullMsg.length();
+  uint8_t charNum = fullLen > 255 ? 255 : fullLen;
+  Serial.write(charNum);                                   // Send length byte
+  Serial.write((const uint8_t *)fullMsg.c_str(), charNum); // Send message
+}
+
+/**
+ * @brief Handles WebSocket events (connect, disconnect, data).
+ *
+ * When user sends commands from the web interface, they are sent to the oven controller via UART.
+ * Supported commands: START, STOP, PID parameters, and thermal profile parameters.
+ */
+void onWebSocketEvent(AsyncWebSocket *server,
+                      AsyncWebSocketClient *client,
+                      AwsEventType type, void *arg,
+                      uint8_t *data, size_t len)
+{
+  if (type == WS_EVT_CONNECT)
+  {
+    // Client connected
+  }
+  else if (type == WS_EVT_DISCONNECT)
+  {
+    // Client disconnected
+  }
+  else if (type == WS_EVT_DATA)
+  {
+    AwsFrameInfo *info = (AwsFrameInfo *)arg;
+    if (info->final && info->index == 0 && info->len == len)
+    {
       String msg = "";
-      for (size_t i = 0; i < len; i++) {
+      for (size_t i = 0; i < len; i++)
+      {
         msg += (char)data[i];
       }
 
-      if (msg == "START") {
-        Serial.println("B1");
-      } else if (msg == "STOP") {
-        Serial.println("B0");
-      } else if (msg.startsWith("p") || msg.startsWith("i") || msg.startsWith("d")) {
-        Serial.println(msg);
-      } else if (msg.length() >= 2 && isAlpha(msg.charAt(0))) {
-        Serial.println(msg);
+      // Send command to oven controller via UART
+      if (msg == "START")
+      {
+        sendUartMessage("B1");
+      }
+      else if (msg == "STOP")
+      {
+        sendUartMessage("B0");
+      }
+      else if (msg.startsWith("p") ||
+               msg.startsWith("i") ||
+               msg.startsWith("d"))
+      {
+        sendUartMessage(msg);
+      }
+      else if (msg.length() >= 2 &&
+               isAlpha(msg.charAt(0)))
+      {
+        sendUartMessage(msg);
       }
     }
   }
 }
 
-// Interfaz HTML (versión mejorada)
+// -----------------------------------------------------------------------------
+// HTML Interface (PROGMEM)
+// -----------------------------------------------------------------------------
+
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
@@ -443,8 +527,7 @@ const char index_html[] PROGMEM = R"rawliteral(
       </div>
 
       <div class="controls">
-        <button class="btn btn-start" id="startBtn">🚀 Iniciar Proceso</button>
-        <button class="btn btn-stop" id="stopBtn">⏹️ Detener Proceso</button>
+        <button class="btn btn-start" id="toggleBtn">🚀 Iniciar Proceso</button>
       </div>
 
       <div class="status-indicator" id="indicador">
@@ -539,8 +622,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     // Variables globales
     const estadoDisplay = document.getElementById("estado");
     const tempDisplay = document.getElementById("temp");
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
+    const toggleBtn = document.getElementById("toggleBtn");
     const indicador = document.getElementById("indicador");
     let transmitiendo = false;
 
@@ -644,25 +726,24 @@ const char index_html[] PROGMEM = R"rawliteral(
       if (transmitiendo) {
         dot.className = 'indicator-dot indicator-running';
         text.textContent = 'Sistema Ejecutándose';
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
+        toggleBtn.textContent = '⏹️ Detener Proceso';
+        toggleBtn.className = 'btn btn-stop';
       } else {
         dot.className = 'indicator-dot indicator-stopped';
         text.textContent = 'Sistema Detenido';
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
+        toggleBtn.textContent = '🚀 Iniciar Proceso';
+        toggleBtn.className = 'btn btn-start';
       }
     }
 
-    startBtn.onclick = function() {
-      ws.send("START");
-      transmitiendo = true;
-      actualizarIndicadores();
-    };
-
-    stopBtn.onclick = function() {
-      ws.send("STOP");
-      transmitiendo = false;
+    toggleBtn.onclick = function() {
+      if (transmitiendo) {
+        ws.send("STOP");
+        transmitiendo = false;
+      } else {
+        ws.send("START");
+        transmitiendo = true;
+      }
       actualizarIndicadores();
     };
 
@@ -711,45 +792,38 @@ const char index_html[] PROGMEM = R"rawliteral(
 </html>
 )rawliteral";
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
 
-  // Configuración de IP estática
-  IPAddress local_IP(192, 168, 1, 150);      // Cambia a la IP deseada
-  IPAddress gateway(192, 168, 1, 1);         // Cambia a la puerta de enlace de tu red
-  IPAddress subnet(255, 255, 255, 0);        // Máscara de subred
-  IPAddress dns(8, 8, 8, 8);                 // DNS opcional
+  // Static IP configuration
+  IPAddress local_IP(192, 168, 1, 150); // Change to desired IP
+  IPAddress gateway(192, 168, 1, 1);    // Change to your network gateway
+  IPAddress subnet(255, 255, 255, 0);   // Subnet mask
+  IPAddress dns(8, 8, 8, 8);            // Optional DNS
 
   WiFi.config(local_IP, gateway, subnet, dns);
 
-  // Inicializar WiFi
+  // Start WiFi
   WiFi.begin(ssid, password);
-  Serial.print("Conectando a WiFi");
-  
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
-    Serial.print(".");
   }
-  
-  Serial.println();
-  Serial.println("WiFi conectado!");
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-  
-  // Configurar WebSocket
+
+  // WebSocket setup
   ws.onEvent(onWebSocketEvent);
   server.addHandler(&ws);
-  
-  // Configurar ruta principal
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html);
-  });
-  
+
+  // Main route
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/html", index_html); });
+
   server.begin();
-  Serial.println("Servidor web iniciado");
 }
 
-void loop() {
+void loop()
+{
   handleSerial();
   ws.cleanupClients();
 }

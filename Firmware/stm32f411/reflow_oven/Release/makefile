@@ -11,7 +11,15 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/sensors/subdir.mk
+-include Core/Src/logic_control/subdir.mk
+-include Core/Src/UI/screen/subdir.mk
+-include Core/Src/UI/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include Core/Debug/Core/Startup/subdir.mk
+-include Core/Debug/Core/Src/subdir.mk
+-include Core/Debug/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -60,8 +68,8 @@ all: main-build
 main-build: reflow_oven.elf secondary-outputs
 
 # Tool invocations
-reflow_oven.elf reflow_oven.map: $(OBJS) $(USER_OBJS) /media/adrian/sd_linux/MCUs/STM32mcus/reflow_oven/STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/media/adrian/sd_linux/MCUs/STM32mcus/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+reflow_oven.elf reflow_oven.map: $(OBJS) $(USER_OBJS) /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

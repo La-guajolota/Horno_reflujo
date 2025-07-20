@@ -70,12 +70,12 @@ void Error_Handler(void);
 #define encoder_pulse_EXTI_IRQn EXTI2_IRQn
 #define CS_0_Pin GPIO_PIN_7
 #define CS_0_GPIO_Port GPIOA
-#define CS_1_Pin GPIO_PIN_0
-#define CS_1_GPIO_Port GPIOB
+#define CS_3_Pin GPIO_PIN_0
+#define CS_3_GPIO_Port GPIOB
 #define CS_2_Pin GPIO_PIN_1
 #define CS_2_GPIO_Port GPIOB
-#define CS_3_Pin GPIO_PIN_2
-#define CS_3_GPIO_Port GPIOB
+#define CS_1_Pin GPIO_PIN_2
+#define CS_1_GPIO_Port GPIOB
 #define fire_Pin GPIO_PIN_8
 #define fire_GPIO_Port GPIOA
 #define fan_relay_Pin GPIO_PIN_11

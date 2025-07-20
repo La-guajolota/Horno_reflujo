@@ -33,7 +33,7 @@
 #include <stdbool.h>
 #include <string.h>
 // GUI related
-#include "UI/screen/ssd1306.h"
+//#include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
 // Hardware and logic control libs
 #include "sensors/max6675.h"
@@ -163,24 +163,25 @@ int main(void)
 
   // PID's parameters
   PID_Init(&PID,
-           0,      // kp
-           0,      // ki
-           0,      // kd
-           0,      // tau
+           15,     // kp
+           0.25,   // ki
+           0.005,  // kd
+           0.3,    // tau
            0.0,    // limMIN
            120.0,  // limMAX 	-> 120 cycles since AC mains are 60hz
-           0,      // limMinInt
-           0,      // limMaxInt
+           -100,   // limMinInt
+           100,    // limMaxInt
            0.100); // tsample	-> 100ms
 
   // Temperature sensors
+  HAL_TIM_Base_Start_IT(&htim3); // Enable sampling timer ISR
   MAX6675_Init(&tempSensors, &hspi1);
   for (int i=0; i<MAX6675_MAX_DEVICES; i++) MAX6675_AddDevice(&tempSensors, i);
 
   // Zero-Crossover and fan actuators
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   update_randomCrossover_actuator(0);	//off
-  fan_control(false); 					//off
+  fan_control(true); 					//on
 
   // User's input via encoder
   encoder.prev_dir = 0;
@@ -193,10 +194,11 @@ int main(void)
   HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
   ReflowOven_Init();
 
+  HAL_Delay(5000);
   /************************
    * UNCOMMENT FOR DEBUGING
    ***********************/
-  //HAL_TIM_Base_Start_IT(&htim3);
+  //PID_Update(&PID, 100, chamber_temp); // Debug
 
   /* USER CODE END 2 */
 
@@ -219,9 +221,11 @@ int main(void)
        *  3.- Act on heat elements
       */
       chamber_sense_temperature();
-      // ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
-      PID_Update(&PID, 100, chamber_temp); // Debug
-      update_randomCrossover_actuator((uint8_t)PID.out);
+      if (gui_sm.is_process_running){
+		  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+		  update_randomCrossover_actuator((uint8_t)PID.out);
+		  HAL_GPIO_TogglePin(built_in_led_GPIO_Port, built_in_led_Pin);
+      }
     }
     else
     {
@@ -249,19 +253,20 @@ int main(void)
        ***********************************/
       get_webserver_data();
       put_webserver_data();
-      /***********************************
-       * Handle OVEN-SM with GUI-SM states
-       ***********************************/
-      if ((ReflowOven_getCurrentPhase()==REFLOW_IDLE) || ReflowOven.emergencyStop) {
-    	  fan_control(true); // Extract toxic fumes from chamber or cools down due to excessive temperature
-    	  if(gui_sm.is_process_running) {
-    		  fan_control(false);
-    		  ReflowOven_startProcess();
-    	  }
-      }
       /********************
        * Oled screen update
        ********************/
+
+      /***********************************
+       * Handle OVEN-SM with GUI-SM states
+       ***********************************/
+      if (gui_sm.is_process_running) {
+    	  fan_control(false);
+    	  ReflowOven_startProcess();
+      }else{
+    	  fan_control(true);
+    	  ReflowOven_stopProcess();
+      }
 
     }
   }
@@ -642,10 +647,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, CS_0_Pin|fan_relay_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, CS_1_Pin|CS_2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, CS_3_Pin|CS_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_3_GPIO_Port, CS_3_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(CS_1_GPIO_Port, CS_1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : built_in_led_Pin */
   GPIO_InitStruct.Pin = built_in_led_Pin;
@@ -667,8 +672,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(CS_0_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CS_1_Pin CS_2_Pin CS_3_Pin */
-  GPIO_InitStruct.Pin = CS_1_Pin|CS_2_Pin|CS_3_Pin;
+  /*Configure GPIO pins : CS_3_Pin CS_2_Pin CS_1_Pin */
+  GPIO_InitStruct.Pin = CS_3_Pin|CS_2_Pin|CS_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -805,10 +810,8 @@ void get_webserver_data(void){
 			case 'B':
 				if(RXbuffer[1] - '0') { // We do math with ASSCI code
 					gui_sm.is_process_running  = true;
-					HAL_TIM_Base_Start_IT(&htim3);
 				} else {
 					gui_sm.is_process_running  = false;
-					HAL_TIM_Base_Stop_IT(&htim3);
 				}
 				break;
 		}

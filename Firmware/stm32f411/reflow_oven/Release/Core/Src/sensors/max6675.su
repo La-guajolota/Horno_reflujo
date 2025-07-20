@@ -1,0 +1,5 @@
+../Core/Src/sensors/max6675.c:22:19:MAX6675_Init	16	static
+../Core/Src/sensors/max6675.c:92:19:MAX6675_ReadTemperature	48	static
+../Core/Src/sensors/max6675.c:58:19:MAX6675_AddDevice	16	static
+../Core/Src/sensors/max6675.c:166:19:MAX6675_GetTemperature	0	static
+../Core/Src/sensors/max6675.c:193:9:MAX6675_IsConnected	0	static

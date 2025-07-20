@@ -29,7 +29,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Core/Inc/UI/screen/ssd1306.h ../Core/Inc/UI/screen/ssd1306_conf.h \
+ ../Core/Inc/UI/gui_backend.h ../Core/Inc/logic_control/pid.h \
+ ../Core/Inc/sensors/max6675.h \
+ ../Core/Inc/logic_control/reflow_oven_process.h \
+ ../Core/Inc/logic_control/pid.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -62,3 +67,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/UI/screen/ssd1306.h:
+../Core/Inc/UI/screen/ssd1306_conf.h:
+../Core/Inc/UI/gui_backend.h:
+../Core/Inc/logic_control/pid.h:
+../Core/Inc/sensors/max6675.h:
+../Core/Inc/logic_control/reflow_oven_process.h:
+../Core/Inc/logic_control/pid.h:
