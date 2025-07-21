@@ -194,7 +194,6 @@ int main(void)
   HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
   ReflowOven_Init();
 
-  HAL_Delay(5000);
   /************************
    * UNCOMMENT FOR DEBUGING
    ***********************/
@@ -219,13 +218,10 @@ int main(void)
        *  1.- Get temperature inside oven
        *  2.- Process data and update state
        *  3.- Act on heat elements
-      */
+       */
       chamber_sense_temperature();
-      if (gui_sm.is_process_running){
-		  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
-		  update_randomCrossover_actuator((uint8_t)PID.out);
-		  HAL_GPIO_TogglePin(built_in_led_GPIO_Port, built_in_led_Pin);
-      }
+	  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+	  update_randomCrossover_actuator((uint8_t)PID.out);
     }
     else
     {
@@ -715,6 +711,7 @@ void update_randomCrossover_actuator(uint8_t ON_semiCicles)
  */
 void fan_control(bool state){
     HAL_GPIO_WritePin(fan_relay_GPIO_Port, fan_relay_Pin, !state);
+    HAL_GPIO_WritePin(built_in_led_GPIO_Port, built_in_led_Pin, !state);
 }
 
 /**
@@ -723,22 +720,29 @@ void fan_control(bool state){
  */
 void chamber_sense_temperature(void)
 {
-    // Sample chamber's temperature
     uint8_t sensor;
+    uint8_t running_sensors = 0;
+    chamber_temp = 0;
+
+    // Sample chamber's temperature
     for (sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++)
     {
         // Individual max6675 sensor's reading
         MAX6675_ReadTemperature(&tempSensors, sensor);
         HAL_Delay(1);
     }
+
     // Take each measurements and compute chamber's temperature
-    chamber_temp = 0;
     for (sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++)
     {
-        MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
-        chamber_temp += tempReadings[sensor];
+    	// Before computing the result, we check if sensors are up and running
+    	if (MAX6675_IsConnected(&tempSensors, sensor)){
+    		MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
+    		chamber_temp += tempReadings[sensor];
+    		running_sensors++;
+    	}
     }
-    chamber_temp /= MAX6675_MAX_DEVICES; // media
+    chamber_temp /= running_sensors; // media
 }
 
 /**

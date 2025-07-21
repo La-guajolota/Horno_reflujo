@@ -3,7 +3,13 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
+		<item value="HardFault_Handler"/>
+		<item value="hardf"/>
+		<item value="sensor"/>
 		<item value="ReflowOven_stopProcess"/>
+		<item value="emergencyStop"/>
+		<item value="emerge"/>
+		<item value="HAL_TIM_Base_Start_IT"/>
 		<item value="initialization"/>
 		<item value="LV_COLOR_"/>
 		<item value="LV_COLOR_1_"/>
@@ -13,5 +19,6 @@
 		<item value="ssd1306_Reset();"/>
 	</list>
 	<list key="replacehistory">
+		<item value="sensor_iterator"/>
 	</list>
 </section>

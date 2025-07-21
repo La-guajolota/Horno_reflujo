@@ -166,7 +166,7 @@ void ReflowOven_stopProcess(void)
 {
     // Force transition to REFLOW_IDLE regardless of current state
     if (ReflowOven.currentPhase != REFLOW_IDLE) {
-        ReflowOven.NextPhase = REFLOW_IDLE;
+        ReflowOven.NextPhase = REFLOW_COOLDOWN;
     }
 }
 
@@ -270,7 +270,6 @@ void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t c
             // Check if cooldown is complete
             if (currentTemperature <= ReflowOven.ReflowParameters.CoolDownTempeture) {
                 ReflowOven.NextPhase = REFLOW_IDLE;
-                gui_sm.is_process_running = false;
             }
             break;
 
