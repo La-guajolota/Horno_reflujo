@@ -2040,26 +2040,26 @@ Disassembly of section .text:
 
 080017e8 <chamber_sense_temperature>:
  80017e8:	b538      	push	{r3, r4, r5, lr}
- 80017ea:	2100      	movs	r1, #0
- 80017ec:	4822      	ldr	r0, [pc, #136]	@ (8001878 <chamber_sense_temperature+0x90>)
- 80017ee:	4d23      	ldr	r5, [pc, #140]	@ (800187c <chamber_sense_temperature+0x94>)
- 80017f0:	f000 fe6c 	bl	80024cc <MAX6675_ReadTemperature>
- 80017f4:	2001      	movs	r0, #1
- 80017f6:	f000 ff71 	bl	80026dc <HAL_Delay>
- 80017fa:	2101      	movs	r1, #1
- 80017fc:	481e      	ldr	r0, [pc, #120]	@ (8001878 <chamber_sense_temperature+0x90>)
- 80017fe:	f000 fe65 	bl	80024cc <MAX6675_ReadTemperature>
- 8001802:	2001      	movs	r0, #1
- 8001804:	f000 ff6a 	bl	80026dc <HAL_Delay>
- 8001808:	2300      	movs	r3, #0
- 800180a:	481b      	ldr	r0, [pc, #108]	@ (8001878 <chamber_sense_temperature+0x90>)
- 800180c:	602b      	str	r3, [r5, #0]
+ 80017ea:	4d23      	ldr	r5, [pc, #140]	@ (8001878 <chamber_sense_temperature+0x90>)
+ 80017ec:	4823      	ldr	r0, [pc, #140]	@ (800187c <chamber_sense_temperature+0x94>)
+ 80017ee:	2300      	movs	r3, #0
+ 80017f0:	2100      	movs	r1, #0
+ 80017f2:	602b      	str	r3, [r5, #0]
+ 80017f4:	f000 fe6a 	bl	80024cc <MAX6675_ReadTemperature>
+ 80017f8:	2001      	movs	r0, #1
+ 80017fa:	f000 ff6f 	bl	80026dc <HAL_Delay>
+ 80017fe:	2101      	movs	r1, #1
+ 8001800:	481e      	ldr	r0, [pc, #120]	@ (800187c <chamber_sense_temperature+0x94>)
+ 8001802:	f000 fe63 	bl	80024cc <MAX6675_ReadTemperature>
+ 8001806:	2001      	movs	r0, #1
+ 8001808:	f000 ff68 	bl	80026dc <HAL_Delay>
+ 800180c:	481b      	ldr	r0, [pc, #108]	@ (800187c <chamber_sense_temperature+0x94>)
  800180e:	2100      	movs	r1, #0
  8001810:	f000 fee0 	bl	80025d4 <MAX6675_IsConnected>
  8001814:	4604      	mov	r4, r0
  8001816:	b170      	cbz	r0, 8001836 <chamber_sense_temperature+0x4e>
  8001818:	4c19      	ldr	r4, [pc, #100]	@ (8001880 <chamber_sense_temperature+0x98>)
- 800181a:	4817      	ldr	r0, [pc, #92]	@ (8001878 <chamber_sense_temperature+0x90>)
+ 800181a:	4818      	ldr	r0, [pc, #96]	@ (800187c <chamber_sense_temperature+0x94>)
  800181c:	4622      	mov	r2, r4
  800181e:	2100      	movs	r1, #0
  8001820:	f000 fec9 	bl	80025b6 <MAX6675_GetTemperature>
@@ -2068,12 +2068,12 @@ Disassembly of section .text:
  800182c:	ee77 7a87 	vadd.f32	s15, s15, s14
  8001830:	2401      	movs	r4, #1
  8001832:	edc5 7a00 	vstr	s15, [r5]
- 8001836:	4810      	ldr	r0, [pc, #64]	@ (8001878 <chamber_sense_temperature+0x90>)
+ 8001836:	4811      	ldr	r0, [pc, #68]	@ (800187c <chamber_sense_temperature+0x94>)
  8001838:	2101      	movs	r1, #1
  800183a:	f000 fecb 	bl	80025d4 <MAX6675_IsConnected>
  800183e:	b178      	cbz	r0, 8001860 <chamber_sense_temperature+0x78>
  8001840:	4a10      	ldr	r2, [pc, #64]	@ (8001884 <chamber_sense_temperature+0x9c>)
- 8001842:	480d      	ldr	r0, [pc, #52]	@ (8001878 <chamber_sense_temperature+0x90>)
+ 8001842:	480e      	ldr	r0, [pc, #56]	@ (800187c <chamber_sense_temperature+0x94>)
  8001844:	2101      	movs	r1, #1
  8001846:	f000 feb6 	bl	80025b6 <MAX6675_GetTemperature>
  800184a:	4b0d      	ldr	r3, [pc, #52]	@ (8001880 <chamber_sense_temperature+0x98>)
@@ -2090,8 +2090,8 @@ Disassembly of section .text:
  8001870:	ed85 7a00 	vstr	s14, [r5]
  8001874:	bd38      	pop	{r3, r4, r5, pc}
  8001876:	bf00      	nop
- 8001878:	200005a8 	.word	0x200005a8
- 800187c:	200005dc 	.word	0x200005dc
+ 8001878:	200005dc 	.word	0x200005dc
+ 800187c:	200005a8 	.word	0x200005a8
  8001880:	200005d4 	.word	0x200005d4
  8001884:	200005d8 	.word	0x200005d8
 

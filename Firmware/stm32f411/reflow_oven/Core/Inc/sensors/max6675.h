@@ -25,7 +25,7 @@
 /**
  * @brief Maximum number of supported MAX6675 devices
  */
-#define MAX6675_MAX_DEVICES 2
+#define MAX6675_MAX_DEVICES 4
 
 /* MAX6675 Chip Select Pin Definitions --------------------------------------*/
 /**

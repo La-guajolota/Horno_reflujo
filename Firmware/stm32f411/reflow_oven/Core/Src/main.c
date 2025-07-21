@@ -729,7 +729,6 @@ void chamber_sense_temperature(void)
     {
         // Individual max6675 sensor's reading
         MAX6675_ReadTemperature(&tempSensors, sensor);
-        HAL_Delay(1);
     }
 
     // Take each measurements and compute chamber's temperature

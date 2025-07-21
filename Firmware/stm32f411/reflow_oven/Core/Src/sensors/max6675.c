@@ -116,6 +116,9 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
         driver->cs_pins[device_id],
         GPIO_PIN_SET); /* Deassert CS */
 
+    // NEEDED TO MAKE SURE CLOCK SETS HIGH-IDLE AND SLAVE MISO GOES HI-Z
+    for (int i = 0; i < 25; i++) __NOP();
+
     /* Check if SPI communication was successful */
     if (status != HAL_OK)
     {
@@ -132,9 +135,9 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
      * 2. Dummy bit (should be 0 for proper operation)
      * 3. Full zeros??? ambient's temperature is present
      */
-    if ((((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) ==
-         ((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15)) &&
-        (driver->devices[device_id].raw_data != 0x0000))
+    if ((((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) == 0)
+        && (((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15) == 0)
+    	&& (driver->devices[device_id].raw_data != 0x0000))
     {
 
         /* Extract temperature data */
