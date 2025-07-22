@@ -115,8 +115,10 @@ bool ReflowOven_startProcess(void);
 
 /**
  * @brief Stop the reflow process and return to idle state
+ *
+ * @return bool - True if process stopped successfully, false otherwise
  */
-void ReflowOven_stopProcess(void);
+bool ReflowOven_stopProcess(void);
 
 /**
  * @brief Execute one control cycle for the reflow oven

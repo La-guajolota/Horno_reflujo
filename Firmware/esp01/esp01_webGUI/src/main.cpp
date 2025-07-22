@@ -624,7 +624,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     const tempDisplay = document.getElementById("temp");
     const toggleBtn = document.getElementById("toggleBtn");
     const indicador = document.getElementById("indicador");
-    let transmitiendo = false;
+    let transmitiendo = false; // Solo para el indicador visual
 
     // Configuración del gráfico
     const data = {
@@ -696,18 +696,18 @@ const char index_html[] PROGMEM = R"rawliteral(
       tempDisplay.textContent = temp.toFixed(2) + "°C";
       estadoDisplay.textContent = estado;
 
-      if (transmitiendo) {
-        const now = new Date().toLocaleTimeString();
-        data.labels.push(now);
-        data.datasets[0].data.push(temp);
-        
-        if (data.labels.length > 50) {
-          data.labels.shift();
-          data.datasets[0].data.shift();
-        }
-        
-        chart.update('none');
+      // SIEMPRE agrega el punto, no importa el estado
+      const now = new Date().toLocaleTimeString();
+      data.labels.push(now);
+      data.datasets[0].data.push(temp);
+
+      // Mantén solo los últimos 600 puntos (~10 minutos si recibes 1/s)
+      if (data.labels.length > 600) {
+        data.labels.shift();
+        data.datasets[0].data.shift();
       }
+
+      chart.update('none');
     };
 
     ws.onopen = function() {
@@ -747,7 +747,8 @@ const char index_html[] PROGMEM = R"rawliteral(
       actualizarIndicadores();
     };
 
-    function enviarPID(letra) {
+    // Las funciones de actualización de parámetros NO dependen de transmitiendo:
+    function enviarPID(letra) { 
       const input = document.getElementById("pid_" + letra);
       const valor = input.value.trim();
       
@@ -758,7 +759,11 @@ const char index_html[] PROGMEM = R"rawliteral(
       
       ws.send(letra + valor);
       alert("✅ Parámetro " + letra.toUpperCase() + " actualizado: " + valor);
-      input.value = '';
+      // Muestra el valor actualizado en el input (no lo borra)
+      input.value = valor;
+      // Opcional: resalta el input para indicar actualización
+      input.style.backgroundColor = "#003344";
+      setTimeout(() => { input.style.backgroundColor = ""; }, 800);
     }
 
     function enviarPerfil(clave) {
@@ -772,7 +777,11 @@ const char index_html[] PROGMEM = R"rawliteral(
       
       ws.send(clave + valor);
       alert("✅ Parámetro " + clave + " actualizado: " + valor);
-      input.value = '';
+      // Muestra el valor actualizado en el input (no lo borra)
+      input.value = valor;
+      // Opcional: resalta el input para indicar actualización
+      input.style.backgroundColor = "#003344";
+      setTimeout(() => { input.style.backgroundColor = ""; }, 800);
     }
 
     function switchTab(tabId) {
@@ -806,9 +815,8 @@ void setup()
 
   // Start WiFi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(100); // <-- Esto permite que el WDT no se dispare
   }
 
   // WebSocket setup

@@ -31,3 +31,278 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 02:28:59.184
 !MESSAGE Existing sessions are:
+!SESSION 2025-07-21 12:27:39.197 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-21 12:27:58.318
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-21 12:27:58.320
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-21 12:28:05.436
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-07-21 15:02:19.928
+!MESSAGE Error in final launch sequence:
+
+Setup exceptions
+!STACK 1
+org.eclipse.core.runtime.CoreException: Setup exceptions
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:336)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 com.st.stm32cube.ide.mcu.debug.launch 4 0 2025-07-21 15:02:19.928
+!MESSAGE Setup exceptions
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:09:04.412
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 15 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:09:04.412
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:09:04.413
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 15 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:09:04.413
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:06.149
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 16 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:06.149
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:06.150
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 16 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:06.150
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:36.816
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 17 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:36.816
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:36.817
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 17 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 16:10:36.817
+!MESSAGE Existing sessions are:
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-07-21 17:21:22.988
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:334)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.lang.Exception: localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2025-07-21 17:21:22.988
+!MESSAGE Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+!STACK 0
+java.lang.Exception: localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 17:49:33.572
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 24 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 17:49:33.573
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 17:49:33.575
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 24 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 17:49:33.576
+!MESSAGE Existing sessions are:
+
+!ENTRY org.eclipse.ui 4 4 2025-07-21 18:40:34.980
+!MESSAGE To avoid deadlock while executing Display.syncExec() with argument: com.st.stm32cube.ide.mcu.debug.stlinkfwutil.StLinkFwUtil$$Lambda/0x000000010169dde0@78b98613, thread Worker-203: Launching reflow_oven will interrupt UI thread.
+!SUBENTRY 1 org.eclipse.ui 4 4 2025-07-21 18:40:34.980
+!MESSAGE Worker-203: Launching reflow_oven thread is an instance of Worker or owns an ILock
+!STACK 0
+java.lang.IllegalStateException: Call stack for thread Worker-203: Launching reflow_oven
+	at java.management@21.0.3/sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at java.management@21.0.3/sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:482)
+	at org.eclipse.ui.internal.UILockListener.reportInterruption(UILockListener.java:208)
+	at org.eclipse.ui.internal.UILockListener.interruptUI(UILockListener.java:174)
+	at org.eclipse.ui.internal.PendingSyncExec.waitUntilExecuted(PendingSyncExec.java:92)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:142)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:5960)
+	at com.st.stm32cube.ide.common.utils.ThreadHelper.runInUiThreadSync(ThreadHelper.java:36)
+	at com.st.stm32cube.ide.mcu.debug.stlinkfwutil.StLinkFwUtil.lookupStLink(StLinkFwUtil.java:306)
+	at com.st.stm32cube.ide.mcu.debug.stlinkfwutil.StLinkFwUtil.validate(StLinkFwUtil.java:111)
+	at com.st.stm32cube.ide.mcu.debug.stlink.StLinkDebugHardware.preLaunchCheck(StLinkDebugHardware.java:288)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.preLaunchCheck(DSFDelegate.java:167)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:769)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.ui 4 4 2025-07-21 18:40:34.980
+!MESSAGE UI thread waiting on a job or lock.
+!STACK 0
+java.lang.IllegalStateException: Call stack for thread main
+	at org.eclipse.swt.internal.gtk.OS.Call(Native Method)
+	at org.eclipse.swt.widgets.Display.sleep(Display.java:5641)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:824)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at org.eclipse.jface.dialogs.MessageDialog.open(MessageDialog.java:608)
+	at org.eclipse.jface.dialogs.MessageDialog.open(MessageDialog.java:404)
+	at org.eclipse.jface.dialogs.MessageDialog.openInformation(MessageDialog.java:501)
+	at com.st.stm32cube.ide.mcu.debug.stlinkfwutil.StLinkFwUtil.lambda$6(StLinkFwUtil.java:307)
+	at com.st.stm32cube.ide.mcu.debug.stlinkfwutil.StLinkFwUtil$$Lambda/0x000000010169dde0.run(Unknown Source)
+	at org.eclipse.ui.internal.PendingSyncExec.run(PendingSyncExec.java:68)
+	at org.eclipse.ui.internal.UILockListener.doPendingWork(UILockListener.java:166)
+	at org.eclipse.ui.internal.UILockListener.aboutToWait(UILockListener.java:134)
+	at org.eclipse.core.internal.jobs.LockManager.aboutToWait(LockManager.java:105)
+	at org.eclipse.core.internal.jobs.JobManager.join(JobManager.java:994)
+	at org.eclipse.core.internal.jobs.InternalJob.join(InternalJob.java:355)
+	at org.eclipse.core.runtime.jobs.Job.join(Job.java:531)
+	at org.eclipse.tm.internal.terminal.emulator.VT100TerminalControl.disconnectTerminal(VT100TerminalControl.java:469)
+	at org.eclipse.tm.internal.terminal.emulator.VT100TerminalControl.disposeTerminal(VT100TerminalControl.java:415)
+	at org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbFullCliConsolePage.dispose(GdbFullCliConsolePage.java:125)
+	at org.eclipse.cdt.debug.internal.ui.views.debuggerconsole.DebuggerConsoleView.doDestroyPage(DebuggerConsoleView.java:304)
+	at org.eclipse.ui.part.PageBookView.removePage(PageBookView.java:806)
+	at org.eclipse.ui.part.PageBookView.partClosed(PageBookView.java:740)
+	at org.eclipse.cdt.debug.internal.ui.views.debuggerconsole.DebuggerConsoleView.lambda$1(DebuggerConsoleView.java:375)
+	at org.eclipse.cdt.debug.internal.ui.views.debuggerconsole.DebuggerConsoleView$$Lambda/0x000000010170c000.run(Unknown Source)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:5040)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:4520)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1042)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:639)
+	at org.eclipse.ui.internal.Workbench$$Lambda/0x000000010025b470.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:546)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:143)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:109)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:439)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:271)
+	at java.base@21.0.3/java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(DirectMethodHandle$Holder)
+	at java.base@21.0.3/java.lang.invoke.LambdaForm$MH/0x00000001000c6800.invoke(LambdaForm$MH)
+	at java.base@21.0.3/java.lang.invoke.LambdaForm$MH/0x00000001000c6c00.invokeExact_MT(LambdaForm$MH)
+	at java.base@21.0.3/jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl(DirectMethodHandleAccessor.java:155)
+	at java.base@21.0.3/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base@21.0.3/java.lang.reflect.Method.invoke(Method.java:580)
+	at app//org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:668)
+	at app//org.eclipse.equinox.launcher.Main.basicRun(Main.java:605)
+	at app//org.eclipse.equinox.launcher.Main.run(Main.java:1481)
+	at app//org.eclipse.equinox.launcher.Main.main(Main.java:1454)
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-07-21 18:50:19.429
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:336)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.lang.Exception: localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2025-07-21 18:50:19.429
+!MESSAGE Failed to execute MI command:
+target remote localhost:12345
+
+Error message from debugger back end:
+localhost:12345: Connection timed out.
+!STACK 0
+java.lang.Exception: localhost:12345: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:22.602
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 32 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:22.602
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:22.603
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 32 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:22.603
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:58.938
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 33 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:58.938
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:58.939
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 33 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:04:58.939
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:50:21.181
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 35 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:50:21.996
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:50:21.998
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 35 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-07-21 19:50:21.998
+!MESSAGE Existing sessions are:

@@ -2,7 +2,7 @@
 ../Core/Src/logic_control/reflow_oven_process.c:72:6:ReflowOven_modifyParameters	26
 ../Core/Src/logic_control/reflow_oven_process.c:155:6:ReflowOven_startProcess	2
 ../Core/Src/logic_control/reflow_oven_process.c:165:6:ReflowOven_stopProcess	2
-../Core/Src/logic_control/reflow_oven_process.c:173:6:ReflowOven_operate	19
-../Core/Src/logic_control/reflow_oven_process.c:291:16:ReflowOven_getCurrentPhase	1
-../Core/Src/logic_control/reflow_oven_process.c:296:10:ReflowOven_getPhaseElapsedTime	1
-../Core/Src/logic_control/reflow_oven_process.c:312:13:ReflowOven_transitionToPhase	9
+../Core/Src/logic_control/reflow_oven_process.c:176:6:ReflowOven_operate	19
+../Core/Src/logic_control/reflow_oven_process.c:294:16:ReflowOven_getCurrentPhase	1
+../Core/Src/logic_control/reflow_oven_process.c:299:10:ReflowOven_getPhaseElapsedTime	1
+../Core/Src/logic_control/reflow_oven_process.c:315:13:ReflowOven_transitionToPhase	9

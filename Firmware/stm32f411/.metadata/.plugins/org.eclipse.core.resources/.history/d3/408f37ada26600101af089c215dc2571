@@ -79,6 +79,7 @@ encoder_t encoder;					// Encoder structure instance
 volatile uint8_t RXuart_size = 1;	// Size of data to handle DMA RX uart
 char webserv_buf[15] = {0};         // Tx uart buffer
 char RXbuffer[15] = {0};      	    // RX uart buffer
+volatile lastTime_RX; 				//
 volatile bool TXuart_flag = true; 	// True->send    False->No-send
 volatile bool RXuart_flag = false; 	// True->receive False->No-receive
 // PID controller related
@@ -163,14 +164,14 @@ int main(void)
 
   // PID's parameters
   PID_Init(&PID,
-           15,     // kp
-           0.25,   // ki
-           0.005,  // kd
+           0.0,     // kp
+           0.0,   // ki
+           0.0,  // kd
            0.3,    // tau
            0.0,    // limMIN
            120.0,  // limMAX 	-> 120 cycles since AC mains are 60hz
-           -100,   // limMinInt
-           100,    // limMaxInt
+           -50,   // limMinInt
+           50,    // limMaxInt
            0.100); // tsample	-> 100ms
 
   // Temperature sensors
@@ -197,7 +198,6 @@ int main(void)
   /************************
    * UNCOMMENT FOR DEBUGING
    ***********************/
-  //PID_Update(&PID, 100, chamber_temp); // Debug
 
   /* USER CODE END 2 */
 
@@ -218,10 +218,13 @@ int main(void)
        *  1.- Get temperature inside oven
        *  2.- Process data and update state
        *  3.- Act on heat elements
+       *  4.- Update ESP01 webserver
        */
       chamber_sense_temperature();
-	  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+	  // ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+      PID_Update(&PID, 100, chamber_temp); // Debug
 	  update_randomCrossover_actuator((uint8_t)PID.out);
+      put_webserver_data();
     }
     else
     {
@@ -248,7 +251,6 @@ int main(void)
        * User's IO via esp01 web server
        ***********************************/
       get_webserver_data();
-      put_webserver_data();
       /********************
        * Oled screen update
        ********************/
@@ -256,12 +258,12 @@ int main(void)
       /***********************************
        * Handle OVEN-SM with GUI-SM states
        ***********************************/
-      if (gui_sm.is_process_running) {
-    	  fan_control(false);
-    	  ReflowOven_startProcess();
-      }else{
+      if(!gui_sm.is_process_running || ReflowOven.emergencyStop){
     	  fan_control(true);
     	  ReflowOven_stopProcess();
+      }else{
+    	  fan_control(false);
+    	  ReflowOven_startProcess();
       }
 
     }
@@ -715,34 +717,27 @@ void fan_control(bool state){
 }
 
 /**
- * @brief Reads temperature from 4 MAX6675 sensors and calculates chamber average
+ * @brief Reads temperature from MAX6675_MAX_DEVICES sensors and calculates chamber average
  * @note Updates global variable chamber_temp with averaged result
  */
 void chamber_sense_temperature(void)
 {
-    uint8_t sensor;
-    uint8_t running_sensors = 0;
     chamber_temp = 0;
-
-    // Sample chamber's temperature
-    for (sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++)
+    uint8_t working_sensors = 0;
+    for (int sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++)
     {
-        // Individual max6675 sensor's reading
-        MAX6675_ReadTemperature(&tempSensors, sensor);
-        HAL_Delay(1);
-    }
-
-    // Take each measurements and compute chamber's temperature
-    for (sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++)
-    {
-    	// Before computing the result, we check if sensors are up and running
-    	if (MAX6675_IsConnected(&tempSensors, sensor)){
+        MAX6675_ReadTemperature(&tempSensors, sensor);	// Individual max6675 sensor's reading
+    	if (MAX6675_IsConnected(&tempSensors, sensor)){	// Before computing the result, we check if sensors are up and running
     		MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor);
     		chamber_temp += tempReadings[sensor];
-    		running_sensors++;
+    		working_sensors++;
     	}
     }
-    chamber_temp /= running_sensors; // media
+    if (working_sensors) {
+    	chamber_temp /= working_sensors; // Media
+		chamber_temp -= 5.0;             // Error correction
+	}
+
 }
 
 /**
@@ -820,6 +815,9 @@ void get_webserver_data(void){
 				break;
 		}
 	}
+
+	// Timeout (3s) of waiting in Rx
+	if ((HAL_GetTick() - lastTime_RX) > 3000) RXuart_flag = false;
 }
 
 /************
@@ -855,14 +853,12 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
  */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if (RXuart_flag) {
-		// We mark the end of valid information to parse
-		RXbuffer[RXuart_size] = '\0';
-		// Restart reception to expect the next data length byte
-		RXuart_size = 1; // this variable is also used as a flag
+		RXbuffer[RXuart_size] = '\0'; 									// We mark the end of valid information to parse
+		RXuart_size = 1; 												// Restart reception to expect the next data length byte, this variable is also used as a flag
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 	} else {
 		// Set the expected size from the first byte received
-		RXuart_size = (uint8_t)(RXbuffer[0]); // New data length DMA will wait for
+		RXuart_size = (uint8_t)(RXbuffer[0]); 						// New data length DMA will wait for
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 		RXuart_flag = true;
 	}
