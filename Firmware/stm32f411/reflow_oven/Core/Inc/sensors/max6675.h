@@ -3,8 +3,8 @@
  * @author    Adrian Silva Palafox
  * @github    https://github.com/La-guajolota
  * @brief     MAX6675 Thermocouple SPI Interface Driver with Multi-Device Support
- * @version   1.1
- * @date      April 5, 2024
+ * @version   1.2
+ * @date      July 2025
  *
  * @details   This driver provides an interface for multiple MAX6675 thermocouple-to-digital
  *            converters using SPI communication protocol. The MAX6675 performs cold-junction
@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h" /* STM32F4 HAL library for SPI communication */
 #include "main.h"      /* For Chip Select pin and port definitions */
+#include <stdbool.h>
 
 /* Configuration Constants --------------------------------------------------*/
 /**
@@ -70,6 +71,11 @@
  */
 #define MAX6675_TEMP_FACTOR 0.25f
 
+/**
+ * @brief Output value meaning No thermocouple detected or communication error
+ */
+#define MAX6675_INVALID_TEMP -404.0f
+
 /* Type Definitions ---------------------------------------------------------*/
 /**
  * @brief MAX6675 device structure
@@ -79,7 +85,7 @@ typedef struct
     uint8_t id;           /**< Device ID (0-3, used for CS pin selection) */
     uint16_t raw_data;    /**< Raw 16-bit data from the MAX6675 register */
     float temperature;    /**< Processed temperature reading in Celsius */
-    uint8_t is_connected; /**< Connection status (1=connected, 0=disconnected) */
+    bool is_connected;    /**< Connection status (1=connected, 0=disconnected) */
 } MAX6675_Device_t;
 
 /**
@@ -132,8 +138,8 @@ HAL_StatusTypeDef MAX6675_GetTemperature(MAX6675_Driver_t *driver, uint8_t devic
  * @brief   Check if a specific MAX6675 device is connected
  * @param   driver      Pointer to driver control structure
  * @param   device_id   Device ID (0-3) to check
- * @return  uint8_t     1 if connected, 0 if not connected or invalid device ID
+ * @return  bool     	1 if connected, 0 if not connected or invalid device ID
  */
-uint8_t MAX6675_IsConnected(MAX6675_Driver_t *driver, uint8_t device_id);
+bool MAX6675_IsConnected(MAX6675_Driver_t *driver, uint8_t device_id);
 
 #endif /* INC_MAX6675_H_ */

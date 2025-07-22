@@ -3,8 +3,8 @@
  * @author    Adrian Silva Palafox
  * Github     https://github.com/La-guajolota
  * @brief     MAX6675 Thermocouple SPI Interface Driver Implementation
- * @version   1.1
- * @date      April 5, 2024
+ * @version   1.2
+ * @date      July 2025
  *
  * @details   Implementation of the MAX6675 thermocouple interface driver
  *            with support for multiple devices using different CS pins.
@@ -91,15 +91,11 @@ HAL_StatusTypeDef MAX6675_AddDevice(MAX6675_Driver_t *driver, uint8_t device_id)
  */
 HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t device_id)
 {
-    HAL_StatusTypeDef status = HAL_OK;
-    uint16_t raw_temp = 0;
-    uint8_t data[2] = {0}; /* Buffer for raw data from MAX6675 */
-
     /* Validate input parameters */
-    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES)
-    {
-        return HAL_ERROR;
-    }
+    if (driver == NULL || device_id >= MAX6675_MAX_DEVICES) return HAL_ERROR;
+
+	HAL_StatusTypeDef status = HAL_OK;
+    uint8_t data[2] = {0}; /* Buffer for raw data from MAX6675 */
 
     /* Begin SPI communication sequence */
     HAL_GPIO_WritePin(
@@ -127,7 +123,8 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
     }
 
     /* Combine the two bytes into a 16-bit value */
-    driver->devices[device_id].raw_data = (data[1] << 8) | data[0];
+    uint16_t raw_data = (data[1] << 8) | data[0];
+    driver->devices[device_id].raw_data = raw_data;
 
     /*
      * Verify device integrity by checking:
@@ -135,13 +132,14 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
      * 2. Dummy bit (should be 0 for proper operation)
      * 3. Full zeros??? ambient's temperature is present
      */
-    if ((((driver->devices[device_id].raw_data & MAX6675_INPUT_BIT) >> 2) == 0)
-        && (((driver->devices[device_id].raw_data & MAX6675_DUMMY_BIT) >> 15) == 0)
-    	&& (driver->devices[device_id].raw_data != 0x0000))
-    {
+    bool input_ok  = READ_BIT(raw_data, MAX6675_INPUT_BIT) == 0;
+    bool dummy_ok  = READ_BIT(raw_data, MAX6675_DUMMY_BIT) == 0;
+    bool nonzero   = raw_data != 0x0000;
 
+    if (input_ok && dummy_ok && nonzero)
+    {
         /* Extract temperature data */
-        raw_temp = (driver->devices[device_id].raw_data & MAX6675_TEMP_BITS) >> 3;
+        uint16_t raw_temp = (raw_data & MAX6675_TEMP_BITS) >> 3;
 
         /* Convert to Celsius (0.25°C per count) */
         driver->devices[device_id].temperature = raw_temp * MAX6675_TEMP_FACTOR;
@@ -150,7 +148,7 @@ HAL_StatusTypeDef MAX6675_ReadTemperature(MAX6675_Driver_t *driver, uint8_t devi
     else
     {
         /* No thermocouple detected or communication error */
-        driver->devices[device_id].temperature = -404.0;
+        driver->devices[device_id].temperature = MAX6675_INVALID_TEMP;
         driver->devices[device_id].is_connected = 0;
         status = HAL_ERROR;
     }
@@ -191,14 +189,14 @@ HAL_StatusTypeDef MAX6675_GetTemperature(MAX6675_Driver_t *driver, uint8_t devic
  *
  * @param driver    Pointer to driver control structure
  * @param device_id Device ID (0-3) to check
- * @return uint8_t  1 if connected, 0 if not connected or invalid device ID
+ * @return bool		1 if connected, 0 if not connected or invalid device ID
  */
-uint8_t MAX6675_IsConnected(MAX6675_Driver_t *driver, uint8_t device_id)
+bool MAX6675_IsConnected(MAX6675_Driver_t *driver, uint8_t device_id)
 {
     /* Validate input parameters */
     if (driver == NULL || device_id >= MAX6675_MAX_DEVICES)
     {
-        return 0;
+        return false;
     }
 
     return driver->devices[device_id].is_connected;

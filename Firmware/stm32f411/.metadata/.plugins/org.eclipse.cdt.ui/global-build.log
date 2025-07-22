@@ -131,3 +131,128 @@ Finished building: default.size.stdout
  
 Finished building: reflow_oven.list
  
+16:12:46 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/sensors/max6675.c: In function 'MAX6675_ReadTemperature':
+../Core/Src/sensors/max6675.c:140:5: error: unknown type name 'bool'
+  140 |     bool input_ok  = (raw_data & MAX6675_INPUT_BIT) == 0;
+      |     ^~~~
+../Core/Src/sensors/max6675.c:14:1: note: 'bool' is defined in header '<stdbool.h>'; did you forget to '#include <stdbool.h>'?
+   13 | #include "sensors/max6675.h"
+  +++ |+#include <stdbool.h>
+   14 | 
+../Core/Src/sensors/max6675.c:141:5: error: unknown type name 'bool'
+  141 |     bool dummy_ok  = (raw_data & MAX6675_DUMMY_BIT) == 0;
+      |     ^~~~
+../Core/Src/sensors/max6675.c:141:5: note: 'bool' is defined in header '<stdbool.h>'; did you forget to '#include <stdbool.h>'?
+../Core/Src/sensors/max6675.c:142:5: error: unknown type name 'bool'
+  142 |     bool nonzero   = raw_data != 0x0000;
+      |     ^~~~
+../Core/Src/sensors/max6675.c:142:5: note: 'bool' is defined in header '<stdbool.h>'; did you forget to '#include <stdbool.h>'?
+make: *** [Core/Src/sensors/subdir.mk:19: Core/Src/sensors/max6675.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+16:13:41 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57920	   1240	   3040	  62200	   f2f8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+16:17:57 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57920	   1240	   3040	  62200	   f2f8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+16:19:17 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57920	   1240	   3040	  62200	   f2f8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+16:40:20 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57904	   1240	   3040	  62184	   f2e8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+16:42:16 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57904	   1240	   3040	  62184	   f2e8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+17:00:33 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/sensors/max6675.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sensors/max6675.d" -MT"Core/Src/sensors/max6675.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sensors/max6675.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57840	   1240	   3040	  62120	   f2a8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+17:06:13 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57840	   1240	   3040	  62120	   f2a8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
