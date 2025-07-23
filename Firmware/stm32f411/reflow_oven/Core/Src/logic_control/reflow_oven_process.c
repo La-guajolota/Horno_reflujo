@@ -30,7 +30,6 @@ ReflowOven_t ReflowOven;
  * PRIVATE FUNCTION PROTOTYPES
  ******************************************************************************/
 static void ReflowOven_transitionToPhase(ReflowPhases_t newPhase, float currentTemperature, uint32_t currentTimeMs);
-// static float ReflowOven_calculateSetpoint(float currentTemperature, uint32_t elapsedTimeMs);
 
 /******************************************************************************
  * FUNCTION DEFINITIONS
@@ -57,7 +56,7 @@ void ReflowOven_Init(void)
     ReflowOven.ReflowParameters.HeatUpRate = 2.0f;            // °C/s
     ReflowOven.ReflowParameters.ReflowTempeture = 150.0f;     // °C
     ReflowOven.ReflowParameters.ReflowTime = 30.0f;           // seconds
-    ReflowOven.ReflowParameters.CoolDownRate = 2.0f;          // °C/s
+    ReflowOven.ReflowParameters.CoolDownRate = -2.0f;          // °C/s
     ReflowOven.ReflowParameters.CoolDownTempeture = 50.0f;    // °C
 
     // Set the initial phase to idle and initialize other control variables
@@ -164,9 +163,9 @@ bool ReflowOven_startProcess(void)
 
 bool ReflowOven_stopProcess(void)
 {
-    // Force transition to REFLOW_COOLDOWN regardless of current state
+    // Force transition to REFLOW_IDLE regardless of current state
     if (ReflowOven.currentPhase != REFLOW_IDLE) {
-        ReflowOven.NextPhase = REFLOW_COOLDOWN;
+        ReflowOven.NextPhase = REFLOW_IDLE;
     	return true;
     }
 
@@ -175,9 +174,6 @@ bool ReflowOven_stopProcess(void)
 
 void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs)
 {
-    uint32_t elapsedTimeMs;
-    float targetSetpoint = 0.0f;
-
     // Safety check - emergency stop if temperature too high
     if (currentTemperature > MAX_SAFE_TEMPERATURE) {
         ReflowOven.emergencyStop = true;
@@ -190,7 +186,7 @@ void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t c
     }
 
     // Calculate elapsed time in current phase
-    elapsedTimeMs = currentTimeMs - ReflowOven.phaseStartTime;
+    uint32_t elapsedTimeMs = currentTimeMs - ReflowOven.phaseStartTime;
 
     // Safety timeout - prevent getting stuck in any phase
     if ((elapsedTimeMs > (MAX_PHASE_DURATION * 1000)) && (ReflowOven.currentPhase != REFLOW_IDLE)) {
@@ -198,6 +194,7 @@ void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t c
     }
 
     // Process current phase
+    float targetSetpoint = 0.0f;
     switch (ReflowOven.currentPhase) {
         case REFLOW_PREHEAT:
             // Calculate target temperature based on ramp rate
@@ -259,7 +256,7 @@ void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t c
 
         case REFLOW_COOLDOWN:
             // Calculate target temperature based on cooling rate
-            targetSetpoint = ReflowOven.temperatureAtPhaseStart -
+            targetSetpoint = ReflowOven.temperatureAtPhaseStart +
                              (ReflowOven.ReflowParameters.CoolDownRate * elapsedTimeMs * MS_TO_S);
 
             // Floor at cooldown target temperature

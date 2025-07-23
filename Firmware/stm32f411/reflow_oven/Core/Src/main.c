@@ -32,9 +32,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+
 // GUI related
 //#include "UI/screen/ssd1306.h"
 #include "UI/gui_backend.h"
+
 // Hardware and logic control libs
 #include "sensors/max6675.h"
 #include "logic_control/reflow_oven_process.h"
@@ -194,9 +196,8 @@ int main(void)
   encoder.prev_cnt = 0;
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
 
-  // GUI-SM | Oled-screen | ESP01 | ReflowOven-SM
+  // GUI-SM-Oled-screen | ESP01 | ReflowOven-SM
   GUI_Init();
-  // ssd1306_Init();
   HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
   ReflowOven_Init();
 
@@ -226,16 +227,31 @@ int main(void)
        *  4.- Update ESP01 webserver
        */
       chamber_sense_temperature();
-	  // ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
-      PID_Update(&PID, 100, chamber_temp); // Debug
+	  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
 	  update_randomCrossover_actuator((uint8_t)PID.out);
       put_webserver_data();
     }
     else
     {
-      /************************************
-       *  User'input via encoder processing
-       ************************************/
+      /***********************************
+      * Handle OVEN-SM with GUI-SM states
+	  ***********************************/
+      if(!gui_sm.is_process_running || ReflowOven.emergencyStop){
+    	  fan_control(true);
+		  ReflowOven_stopProcess();
+      }else{
+		  fan_control(false);
+		  ReflowOven_startProcess();
+      }
+      /***********************************
+       * User's input via esp01 web server
+       ***********************************/
+      get_webserver_data();
+
+      /*******************************
+       * Oled screen update and User's
+       * input via encoder processing
+       *******************************/
       ENCODER_EVENT_UPDATE(&encoder);
       switch (gui_sm.current_page)
       {
@@ -248,27 +264,6 @@ int main(void)
       case PID_SETTINGS_PAGE:
         pid_settings_page_handler(&gui_sm, encoder.ev);
         break;
-      default:
-    	// Not page found
-	  	break;
-      }
-      /***********************************
-       * User's input via esp01 web server
-       ***********************************/
-      get_webserver_data();
-      /********************
-       * Oled screen update
-       ********************/
-
-      /***********************************
-       * Handle OVEN-SM with GUI-SM states
-       ***********************************/
-      if(!gui_sm.is_process_running || ReflowOven.emergencyStop){
-    	  fan_control(true);
-    	  ReflowOven_stopProcess();
-      }else{
-    	  fan_control(false);
-    	  ReflowOven_startProcess();
       }
 
     }
@@ -732,7 +727,7 @@ void chamber_sense_temperature(void)
 
     for (int sensor = 0; sensor < MAX6675_MAX_DEVICES; sensor++) {
     	if (MAX6675_ReadTemperature(&tempSensors, sensor) != HAL_OK) continue;
-		if (MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor) != HAL_OK) continue;
+    	if (MAX6675_GetTemperature(&tempSensors, sensor, tempReadings + sensor) != HAL_OK) continue;
 		sum += tempReadings[sensor];
 		valid_sensor_count++;
     }

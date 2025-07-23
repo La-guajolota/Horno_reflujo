@@ -256,3 +256,179 @@ Finished building: default.size.stdout
  
 Finished building: reflow_oven.list
  
+18:03:42 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:253:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  253 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  57872	   1240	   3040	  62152	   f2c8	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+18:15:31 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/logic_control/reflow_oven_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/logic_control/reflow_oven_process.d" -MT"Core/Src/logic_control/reflow_oven_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/logic_control/reflow_oven_process.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:46: error: too few arguments to function 'PID_Reset'
+  244 |                   ReflowOven_startProcess()? PID_Reset(): false;
+      |                                              ^~~~~~~~~
+In file included from ../Core/Inc/UI/gui_backend.h:21,
+                 from ../Core/Src/main.c:38:
+../Core/Inc/logic_control/pid.h:73:6: note: declared here
+   73 | void PID_Reset(PIDController *pid);
+      |      ^~~~~~~~~
+../Core/Src/main.c:257:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  257 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+18:15:46 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:257:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  257 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  58784	   1240	   3040	  63064	   f658	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+18:16:00 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:46: error: void value not ignored as it ought to be
+  244 |                   ReflowOven_startProcess()? PID_Reset(&PID)&PID;
+      |                                              ^~~~~~~~~~~~~~~
+../Core/Src/main.c:244:65: error: expected ':' before ';' token
+  244 |                   ReflowOven_startProcess()? PID_Reset(&PID)&PID;
+      |                                                                 ^
+      |                                                                 :
+../Core/Src/main.c:257:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  257 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+18:16:04 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:61: error: expected ':' before ';' token
+  244 |                   ReflowOven_startProcess()? PID_Reset(&PID);
+      |                                                             ^
+      |                                                             :
+../Core/Src/main.c:246:7: warning: statement with no effect [-Wunused-value]
+  246 |       &PID
+      |       ^~~~
+../Core/Src/main.c:246:11: error: expected ';' before 'get_webserver_data'
+  246 |       &PID
+      |           ^
+      |           ;
+......
+  250 |       get_webserver_data();
+      |       ~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:257:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  257 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+18:16:33 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:22: warning: the address of 'ReflowOven_startProcess' will always evaluate as 'true' [-Waddress]
+  244 |                   if(ReflowOven_startProcess) PID_Reset(&PID);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:256:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  256 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  58728	   1240	   3040	  63008	   f620	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+18:16:49 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:256:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  256 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  58784	   1240	   3040	  63064	   f658	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+21:11:42 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/logic_control/reflow_oven_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/logic_control/reflow_oven_process.d" -MT"Core/Src/logic_control/reflow_oven_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/logic_control/reflow_oven_process.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/logic_control/reflow_oven_process.c:33:14: warning: 'ReflowOven_calculateSetpoint' declared 'static' but never defined [-Wunused-function]
+   33 | static float ReflowOven_calculateSetpoint(uint32_t elapsedTimeMs);
+      |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:256:7: warning: enumeration value 'NUM_STATES' not handled in switch [-Wswitch]
+  256 |       switch (gui_sm.current_page)
+      |       ^~~~~~
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  58776	   1240	   3040	  63056	   f650	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+21:11:54 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/logic_control/reflow_oven_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/logic_control/reflow_oven_process.d" -MT"Core/Src/logic_control/reflow_oven_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/logic_control/reflow_oven_process.o"
+arm-none-eabi-gcc -o "reflow_oven.elf" @"objects.list"   -mcpu=cortex-m4 -T"/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/reflow_oven/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reflow_oven.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: reflow_oven.elf
+ 
+arm-none-eabi-size  reflow_oven.elf 
+arm-none-eabi-objdump -h -S reflow_oven.elf  > "reflow_oven.list"
+   text	   data	    bss	    dec	    hex	filename
+  58776	   1240	   3040	  63056	   f650	reflow_oven.elf
+Finished building: default.size.stdout
+ 
+Finished building: reflow_oven.list
+ 
+21:12:02 **** Incremental Build of configuration Debug for project reflow_oven ****
+make -j12 all 
+arm-none-eabi-size  reflow_oven.elf 
+   text	   data	    bss	    dec	    hex	filename
+  58776	   1240	   3040	  63056	   f650	reflow_oven.elf
+Finished building: default.size.stdout
+ 
