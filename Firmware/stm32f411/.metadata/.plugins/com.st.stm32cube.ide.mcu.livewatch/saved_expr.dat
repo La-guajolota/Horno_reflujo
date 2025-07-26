@@ -1,6 +1,7 @@
-tempSensors
 ReflowOven
-webserv_buf
 gui_sm
 chamber_temp
 PID
+RXuart_size
+RXbuffer
+RXuart_flag

@@ -817,7 +817,10 @@ void get_webserver_data(void){
 	}
 
 	// Timeout (3s) of waiting in Rx
-	if ((HAL_GetTick() - lastTime_RX) > TIMEOUT_RX) RXuart_flag = false;
+	if ((HAL_GetTick() - lastTime_RX) > TIMEOUT_RX){
+		RXuart_size = 1;
+		RXuart_flag = false;
+	}
 }
 
 /************
@@ -854,19 +857,18 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if (RXuart_flag) {
 		// Full message received
-		RXbuffer[RXuart_size] = '\0';  // Null-terminate the string
 		RXuart_size = 1;               // Reset to expect size byte next
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 	} else {
 		// First byte received, it tells us the upcoming message size
-		if ((uint8_t)RXbuffer[0] > RX_BUFFER_SIZE) {
+		RXuart_size = (uint8_t)RXbuffer[0];
+		if ((RXuart_size > RX_BUFFER_SIZE) || (RXuart_size == 0)) {
 			// Invalid size received — restart reception expecting new size byte
 			RXuart_size = 1;
 			HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 			return;
 		}
 
-		RXuart_size = (uint8_t)(RXbuffer[0]);
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 		lastTime_RX = HAL_GetTick();
 		RXuart_flag = true;
@@ -917,8 +919,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

@@ -13,8 +13,8 @@
 ../Core/Src/main.c:723:6:chamber_sense_temperature	5
 ../Core/Src/main.c:748:6:put_webserver_data	2
 ../Core/Src/main.c:767:6:get_webserver_data	17
-../Core/Src/main.c:832:6:HAL_UART_TxCpltCallback	2
-../Core/Src/main.c:854:6:HAL_UART_RxCpltCallback	3
-../Core/Src/main.c:882:6:HAL_GPIO_EXTI_Callback	2
-../Core/Src/main.c:895:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:910:6:Error_Handler	1
+../Core/Src/main.c:835:6:HAL_UART_TxCpltCallback	2
+../Core/Src/main.c:857:6:HAL_UART_RxCpltCallback	4
+../Core/Src/main.c:884:6:HAL_GPIO_EXTI_Callback	2
+../Core/Src/main.c:897:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:912:6:Error_Handler	1
