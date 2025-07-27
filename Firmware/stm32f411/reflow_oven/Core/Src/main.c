@@ -201,6 +201,7 @@ int main(void)
   HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
   ReflowOven_Init();
 
+  HAL_Delay(5000);
   /************************
    * UNCOMMENT FOR DEBUGING
    ***********************/
@@ -765,7 +766,7 @@ void put_webserver_data(void){
  *       The function resets the RX flag upon successful parsing.
  */
 void get_webserver_data(void){
-	if (RXuart_flag && RXuart_size == 1) {
+	if (RXuart_flag && RXuart_size==1) {
 		RXuart_flag = false;
 		switch (RXbuffer[0]) {
 			// PID controller variables
@@ -817,9 +818,10 @@ void get_webserver_data(void){
 	}
 
 	// Timeout (3s) of waiting in Rx
-	if ((HAL_GetTick() - lastTime_RX) > TIMEOUT_RX){
-		RXuart_size = 1;
+	if (((HAL_GetTick() - lastTime_RX) > TIMEOUT_RX) && RXuart_flag){
 		RXuart_flag = false;
+		HAL_UART_DMAStop(&huart1);
+		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, 1);
 	}
 }
 
@@ -862,16 +864,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	} else {
 		// First byte received, it tells us the upcoming message size
 		RXuart_size = (uint8_t)RXbuffer[0];
-		if ((RXuart_size > RX_BUFFER_SIZE) || (RXuart_size == 0)) {
-			// Invalid size received — restart reception expecting new size byte
-			RXuart_size = 1;
-			HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
-			return;
-		}
-
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
-		lastTime_RX = HAL_GetTick();
 		RXuart_flag = true;
+		lastTime_RX = HAL_GetTick();
 	}
 }
 
