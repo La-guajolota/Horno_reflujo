@@ -196,12 +196,11 @@ int main(void)
   encoder.prev_cnt = 0;
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
 
-  // GUI-SM-Oled-screen | ESP01 | ReflowOven-SM
+  // GUI-SM-Oled-screen | ReflowOven-SM | ESP01
   GUI_Init();
-  HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
   ReflowOven_Init();
+  HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 
-  HAL_Delay(5000);
   /************************
    * UNCOMMENT FOR DEBUGING
    ***********************/
@@ -757,72 +756,77 @@ void put_webserver_data(void){
 /**
  * @brief  Parses UART data received from the webserver and applies configuration changes.
  *
- * This function is called periodically to check if new data has been received via UART (typically from an ESP01 acting as a webserver).
- * It parses a single-character command followed by a float value, and updates either the PID controller or the Reflow Oven process accordingly.
- *
- * The expected format is: `<cmd><value>`, for example: `p2.0` sets PID Kp to 2.0.
+ * This function is called periodically to check if new data has been received via
+ * UART (in this case from an ESP01 acting as a webserver). It parses a single-character
+ * command followed by a float value, and updates either the PID controller or the
+ * Reflow Oven process accordingly.
  *
  * @note The function is triggered only when a full valid message has been received (flag + size check).
  *       The function resets the RX flag upon successful parsing.
  */
 void get_webserver_data(void){
-	if (RXuart_flag && RXuart_size==1) {
-		RXuart_flag = false;
-		switch (RXbuffer[0]) {
-			// PID controller variables
-			case 'p':
-				PID_UpdateKp(&PID, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'i':
-				PID_UpdateKi(&PID, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'd':
-				PID_UpdateKd(&PID, strtof(RXbuffer + 1, NULL));
-				break;
+    // Check if new data has been received via UART
+    if (RXuart_flag && RXuart_size==1) {
+        // Reset RX flag upon successful parsing
+        RXuart_flag = false;
 
-			// Reflow oven controller variables
-			case 'a':
-				ReflowOven_modifyParameters(PARAM_Pre_HeatUpRate, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'b':
-				ReflowOven_modifyParameters(PARAM_SoakTempeture, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'c':
-				ReflowOven_modifyParameters(PARAM_SoakTime, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'D':
-				ReflowOven_modifyParameters(PARAM_HeatUpRate, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'e':
-				ReflowOven_modifyParameters(PARAM_ReflowTempeture, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'f':
-				ReflowOven_modifyParameters(PARAM_ReflowTime, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'g':
-				ReflowOven_modifyParameters(PARAM_CoolDownRate, strtof(RXbuffer + 1, NULL));
-				break;
-			case 'h':
-				ReflowOven_modifyParameters(PARAM_CoolDownTempeture, strtof(RXbuffer + 1, NULL));
-				break;
+        // Parse single-character command followed by a float value
+        switch (RXbuffer [0]) {
+            // PID controller variables
+            case 'p':  // Update PID Kp (proportional) parameter
+                PID_UpdateKp(&PID, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'i':  // Update PID Ki (integral) parameter
+                PID_UpdateKi(&PID, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'd':  // Update PID Kd (derivative) parameter
+                PID_UpdateKd(&PID, strtof(RXbuffer + 1, NULL));
+                break;
 
-			// Oven's control button
-			case 'B':
-				if(RXbuffer[1] - '0') { // We do math with ASSCI code
-					gui_sm.is_process_running  = true;
-				} else {
-					gui_sm.is_process_running  = false;
-				}
-				break;
-		}
-	}
+            // Reflow oven controller variables
+            case 'a':  // Update pre-heat up rate
+                ReflowOven_modifyParameters(PARAM_Pre_HeatUpRate, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'b':  // Update soak temperature
+                ReflowOven_modifyParameters(PARAM_SoakTempeture, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'c':  // Update soak time
+                ReflowOven_modifyParameters(PARAM_SoakTime, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'D':  // Update heat-up rate
+                ReflowOven_modifyParameters(PARAM_HeatUpRate, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'e':  // Update reflow temperature
+                ReflowOven_modifyParameters(PARAM_ReflowTempeture, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'f':  // Update reflow time
+                ReflowOven_modifyParameters(PARAM_ReflowTime, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'g':  // Update cool-down rate
+                ReflowOven_modifyParameters(PARAM_CoolDownRate, strtof(RXbuffer + 1, NULL));
+                break;
+            case 'h':  // Update cool-down temperature
+                ReflowOven_modifyParameters(PARAM_CoolDownTempeture, strtof(RXbuffer + 1, NULL));
+                break;
 
-	// Timeout (3s) of waiting in Rx
-	if (((HAL_GetTick() - lastTime_RX) > TIMEOUT_RX) && RXuart_flag){
-		RXuart_flag = false;
-		HAL_UART_DMAStop(&huart1);
-		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, 1);
-	}
+            // Oven's control button
+            case 'B':  // Start or stop reflow oven process
+                if(RXbuffer [1] - '0') { // We do math with ASSCI code
+                    gui_sm.is_process_running  = true;
+                } else {
+                    gui_sm.is_process_running  = false;
+                }
+                break;
+        }
+    }
+
+    if (HAL_DMA_GetState(&hdma_usart1_rx)==HAL_DMA_STATE_READY ||   // Handle a DMA abort caused by ESP01 boot message
+       (RXuart_flag && (HAL_GetTick() - lastTime_RX > TIMEOUT_RX))) // Timeout (3s) of waiting in Rx for full message
+    {
+        RXuart_flag = false;
+        HAL_UART_DMAStop(&huart1);
+        HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, 1);
+    }
 }
 
 /************
@@ -859,7 +863,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if (RXuart_flag) {
 		// Full message received
-		RXuart_size = 1;               // Reset to expect size byte next
+		RXuart_size = 1; // Reset to expect size byte next, also works as a flag in get_webserver_data()
 		HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
 	} else {
 		// First byte received, it tells us the upcoming message size

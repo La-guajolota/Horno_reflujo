@@ -1,10 +1,10 @@
-01:11:06 **** Incremental Build of configuration Debug for project reflow_oven ****
+20:59:36 **** Incremental Build of configuration Debug for project reflow_oven ****
 make -j12 all 
 arm-none-eabi-size  reflow_oven.elf 
    text	   data	    bss	    dec	    hex	filename
-  59096	   1240	   3040	  63376	   f790	reflow_oven.elf
+  59032	   1240	   3040	  63312	   f750	reflow_oven.elf
 Finished building: default.size.stdout
  
 
-01:11:06 Build Finished. 0 errors, 0 warnings. (took 158ms)
+20:59:36 Build Finished. 0 errors, 0 warnings. (took 141ms)
 
