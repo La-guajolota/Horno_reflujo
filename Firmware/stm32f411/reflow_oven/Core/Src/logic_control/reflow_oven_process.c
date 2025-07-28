@@ -174,8 +174,8 @@ bool ReflowOven_stopProcess(void)
 
 void ReflowOven_operate(PIDController *PID, float currentTemperature, uint32_t currentTimeMs)
 {
-    // Safety check - emergency stop if temperature too high
-    if (currentTemperature > MAX_SAFE_TEMPERATURE) {
+    // Safety check - emergency stop if there's something wrong with all sensors or temperature too high
+    if (currentTemperature == SENSORS_ERROR || currentTemperature > MAX_SAFE_TEMPERATURE) {
         ReflowOven.emergencyStop = true;
         ReflowOven.NextPhase = REFLOW_IDLE;
     }

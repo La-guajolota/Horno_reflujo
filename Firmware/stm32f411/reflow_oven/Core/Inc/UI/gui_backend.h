@@ -199,7 +199,7 @@ void pid_settings_page_handler(state_machine_t *sm, encoder_event_t ev);
  * @param  encoder: Pointer to encoder structure
  * @retval None
  */
-void ENCODER_EVENT_UPDATE(encoder_t *encoder);
+void Encoder_EventUpdate(encoder_t *encoder);
 
 /**
  * @brief  Initialize GUI system including pages and state machine

@@ -181,6 +181,7 @@ ui_element_t ui_pid_settings_page_elements_arr[NUM_PID_BOXES] = {
  * STATE MACHINE & GLOBAL VARIABLES
  *****************************************************************************/
 state_machine_t gui_sm; /* GUI state machine instance */
+encoder_t encoder;		/* Encoder structure instance */
 uint8_t rotateMode = 1; /* 1=navigate elements, 0=edit values */
 float *param;           /* Pointer to the currently selected parameter being edited */
 float param_max_val;    /* Maximum allowable value for the current parameter */
@@ -440,7 +441,7 @@ void pid_settings_page_handler(state_machine_t *sm, encoder_event_t ev)
  * @param  encoder: Pointer to encoder structure
  * @retval None
  */
-void ENCODER_EVENT_UPDATE(encoder_t *encoder)
+void Encoder_EventUpdate(encoder_t *encoder)
 {
     /* Get current counter value and direction from Timer */
     encoder->current_cnt = __HAL_TIM_GET_COUNTER(&htim2);
@@ -526,4 +527,19 @@ void GUI_Init(void)
     gui_sm.needs_redraw = true;
     gui_sm.is_editing = false;
     gui_sm.is_process_running = false;
+}
+
+void GUI_Process(){
+	switch (gui_sm.current_page)
+	{
+	case MAIN_PAGE:
+	  main_page_handler(&gui_sm, encoder.ev);
+	  break;
+	case OVEN_SETTINGS_PAGE:
+	  oven_settings_page_handler(&gui_sm, encoder.ev);
+	  break;
+	case PID_SETTINGS_PAGE:
+	  pid_settings_page_handler(&gui_sm, encoder.ev);
+	  break;
+	}
 }

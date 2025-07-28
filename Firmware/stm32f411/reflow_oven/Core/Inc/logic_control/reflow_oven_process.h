@@ -18,7 +18,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "pid.h"
+#include "sensors/max6675.h"
 #include "UI/gui_backend.h"
+
+/******************************************************************************
+ * DEFINES
+ ******************************************************************************/
+#define SENSORS_ERROR MAX6675_INVALID_TEMP /* All sensors are faulty or not present */
 
 /******************************************************************************
  * EXTERNAL REFERENCES

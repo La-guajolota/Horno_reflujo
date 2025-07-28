@@ -78,9 +78,7 @@ DMA_HandleTypeDef hdma_usart1_tx;
 /**************************
  * PROJECT GLOBAL VARIABLES
  *************************/
-// GUI-SM | OLEDscreen | esp01 related
-encoder_t encoder;					// Encoder structure instance
-
+// esp01 related
 volatile uint8_t RXuart_size = 1;		// Size of data to handle DMA RX uart
 char webserv_buf[TX_BUFFER_SIZE] = {0}; // Tx uart buffer
 char RXbuffer[RX_BUFFER_SIZE] = {0};   	// RX uart buffer
@@ -90,12 +88,12 @@ volatile bool RXuart_flag = false; 		// True->receive False->No-receive
 
 // PID controller related
 PIDController PID;
-volatile uint8_t timers_isr = 0;
+volatile uint8_t timers_isr = 0; 		// PID's sampling timer state is reflected in BIT0
 
 // Sensors
-float chamber_temp = 0;      				   // Celcius
-float tempReadings[MAX6675_MAX_DEVICES] = {0}; // Stores each sensor's temperature
-MAX6675_Driver_t tempSensors;				   // Intance sensor's driver
+float chamber_temp = 0.0f;      			   		// Celcius
+float tempReadings[MAX6675_MAX_DEVICES] = {0.0f};	// Stores each sensor's temperature
+MAX6675_Driver_t tempSensors;				   		// Intance sensor's driver
 
 /* USER CODE END PV */
 
@@ -171,15 +169,15 @@ int main(void)
 
   // PID's parameters
   PID_Init(&PID,
-           0.0,    // kp
-           0.0,    // ki
-           0.0,    // kd
-           0.3,    // tau
-           0.0,    // limMIN
-           120.0,  // limMAX 	-> 120 cycles since AC mains are 60hz
-           -50,    // limMinInt
-           50,     // limMaxInt
-           0.100); // tsample	-> 100ms
+           0.0f,    // kp
+           0.0f,    // ki
+           0.0f,    // kd
+           0.3f,    // tau
+           0.0f,    // limMIN
+           120.0f,  // limMAX 	-> 120 cycles since AC mains are 60hz
+           -50.0f,  // limMinInt
+           50.0f,   // limMaxInt
+           0.250f); // tsample in seconds
 
   // Temperature sensors
   HAL_TIM_Base_Start_IT(&htim3); // Enable sampling timer ISR
@@ -217,55 +215,45 @@ int main(void)
 	/****************************************************************
 	 * Check bti0 for temperature sensing / PID feedback-input update
 	 ****************************************************************/
-    if (timers_isr & 0x01)
-    {
-      timers_isr &= ~0x01;
-      /*
-       *  1.- Get temperature inside oven
-       *  2.- Process data and update state
-       *  3.- Act on heat elements
-       *  4.- Update ESP01 webserver
-       */
-      chamber_sense_temperature();
-	  ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
-	  update_randomCrossover_actuator((uint8_t)PID.out);
-      put_webserver_data();
+    if (timers_isr & 0x0) {
+    	timers_isr &= ~0x01;
+		/*
+		*  1.- Get temperature inside oven
+		*  2.- Process data and update state
+		*  3.- Act on heat elements
+		*/
+		chamber_sense_temperature();
+		ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
+		update_randomCrossover_actuator((uint8_t)PID.out);
+
+		// Update ESP01 webserver
+		put_webserver_data();
     }
-    else
-    {
-      /***********************************
-      * Handle OVEN-SM with GUI-SM states
-	  ***********************************/
-      if(!gui_sm.is_process_running || ReflowOven.emergencyStop){
-    	  fan_control(true);
+    else {
+    	/*****************************************
+    	 * Receive user's inputs via
+    	 * esp01 web server and encoder-OledScreen
+		 *****************************************/
+		get_webserver_data();
+		Encoder_EventUpdate(&encoder);
+
+		/**********************
+		* Process user's inputs
+		***********************/
+		GUI_Process();
+
+		/********************
+		* Oled screen update
+		********************/
+
+		/***********************************
+		* Handle OVEN-SM with GUI-SM states
+		***********************************/
+		if(!gui_sm.is_process_running){
 		  ReflowOven_stopProcess();
-      }else{
-		  fan_control(false);
+		}else{
 		  ReflowOven_startProcess();
-      }
-      /***********************************
-       * User's input via esp01 web server
-       ***********************************/
-      get_webserver_data();
-
-      /*******************************
-       * Oled screen update and User's
-       * input via encoder processing
-       *******************************/
-      ENCODER_EVENT_UPDATE(&encoder);
-      switch (gui_sm.current_page)
-      {
-      case MAIN_PAGE:
-        main_page_handler(&gui_sm, encoder.ev);
-        break;
-      case OVEN_SETTINGS_PAGE:
-        oven_settings_page_handler(&gui_sm, encoder.ev);
-        break;
-      case PID_SETTINGS_PAGE:
-        pid_settings_page_handler(&gui_sm, encoder.ev);
-        break;
-      }
-
+		}
     }
   }
   /* USER CODE END 3 */
@@ -737,7 +725,6 @@ void chamber_sense_temperature(void)
 	} else {
 	    chamber_temp = MAX6675_INVALID_TEMP;
 	}
-
 }
 
 /**
@@ -765,7 +752,8 @@ void put_webserver_data(void){
  *       The function resets the RX flag upon successful parsing.
  */
 void get_webserver_data(void){
-    // Check if new data has been received via UART
+
+	// Check if new data has been received via UART
     if (RXuart_flag && RXuart_size==1) {
         // Reset RX flag upon successful parsing
         RXuart_flag = false;
@@ -820,12 +808,13 @@ void get_webserver_data(void){
         }
     }
 
-    if (HAL_DMA_GetState(&hdma_usart1_rx)==HAL_DMA_STATE_READY ||   // Handle a DMA abort caused by ESP01 boot message
-       (RXuart_flag && (HAL_GetTick() - lastTime_RX > TIMEOUT_RX))) // Timeout (3s) of waiting in Rx for full message
+    if (HAL_DMA_GetState(&hdma_usart1_rx)==HAL_DMA_STATE_READY ||    // Handle a DMA abort caused by ESP01 boot message
+       (RXuart_flag && (HAL_GetTick() - lastTime_RX > TIMEOUT_RX) )) // Timeout (3s) of waiting in Rx for full message
     {
         RXuart_flag = false;
         HAL_UART_DMAStop(&huart1);
         HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, 1);
+        return;
     }
 }
 
