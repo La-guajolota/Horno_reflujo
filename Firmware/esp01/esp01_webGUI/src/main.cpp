@@ -42,12 +42,12 @@ unsigned long lastSend = 0; ///< Last time data was sent to clients
 /**
  * @brief Notify all WebSocket clients with current temperature and state.
  *
- * Sends a JSON string with temperature and state every second.
+ * Sends a JSON string with temperature and state every 250ms.
  */
 void notifyClients()
 {
   unsigned long now = millis();
-  if (now - lastSend >= 1000)
+  if (now - lastSend >= 250) // Cambiado de 1000ms a 250ms
   {
     String data = "{\"temp\":\"" + currentTemp + "\",\"estado\":\"" + currentStateText + "\"}";
     ws.textAll(data);
@@ -815,8 +815,9 @@ void setup()
 
   // Start WiFi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(100); // <-- Esto permite que el WDT no se dispare
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(100); 
   }
 
   // WebSocket setup
@@ -832,6 +833,6 @@ void setup()
 
 void loop()
 {
-  handleSerial();
+  handleSerial();         // Procesa datos UART tan rápido como sea posible
   ws.cleanupClients();
 }

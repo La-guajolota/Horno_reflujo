@@ -31,7 +31,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/UI/gui_backend.h ../Core/Inc/logic_control/pid.h \
- ../Core/Inc/sensors/max6675.h \
+ ../Core/Inc/sensors/max6675.h ../Core/Inc/sensors/digital_filter.h \
  ../Core/Inc/logic_control/reflow_oven_process.h \
  ../Core/Inc/logic_control/pid.h
 ../Core/Inc/main.h:
@@ -69,5 +69,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/UI/gui_backend.h:
 ../Core/Inc/logic_control/pid.h:
 ../Core/Inc/sensors/max6675.h:
+../Core/Inc/sensors/digital_filter.h:
 ../Core/Inc/logic_control/reflow_oven_process.h:
 ../Core/Inc/logic_control/pid.h:

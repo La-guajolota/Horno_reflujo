@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/sensors/max6675.c 
+../Core/Src/sensors/max6675.c \
+../Core/Src/sensors/moving_average.c 
 
 OBJS += \
-./Core/Src/sensors/max6675.o 
+./Core/Src/sensors/max6675.o \
+./Core/Src/sensors/moving_average.o 
 
 C_DEPS += \
-./Core/Src/sensors/max6675.d 
+./Core/Src/sensors/max6675.d \
+./Core/Src/sensors/moving_average.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/Src/sensors/%.o Core/Src/sensors/%.su Core/Src/sensors/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-sensors
 
 clean-Core-2f-Src-2f-sensors:
-	-$(RM) ./Core/Src/sensors/max6675.cyclo ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o ./Core/Src/sensors/max6675.su
+	-$(RM) ./Core/Src/sensors/max6675.cyclo ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o ./Core/Src/sensors/max6675.su ./Core/Src/sensors/moving_average.cyclo ./Core/Src/sensors/moving_average.d ./Core/Src/sensors/moving_average.o ./Core/Src/sensors/moving_average.su
 
 .PHONY: clean-Core-2f-Src-2f-sensors
 

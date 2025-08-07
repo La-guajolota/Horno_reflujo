@@ -39,6 +39,7 @@
 
 // Hardware and logic control libs
 #include "sensors/max6675.h"
+#include "sensors/digital_filter.h"
 #include "logic_control/reflow_oven_process.h"
 /* USER CODE END Includes */
 
@@ -49,6 +50,15 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define DEBUG_MODE_0		//Manual control over heaters
+
+#define EMA_FILTER
+// #define MV_FILTER
+
+#ifdef MV_FILTER
+#define FILTER_WINDOW 3    //window size (number of samples) for Circular buffer
+#endif
+
 #define RX_BUFFER_SIZE 15	//characters
 #define TX_BUFFER_SIZE 15	//characters
 #define TIMEOUT_RX 3000 	//ms
@@ -94,7 +104,13 @@ volatile uint8_t timers_isr = 0; 		// PID's sampling timer state is reflected in
 float chamber_temp = 0.0f;      			   		// Celcius
 float tempReadings[MAX6675_MAX_DEVICES] = {0.0f};	// Stores each sensor's temperature
 MAX6675_Driver_t tempSensors;				   		// Intance sensor's driver
-
+// Sensors' filter
+#ifdef MV_FILTER
+MovingAverage filter;								// Moving average filter instance
+float filterBuffer[FILTER_WINDOW]; 					// Circular buffer for digital filter
+#elif defined(EMA_FILTER)
+EMAFilter filter;									// Exponential moving average filter instance
+#endif
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -177,10 +193,15 @@ int main(void)
            120.0f,  // limMAX 	-> 120 cycles since AC mains are 60hz
            -50.0f,  // limMinInt
            50.0f,   // limMaxInt
-           0.250f); // tsample in seconds
+           0.25f);  // tsample in seconds
 
   // Temperature sensors
   HAL_TIM_Base_Start_IT(&htim3); // Enable sampling timer ISR
+#ifdef MV_FILTER
+  moving_average_init(&filter, filterBuffer, FILTER_WINDOW);
+#elif defined(EMA_FILTER)
+  ema_init(&filter, 0.6f);
+#endif
   MAX6675_Init(&tempSensors, &hspi1);
   for (int i=0; i<MAX6675_MAX_DEVICES; i++) MAX6675_AddDevice(&tempSensors, i);
 
@@ -212,20 +233,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	/****************************************************************
-	 * Check bti0 for temperature sensing / PID feedback-input update
-	 ****************************************************************/
-    if (timers_isr & 0x0) {
-    	timers_isr &= ~0x01;
-		/*
+		/****************************************************************
+		*  Check bti0 for temperature sensing / PID feedback-input update
 		*  1.- Get temperature inside oven
 		*  2.- Process data and update state
 		*  3.- Act on heat elements
-		*/
+		*****************************************************************/
+	if (timers_isr & 0x01) {
+		timers_isr &= ~0x01;
+
 		chamber_sense_temperature();
+#ifdef DEBUG_MODE_0
+		update_randomCrossover_actuator((uint8_t)PID.Kp); // kp <= 120 to test heating elements
+#else
 		ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
 		update_randomCrossover_actuator((uint8_t)PID.out);
-
+#endif
 		// Update ESP01 webserver
 		put_webserver_data();
     }
@@ -251,8 +274,10 @@ int main(void)
 		***********************************/
 		if(!gui_sm.is_process_running){
 		  ReflowOven_stopProcess();
+		  fan_control(true);
 		}else{
 		  ReflowOven_startProcess();
+		  fan_control(false);
 		}
     }
   }
@@ -689,8 +714,7 @@ static void MX_GPIO_Init(void)
  * @brief Updates PWM duty cycle for AC heating elements
  * @param ON_semiCicles Number of semi-cycles to turn on heating elements
  */
-void update_randomCrossover_actuator(uint8_t ON_semiCicles)
-{
+void update_randomCrossover_actuator(uint8_t ON_semiCicles){
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, ON_semiCicles);
 }
 
@@ -721,8 +745,14 @@ void chamber_sense_temperature(void)
     }
 
     if (valid_sensor_count) {
-    	chamber_temp = (sum / valid_sensor_count) - 5.0f; // Compensate for sensor/system bias
-	} else {
+    	chamber_temp = (sum / valid_sensor_count); 						// Compensate for sensor
+#ifdef MV_FILTER
+    	chamber_temp = moving_average_update(&filter, chamber_temp);	// Digital filter
+#elif defined(EMA_FILTER)
+    	chamber_temp = ema_process(&filter, chamber_temp);
+#endif
+	}
+    else {
 	    chamber_temp = MAX6675_INVALID_TEMP;
 	}
 }

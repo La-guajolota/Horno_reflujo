@@ -1,7 +1,7 @@
 Core/Src/logic_control/reflow_oven_process.o: \
  ../Core/Src/logic_control/reflow_oven_process.c \
  ../Core/Inc/logic_control/reflow_oven_process.h \
- ../Core/Inc/logic_control/pid.h ../Core/Inc/UI/gui_backend.h \
+ ../Core/Inc/logic_control/pid.h ../Core/Inc/sensors/max6675.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h \
  ../Drivers/CMSIS/Include/core_cm4.h \
@@ -33,10 +33,11 @@ Core/Src/logic_control/reflow_oven_process.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Core/Inc/main.h ../Core/Inc/UI/gui_backend.h \
  ../Core/Inc/logic_control/pid.h
 ../Core/Inc/logic_control/reflow_oven_process.h:
 ../Core/Inc/logic_control/pid.h:
-../Core/Inc/UI/gui_backend.h:
+../Core/Inc/sensors/max6675.h:
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h:
 ../Drivers/CMSIS/Include/core_cm4.h:
@@ -68,4 +69,6 @@ Core/Src/logic_control/reflow_oven_process.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/main.h:
+../Core/Inc/UI/gui_backend.h:
 ../Core/Inc/logic_control/pid.h:

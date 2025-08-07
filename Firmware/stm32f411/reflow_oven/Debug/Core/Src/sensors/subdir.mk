@@ -5,12 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/sensors/digital_filter.c \
 ../Core/Src/sensors/max6675.c 
 
 OBJS += \
+./Core/Src/sensors/digital_filter.o \
 ./Core/Src/sensors/max6675.o 
 
 C_DEPS += \
+./Core/Src/sensors/digital_filter.d \
 ./Core/Src/sensors/max6675.d 
 
 
@@ -21,7 +24,7 @@ Core/Src/sensors/%.o Core/Src/sensors/%.su Core/Src/sensors/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-sensors
 
 clean-Core-2f-Src-2f-sensors:
-	-$(RM) ./Core/Src/sensors/max6675.cyclo ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o ./Core/Src/sensors/max6675.su
+	-$(RM) ./Core/Src/sensors/digital_filter.cyclo ./Core/Src/sensors/digital_filter.d ./Core/Src/sensors/digital_filter.o ./Core/Src/sensors/digital_filter.su ./Core/Src/sensors/max6675.cyclo ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o ./Core/Src/sensors/max6675.su
 
 .PHONY: clean-Core-2f-Src-2f-sensors
 
