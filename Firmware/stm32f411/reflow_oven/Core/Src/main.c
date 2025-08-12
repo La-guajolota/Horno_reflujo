@@ -50,15 +50,18 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DEBUG_MODE_0		//Manual control over heaters
+// Comment all debug modes to work as a reflow-oven
+//#define DEBUG_RANDOM_CROSSOVER_ACTUATOR
+#define DEBUG_MANUAL_PID_TUNNING
 
+// Select a suitable digital filter
 #define EMA_FILTER
 // #define MV_FILTER
-
 #ifdef MV_FILTER
 #define FILTER_WINDOW 3    //window size (number of samples) for Circular buffer
 #endif
 
+// TX-UART and RX-UART-DMA parameters
 #define RX_BUFFER_SIZE 15	//characters
 #define TX_BUFFER_SIZE 15	//characters
 #define TIMEOUT_RX 3000 	//ms
@@ -185,14 +188,14 @@ int main(void)
 
   // PID's parameters
   PID_Init(&PID,
-           0.0f,    // kp
-           0.0f,    // ki
-           0.0f,    // kd
-           0.3f,    // tau
+           5.0f,    // kp
+           0.1f,   	// ki
+           0.15f,   // kd
+           0.3f,    // tau		-> LowPass filter
            0.0f,    // limMIN
            120.0f,  // limMAX 	-> 120 cycles since AC mains are 60hz
-           -50.0f,  // limMinInt
-           50.0f,   // limMaxInt
+           -100.0f, // limMinInt
+           100.0f,  // limMaxInt
            0.25f);  // tsample in seconds
 
   // Temperature sensors
@@ -200,7 +203,7 @@ int main(void)
 #ifdef MV_FILTER
   moving_average_init(&filter, filterBuffer, FILTER_WINDOW);
 #elif defined(EMA_FILTER)
-  ema_init(&filter, 0.6f);
+  ema_init(&filter, 0.35f);
 #endif
   MAX6675_Init(&tempSensors, &hspi1);
   for (int i=0; i<MAX6675_MAX_DEVICES; i++) MAX6675_AddDevice(&tempSensors, i);
@@ -208,7 +211,7 @@ int main(void)
   // Zero-Crossover and fan actuators
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   update_randomCrossover_actuator(0);	//off
-  fan_control(true); 					//on
+  fan_control(false); 					//off
 
   // User's input via encoder
   encoder.prev_dir = 0;
@@ -219,10 +222,6 @@ int main(void)
   GUI_Init();
   ReflowOven_Init();
   HAL_UART_Receive_DMA(&huart1, (uint8_t*)RXbuffer, RXuart_size);
-
-  /************************
-   * UNCOMMENT FOR DEBUGING
-   ***********************/
 
   /* USER CODE END 2 */
 
@@ -241,16 +240,17 @@ int main(void)
 		*****************************************************************/
 	if (timers_isr & 0x01) {
 		timers_isr &= ~0x01;
-
 		chamber_sense_temperature();
-#ifdef DEBUG_MODE_0
-		update_randomCrossover_actuator((uint8_t)PID.Kp); // kp <= 120 to test heating elements
-#else
+#ifdef DEBUG_RANDOM_CROSSOVER_ACTUATOR
+		update_randomCrossover_actuator((uint8_t)PID.Kp); 			// kp <= 120 to test heating elements
+#elif defined(DEBUG_MANUAL_PID_TUNNING)
+	    PID_Update(&PID, 100.0f, chamber_temp); 					// SoakTime variable is used as set-point
+		update_randomCrossover_actuator((uint8_t)PID.out);
+#else	// Work as an actual reflow-oven
 		ReflowOven_operate(&PID, chamber_temp, HAL_GetTick());
 		update_randomCrossover_actuator((uint8_t)PID.out);
 #endif
-		// Update ESP01 webserver
-		put_webserver_data();
+		put_webserver_data(); 										// Update ESP01 webserver
     }
     else {
     	/*****************************************
@@ -272,12 +272,13 @@ int main(void)
 		/***********************************
 		* Handle OVEN-SM with GUI-SM states
 		***********************************/
+		if (ReflowOven.emergencyStop) gui_sm.is_process_running = false;
 		if(!gui_sm.is_process_running){
 		  ReflowOven_stopProcess();
-		  fan_control(true);
+		  fan_control(false);
 		}else{
 		  ReflowOven_startProcess();
-		  fan_control(false);
+		  fan_control(true);
 		}
     }
   }
@@ -745,7 +746,7 @@ void chamber_sense_temperature(void)
     }
 
     if (valid_sensor_count) {
-    	chamber_temp = (sum / valid_sensor_count); 						// Compensate for sensor
+    	chamber_temp = (sum / valid_sensor_count); 				// Compensate for sensor
 #ifdef MV_FILTER
     	chamber_temp = moving_average_update(&filter, chamber_temp);	// Digital filter
 #elif defined(EMA_FILTER)
@@ -852,18 +853,6 @@ void get_webserver_data(void){
 * CALLBACKS
 ***********/
 /**
- * @brief Callback invoked when UART transmission via DMA is complete.
- *
- * @note Ensure that NVIC interrupts for UART are enabled, otherwise
- *       this callback won't be triggered.
- */
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
-	if (huart == &huart1){
-		TXuart_flag = true; // Enables STATE_MACHINE_UDP_SEND
-	}
-}
-
-/**
  * @brief Callback invoked when UART reception via DMA is complete.
  *
  * This function handles a two-stage UART reception using DMA:
@@ -893,7 +882,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 
-
+/**
+ * @brief Callback invoked when UART transmission via DMA is complete.
+ *
+ * @note Ensure that NVIC interrupts for UART are enabled, otherwise
+ *       this callback won't be triggered.
+ */
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+	if (huart == &huart1){
+		TXuart_flag = true; // Enables STATE_MACHINE_UDP_SEND
+	}
+}
 
 /**
  * @brief GPIO external interrupt callback

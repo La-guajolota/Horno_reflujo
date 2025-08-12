@@ -625,6 +625,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     const toggleBtn = document.getElementById("toggleBtn");
     const indicador = document.getElementById("indicador");
     let transmitiendo = false; // Solo para el indicador visual
+    let estadoAnterior = "REFLOW IDLE"; // <--- NUEVA VARIABLE
 
     // Configuración del gráfico
     const data = {
@@ -696,13 +697,20 @@ const char index_html[] PROGMEM = R"rawliteral(
       tempDisplay.textContent = temp.toFixed(2) + "°C";
       estadoDisplay.textContent = estado;
 
+      // Detectar transición de COOLDOWN a IDLE
+      if (estadoAnterior === "REFLOW COOLDOWN" && estado === "REFLOW IDLE") {
+        transmitiendo = false;
+        actualizarIndicadores();
+      }
+      estadoAnterior = estado;
+
       // SIEMPRE agrega el punto, no importa el estado
       const now = new Date().toLocaleTimeString();
       data.labels.push(now);
       data.datasets[0].data.push(temp);
 
-      // Mantén solo los últimos 600 puntos (~10 minutos si recibes 1/s)
-      if (data.labels.length > 600) {
+      // Mantén solo los últimos 2400 puntos (~10 minutos si recibes 4/s)
+      if (data.labels.length > 2400) {
         data.labels.shift();
         data.datasets[0].data.shift();
       }
