@@ -1,0 +1,3 @@
+ESP8266WiFi
+ESPAsyncTCP
+esp32async/ESPAsyncWebServer @ ~3.7.10
