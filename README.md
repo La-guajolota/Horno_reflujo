@@ -3,7 +3,7 @@
 # 🔥 SMD Reflow Oven
 
 <p align="center">
-  <img src="pictures/logo.jpeg" alt="Project Logo" width="180" />
+  <img src="pictures/logo.png" alt="Project Logo" width="180" />
 </p>
 
 <p align="center">
