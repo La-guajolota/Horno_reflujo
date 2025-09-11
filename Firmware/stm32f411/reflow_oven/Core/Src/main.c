@@ -51,8 +51,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 // Comment all debug modes to work as a reflow-oven
-//#define DEBUG_RANDOM_CROSSOVER_ACTUATOR
-#define DEBUG_MANUAL_PID_TUNNING
+#define DEBUG_RANDOM_CROSSOVER_ACTUATOR
+//#define DEBUG_MANUAL_PID_TUNNING
+//#define DEBUG_CALIBRATION_THERMOCOUPLE
 
 // Select a suitable digital filter
 #define EMA_FILTER
@@ -62,8 +63,8 @@
 #endif
 
 // TX-UART and RX-UART-DMA parameters
-#define RX_BUFFER_SIZE 15	//characters
-#define TX_BUFFER_SIZE 15	//characters
+#define RX_BUFFER_SIZE 30	//characters
+#define TX_BUFFER_SIZE 30	//characters
 #define TIMEOUT_RX 3000 	//ms
 /* USER CODE END PD */
 
@@ -188,14 +189,14 @@ int main(void)
 
   // PID's parameters
   PID_Init(&PID,
-           5.0f,    // kp
-           0.1f,   	// ki
-           0.15f,   // kd
+           2.5f,    // kp
+           0.05f, 	// ki
+           0.075f,  // kd
            0.3f,    // tau		-> LowPass filter
            0.0f,    // limMIN
            120.0f,  // limMAX 	-> 120 cycles since AC mains are 60hz
-           -100.0f, // limMinInt
-           100.0f,  // limMaxInt
+           -50.0f, 	// limMinInt
+           50.0f,  	// limMaxInt
            0.25f);  // tsample in seconds
 
   // Temperature sensors
@@ -242,7 +243,8 @@ int main(void)
 		timers_isr &= ~0x01;
 		chamber_sense_temperature();
 #ifdef DEBUG_RANDOM_CROSSOVER_ACTUATOR
-		update_randomCrossover_actuator((uint8_t)PID.Kp); 			// kp <= 120 to test heating elements
+		PID.out = PID.Kp;
+		update_randomCrossover_actuator((uint8_t)PID.out); 			// PID.out <= 120 to test heating elements
 #elif defined(DEBUG_MANUAL_PID_TUNNING)
 	    PID_Update(&PID, 100.0f, chamber_temp); 					// SoakTime variable is used as set-point
 		update_randomCrossover_actuator((uint8_t)PID.out);
@@ -746,7 +748,8 @@ void chamber_sense_temperature(void)
     }
 
     if (valid_sensor_count) {
-    	chamber_temp = (sum / valid_sensor_count); 				// Compensate for sensor
+    	chamber_temp = (sum / valid_sensor_count); 						// Compensate for sensor
+
 #ifdef MV_FILTER
     	chamber_temp = moving_average_update(&filter, chamber_temp);	// Digital filter
 #elif defined(EMA_FILTER)
@@ -760,14 +763,16 @@ void chamber_sense_temperature(void)
 
 /**
  * @brief Formats float data with wrapper characters and transmits via UART DMA
- * @param data Float value to format and transmit
- * @param wrapper Character to wrap around the formatted number
  */
 void put_webserver_data(void){
 	if (TXuart_flag) {
     	TXuart_flag = false;
-		snprintf(webserv_buf, sizeof(webserv_buf),"t%.2fE%d\r\n", chamber_temp, (uint8_t)ReflowOven_getCurrentPhase());
-		HAL_UART_Transmit_DMA(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf));
+#ifdef DEBUG_CALIBRATION_THERMOCOUPLE
+    	snprintf(webserv_buf, sizeof(webserv_buf),"M%.2fN%.2fP%dE%d\r\n", tempReadings[0], tempReadings[1], (uint8_t)PID.out, (uint8_t)ReflowOven_getCurrentPhase());
+#else
+    	snprintf(webserv_buf, sizeof(webserv_buf),"t%.2fP%dE%d\r\n", chamber_temp, (uint8_t)PID.out, (uint8_t)ReflowOven_getCurrentPhase());
+#endif
+    	HAL_UART_Transmit_DMA(&huart1,(uint8_t*)webserv_buf,strlen(webserv_buf));
 	}
 }
 

@@ -25,7 +25,9 @@ AsyncWebSocket ws("/ws");  ///< WebSocket handler
 // -----------------------------------------------------------------------------
 
 String currentTemp = "0.00";             ///< Current temperature as string
-String currentStateText = "REFLOW IDLE"; ///< Current state text
+String currentStateText = "REFLOW IDLE"; 
+String currentAct = "0";             ///< Current actuator (PID out) as string
+///< Current state text
 String stateNames[6] = {                 ///< State names for display
     "REFLOW PREHEAT",
     "REFLOW SOAK",
@@ -49,7 +51,7 @@ void notifyClients()
   unsigned long now = millis();
   if (now - lastSend >= 250) // Cambiado de 1000ms a 250ms
   {
-    String data = "{\"temp\":\"" + currentTemp + "\",\"estado\":\"" + currentStateText + "\"}";
+    String data = "{\"temp\":\"" + currentTemp + "\",\"estado\":\"" + currentStateText + "\",\"act\":\"" + currentAct + "\"}";
     ws.textAll(data);
     lastSend = now;
   }
@@ -74,8 +76,16 @@ void handleSerial()
       if (input.startsWith("t") && input.indexOf('E') > 0)
       {
         int eIndex = input.indexOf('E');
-        String tempStr = input.substring(1, eIndex);
+        int pIndex = input.indexOf('P');
+        String tempStr;
+        if (pIndex > 0 && pIndex < eIndex) {
+          tempStr = input.substring(1, pIndex);
+        } else {
+          tempStr = input.substring(1, eIndex);
+        }
         String stateStr = input.substring(eIndex + 1);
+        String actStr = (pIndex > 0 && pIndex < eIndex) ? input.substring(pIndex + 1, eIndex) : String("0");
+
 
         tempStr.trim();
         stateStr.trim();
@@ -87,7 +97,9 @@ void handleSerial()
         {
           currentTemp = String(tempVal, 2);
           currentStateText = stateNames[stateVal];
-          notifyClients();
+          int actVal = actStr.toInt();
+          currentAct = String(actVal);
+notifyClients();
         }
       }
       input = "";
@@ -132,11 +144,11 @@ void onWebSocketEvent(AsyncWebSocket *server,
 {
   if (type == WS_EVT_CONNECT)
   {
-    // Client connected
+    Serial.println("WebSocket: Cliente conectado");
   }
   else if (type == WS_EVT_DISCONNECT)
   {
-    // Client disconnected
+    Serial.println("WebSocket: Cliente desconectado");
   }
   else if (type == WS_EVT_DATA)
   {
@@ -520,6 +532,10 @@ const char index_html[] PROGMEM = R"rawliteral(
           <div class="status-label">Temperatura Actual</div>
           <div class="status-value" id="temp">0.00°C</div>
         </div>
+        <div class="status-card">
+          <div class="status-label">Actuador (P)</div>
+          <div class="status-value" id="act">0</div>
+        </div>
       </div>
 
       <div class="chart-container">
@@ -616,13 +632,19 @@ const char index_html[] PROGMEM = R"rawliteral(
         </div>
       </div>
     </div>
+
+    <div id="wsError" style="display:none;color:#ff6b6b;text-align:center;margin:10px 0;">
+      ❌ No se pudo conectar al WebSocket. Revisa la red y reinicia el horno.
+    </div>
   </div>
 
   <script>
     // Variables globales
     const estadoDisplay = document.getElementById("estado");
     const tempDisplay = document.getElementById("temp");
-    const toggleBtn = document.getElementById("toggleBtn");
+    
+    const actDisplay = document.getElementById("act");
+const toggleBtn = document.getElementById("toggleBtn");
     const indicador = document.getElementById("indicador");
     let transmitiendo = false; // Solo para el indicador visual
     let estadoAnterior = "REFLOW IDLE"; // <--- NUEVA VARIABLE
@@ -693,15 +715,24 @@ const char index_html[] PROGMEM = R"rawliteral(
       const msg = JSON.parse(event.data);
       const temp = parseFloat(msg.temp);
       const estado = msg.estado;
+      const act = parseInt(msg.act);
 
       tempDisplay.textContent = temp.toFixed(2) + "°C";
       estadoDisplay.textContent = estado;
+      if (!isNaN(act)) { actDisplay.textContent = act; }
 
       // Detectar transición de COOLDOWN a IDLE
       if (estadoAnterior === "REFLOW COOLDOWN" && estado === "REFLOW IDLE") {
         transmitiendo = false;
         actualizarIndicadores();
       }
+      // NUEVO: Detectar estado IDLE directamente
+      if (estado === "REFLOW IDLE") {
+        transmitiendo = false;
+      } else {
+        transmitiendo = true;
+      }
+      actualizarIndicadores();
       estadoAnterior = estado;
 
       // SIEMPRE agrega el punto, no importa el estado
@@ -720,9 +751,11 @@ const char index_html[] PROGMEM = R"rawliteral(
 
     ws.onopen = function() {
       console.log('WebSocket conectado');
+      document.getElementById('wsError').style.display = 'none';
     };
 
     ws.onclose = function() {
+      document.getElementById('wsError').style.display = 'block';
       console.log('WebSocket desconectado');
     };
 
@@ -826,6 +859,7 @@ void setup()
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(100); 
+    Serial.printf("conectando ...");
   }
 
   // WebSocket setup
@@ -837,6 +871,7 @@ void setup()
             { request->send_P(200, "text/html", index_html); });
 
   server.begin();
+  Serial.printf("OK is on");
 }
 
 void loop()

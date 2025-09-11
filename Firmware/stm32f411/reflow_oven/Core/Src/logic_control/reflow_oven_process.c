@@ -50,14 +50,14 @@ void ReflowOven_Init(void)
      */
 
     // Initialize the reflow oven parameters
-    ReflowOven.ReflowParameters.Pre_HeatUpRate = 1.0f;        // °C/s
-    ReflowOven.ReflowParameters.SoakTempeture = 110.0f;       // °C
-    ReflowOven.ReflowParameters.SoakTime = 60.0f;             // seconds
+    ReflowOven.ReflowParameters.Pre_HeatUpRate = 1.5f;        // °C/s
+    ReflowOven.ReflowParameters.SoakTempeture = 90.0f;       // °C
+    ReflowOven.ReflowParameters.SoakTime = 80.0f;             // seconds
     ReflowOven.ReflowParameters.HeatUpRate = 1.0f;            // °C/s
-    ReflowOven.ReflowParameters.ReflowTempeture = 150.0f;     // °C
+    ReflowOven.ReflowParameters.ReflowTempeture = 160.0f;     // °C
     ReflowOven.ReflowParameters.ReflowTime = 30.0f;           // seconds
-    ReflowOven.ReflowParameters.CoolDownRate = -1.0f;          // °C/s
-    ReflowOven.ReflowParameters.CoolDownTempeture = 50.0f;    // °C
+    ReflowOven.ReflowParameters.CoolDownRate = -3.0f;         // °C/s
+    ReflowOven.ReflowParameters.CoolDownTempeture = 40.0f;    // °C
 
     // Set the initial phase to idle and initialize other control variables
     ReflowOven.currentPhase = REFLOW_IDLE;
