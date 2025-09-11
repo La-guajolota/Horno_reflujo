@@ -176,8 +176,8 @@ The SMD Reflow Oven project enables:
 ## 🖼️ Images
 
 <p align="center">
-  <img src="imagenes/placaFront.pdf" alt="Oven Front Panel" width="350" />
-  <img src="Hardware/horno_reflujo/horno_reflujo.kicad_pcb" alt="PCB Design" width="350" />
+  <img src="pictures/montada.jpg" alt="Oven Front Panel" width="350" />
+  <img src="pictures/inside.jpg" alt="Inside oven" width="350" />
 </p>
 
 ---
