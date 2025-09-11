@@ -1,2 +1,0 @@
-../Core/Src/sensors/moving_average.c:10:6:moving_average_init	8	static
-../Core/Src/sensors/moving_average.c:30:7:moving_average_update	12	static

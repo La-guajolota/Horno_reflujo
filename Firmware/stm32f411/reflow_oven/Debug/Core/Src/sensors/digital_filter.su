@@ -1,4 +1,0 @@
-../Core/Src/sensors/digital_filter.c:13:6:moving_average_init	32	static
-../Core/Src/sensors/digital_filter.c:33:7:moving_average_update	16	static
-../Core/Src/sensors/digital_filter.c:66:6:ema_init	16	static
-../Core/Src/sensors/digital_filter.c:83:7:ema_process	24	static
