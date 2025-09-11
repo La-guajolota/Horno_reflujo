@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="pictures/logo.png" alt="Project Logo" width="240" height="240" style="vertical-align:middle; margin-right:40px;" />
-  <img src="pictures/front.jpg" alt="Oven" width="400" height="500" style="vertical-align:middle;" />
+  <img src="pictures/front.jpg" alt="Oven" width="600" height="700" style="vertical-align:middle;" />
 </p>
 
 <p align="center">
