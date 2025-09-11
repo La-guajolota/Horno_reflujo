@@ -3,7 +3,7 @@
 # 🔥 SMD Reflow Oven
 
 <p align="center">
-  <img src="imagenes/logo.jpeg" alt="Project Logo" width="180" />
+  <img src="pictures/logo.jpeg" alt="Project Logo" width="180" />
 </p>
 
 <p align="center">
@@ -15,6 +15,10 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
   <img alt="Status" src="https://img.shields.io/badge/status-Active%20Development-green.svg">
   <img alt="Platform" src="https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg">
+  <img alt="Hardware" src="https://img.shields.io/badge/hardware-Open%20Source-orange.svg">
+  <img alt="Web GUI" src="https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg">
+  <img alt="Issues" src="https://img.shields.io/github/issues/La-guajolota/Horno_reflujo.svg">
+  <img alt="Stars" src="https://img.shields.io/github/stars/La-guajolota/Horno_reflujo.svg?style=social">
 </p>
 
 ---
@@ -307,13 +311,13 @@ Please use our GitHub Issues template and include:
     <td align="center">
       <a href="https://github.com/La-guajolota">
         <b>La-guajolota</b><br>
-        <sub>Project Lead & Hardware Design</sub>
+        <sub>Firmware Development</sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/tonyg982">
         <b>tonyg982</b><br>
-        <sub>Firmware Development</sub>
+        <sub>Project Lead & Hardware Design</sub>
       </a>
     </td>
   </tr>
