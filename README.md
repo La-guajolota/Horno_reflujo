@@ -2,7 +2,7 @@
 
 # 🔥 SMD Reflow Oven
 
-This project provides an open-source design for soldering SMD components using reflow technology, featuring precise temperature control and integrated ventilation, optimized for PCBs up to 15x15 cm.
+This project provides an open-source design for soldering SMD components using reflow technology. This repo contains both hardware and firmware available.
 
 ---
 
@@ -29,10 +29,7 @@ This project provides an open-source design for soldering SMD components using r
 The SMD Reflow Oven enables:
 
 - Soldering SMD components using solder paste and configurable thermal profiles.
-- Processing PCBs up to 15x15 cm.
-- Real-time temperature curve control to prevent defects.
-- Management of toxic vapors with an integrated ventilation system.
-- Intuitive interface with a touchscreen for operation and monitoring.
+- Real-time temperature curve control to prevent defects. PID controller include.
 
 **Project Status:**
 This is currently a simple but functional demo. Core features work, but the system is under active development and improvements are planned.
@@ -140,12 +137,13 @@ Add images here to illustrate hardware, GUI, workflow, etc. Example:
 
 ## 🚀 Possible Improvements
 
-- Add WiFi connectivity for remote monitoring and control
-- Implement advanced PID or machine learning temperature control
-- Expand touchscreen GUI features
-- Add automated solder paste dispenser
-- Improve ventilation and vapor filtering system
-- Integrate oven calibration routines
+### Firmware Improvements
+
+- Implement advanced PID auto-tunning and integrate oven calibration routines
+- AN Intuitive interface either a touchscreen or a oled-screen and and a user-input-encoderfor for operation and monitoring.
+- Management of toxic vapors with an integrated ventilation system.
+
+### Hardware Improvements
 
 ---
 
