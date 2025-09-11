@@ -69,6 +69,10 @@ The SMD Reflow Oven project enables:
 - Apply solder paste using a stencil (can be 3D printed)
 - Carefully place SMD components on the paste
 
+<p align="center">
+  <img src="imagenes/pcb_stencil.jpg" alt="PCB Preparation Example" width="400" />
+</p>
+
 ### 2. ⚙️ Oven Setup
 
 - Power the oven (120V AC)
@@ -82,6 +86,10 @@ The SMD Reflow Oven project enables:
 - Close oven door securely
 - Press **Start Process** button
 - Monitor temperature curve in real-time
+
+<p align="center">
+  <img src="pictures/inside.jpg" alt="PCB Preparation Example 2" width="400" />
+</p>
 
 ### 4. 🔍 Final Inspection
 
