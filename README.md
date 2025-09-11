@@ -70,7 +70,7 @@ The SMD Reflow Oven project enables:
 - Carefully place SMD components on the paste
 
 <p align="center">
-  <img src="imagenes/pcb_stencil.jpg" alt="PCB Preparation Example" width="400" />
+  <img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" />
 </p>
 
 ### 2. ⚙️ Oven Setup
@@ -88,7 +88,7 @@ The SMD Reflow Oven project enables:
 - Monitor temperature curve in real-time
 
 <p align="center">
-  <img src="pictures/inside.jpg" alt="PCB Preparation Example 2" width="400" />
+  <img src="pictures/pcb-inside.jpg" alt="PCB Preparation Example 2" width="400" />
 </p>
 
 ### 4. 🔍 Final Inspection
