@@ -2,96 +2,85 @@
 
 # 🔥 SMD Reflow Oven
 
-This project provides an open-source design for soldering SMD components using reflow technology. This repo contains both hardware and firmware available.
+<p align="center">
+  <img src="imagenes/logo.jpeg" alt="Project Logo" width="180" />
+</p>
+
+<p align="center">
+  <b>Open-source hardware & firmware for SMD soldering with reflow technology</b><br>
+  Modular, accessible, and designed for rapid prototyping and production.
+</p>
 
 ---
 
 ## 📑 Table of Contents
 
-1. [Overview](#overview)
-2. [Main Features](#main-features)
-3. [Workflow](#workflow)
-4. [Technical Challenges](#technical-challenges)
-5. [Repository Structure](#repository-structure)
-6. [Requirements & Dependencies](#requirements--dependencies)
-7. [Installation & Usage](#installation--usage)
-8. [Contributors](#contributors)
-9. [License](#license)
-10. [Images](#images)
-11. [Reference Links](#reference-links)
-12. [Possible Improvements](#possible-improvements)
-13. [Considerations](#considerations)
+1. [Overview](#-overview)
+2. [Workflow](#-workflow)
+3. [Technical Challenges](#-technical-challenges)
+4. [Repository Structure](#-repository-structure)
+5. [Requirements & Dependencies](#-requirements--dependencies)
+6. [Installation & Usage](#-installation--usage)
+7. [Images](#-images)
+8. [Reference Links](#-reference-links)
+9. [Possible Improvements](#-possible-improvements)
+10. [To-Do & Contributions](#-to-do--contributions)
+11. [Considerations](#-considerations)
+12. [Contributors](#-contributors)
+13. [License](#-license)
 
 ---
 
-## Overview
+## 📝 Overview
 
-The SMD Reflow Oven enables:
+The **SMD Reflow Oven** enables:
 
-- Soldering SMD components using solder paste and configurable thermal profiles.
-- Real-time temperature curve control to prevent defects. PID controller include.
+- Soldering SMD components using solder paste and configurable thermal profiles, managed by an **STM32F411** and an **ESP01-S1 web GUI**.
+- Real-time temperature curve control with PID feedback to prevent defects.
+- Power control for heating elements and fan for chamber homogenization.
+- Safety features: sensor malfunction detection, process monitoring, power supply fuse, and EMI filter.
 
-**Project Status:**
-This is currently a simple but functional demo. Core features work, but the system is under active development and improvements are planned.
-
-Modular and accessible design for rapid prototyping and adaptation to various production environments.
-
----
-
-## ✨ Main Features
-
-- Thermal control: Customizable profiles for different solder types.
-- Uniform heating: Even heat distribution across the PCB surface.
-- Safety: Emergency stop system for overheating.
-- Graphical interface: Configurable menus and real-time temperature curve display on touchscreen.
-- Comprehensive documentation: Flow diagrams, bill of materials, and calibration guides.
+> **Project Status:**  
+> Functional demo: all core features (PID, temperature sensing, web GUI, reflow algorithm) are working.  
+> The project is under active development for both firmware and hardware improvements.
 
 ---
 
 ## 🔄 Workflow
 
-1. PCB Preparation
+<details>
+<summary><b>Step-by-step SMD soldering process</b></summary>
 
-   - Apply solder paste using stencil or dispenser.
-   - Place SMD components with tweezers or Pick & Place machine.
+1. **PCB Preparation**
 
-2. Oven Setup
+   - Apply solder paste using a stencil (can be 3D printed).
+   - Place SMD components.
 
-   - Select thermal profile according to solder type.
-   - Preheat oven to stabilize temperatures.
+2. **Oven Setup**
 
-3. Soldering Process
+   - Power the oven (120V AC).
+   - Select thermal profile and PID gains via web GUI or source code.
+
+3. **Soldering Process**
 
    - Insert PCB into oven.
-   - Execute temperature curve:
-     1. Preheat: Evaporate paste solvents (100-150°C).
-     2. Soak: Equalize temperature across PCB (150-180°C).
-     3. Reflow: Melt solder (peak 220-250°C).
-     4. Controlled cooling: Reduce thermal stress (<100°C).
+   - Press **Start Process** button.
 
-4. Final Inspection
-   - Check joints with magnifier or microscope.
-   - Perform electrical tests to detect shorts.
-   - Manually correct defective solder joints.
+4. **Final Inspection**
+   - At the CoolDown state, open oven door completely.
+   - Wait for cooldown.
+   - Inspect joints with magnifier/microscope.
+   - Run electrical tests and correct defects if needed.
+
+</details>
 
 ---
 
 ## 🎯 Technical Challenges
 
-1. Temperature control
-
-   - Uniform distribution throughout oven chamber.
-   - Adaptation to different thermal curves by material.
-   - Prevent microcracks from rapid cooling.
-
-2. Risk management
-
-   - Automatic overheating detection (emergency stop).
-   - Filtering toxic vapors during process.
-
-3. Operational precision
-   - Calibration of thermal sensors.
-   - Synchronization between heating/cooling stages.
+- **Temperature Control:** Uniform distribution, adaptable thermal curves, prevent microcracks.
+- **Risk Management:** Overheating detection, toxic vapor filtering.
+- **Operational Precision:** Sensor calibration, stage synchronization.
 
 ---
 
@@ -101,9 +90,9 @@ Modular and accessible design for rapid prototyping and adaptation to various pr
 .
 ├── Firmware/                  # Firmware for ESP01, STM32, serial debug, web scraping
 │   ├── esp01/                 # ESP01 microcontroller code
-│   │   ├── esp01_webGUI/      # Web GUI for ESP01
-│   │   └── serial_debug/      # Serial communication utilities
-│   └── web_scrap/             # Python scripts for oven data analysis
+│       ├── esp01_webGUI/      # Web GUI for ESP01
+│       ├── serial_debug/      # Serial communication utilities
+│       └── web_scrap/             # Python scripts for oven data analysis
 ├── nextionGUI/                # Touchscreen HMI files and assets
 ├── stm32f411/                 # STM32F411 microcontroller code and Kalman filter design
 ├── Hardware/                  # KiCad PCB and schematic files
@@ -113,78 +102,3 @@ Modular and accessible design for rapid prototyping and adaptation to various pr
 ├── LICENSE                    # MIT License
 └── README.md                  # Main project guide
 ```
-
----
-
-## 🖼️ Images
-
-Add images here to illustrate hardware, GUI, workflow, etc. Example:
-
-![Oven Front Panel](imagenes/placaFront.pdf)
-![PCB Example](Hardware/horno_reflujo/horno_reflujo.kicad_pcb)
-
----
-
-## 🔗 Reference Links
-
-- [PlatformIO Documentation](https://docs.platformio.org/)
-- [KiCad EDA](https://www.kicad.org/)
-- [STM32 Documentation](https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html)
-- [Nextion HMI](https://nextion.tech/)
-- [Python Serial](https://pyserial.readthedocs.io/en/latest/)
-
----
-
-## 🚀 Possible Improvements
-
-### Firmware Improvements
-
-- Implement advanced PID auto-tunning and integrate oven calibration routines
-- AN Intuitive interface either a touchscreen or a oled-screen and and a user-input-encoderfor for operation and monitoring.
-- Management of toxic vapors with an integrated ventilation system.
-
-### Hardware Improvements
-
----
-
-## ⚠️ Considerations
-
-- Ensure proper ventilation when operating the oven
-- Use protective equipment when handling solder paste and PCBs
-- Regularly calibrate temperature sensors for accuracy
-- Backup hardware and firmware files before making changes
-- Review electrical safety guidelines for high-voltage components
-
----
-
-## 📦 Requirements & Dependencies
-
-- PlatformIO for firmware development
-- Python 3.x for data analysis scripts
-- KiCad for hardware design
-- Nextion Editor for HMI design
-- STM32CubeIDE for STM32 development
-
----
-
-## 🛠️ Installation & Usage
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/La-guajolota/Horno_reflujo.git
-   ```
-2. Follow instructions in each subfolder's README for setup and usage.
-3. Refer to documentation for hardware assembly and calibration.
-
----
-
-## 👥 Contributors
-
-- [La-guajolota](https://github.com/La-guajolota)
-- [tonyg982](https://github.com/tonyg982)
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
