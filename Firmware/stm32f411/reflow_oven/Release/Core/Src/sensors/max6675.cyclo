@@ -1,0 +1,5 @@
+../Core/Src/sensors/max6675.c:22:19:MAX6675_Init	4
+../Core/Src/sensors/max6675.c:92:19:MAX6675_ReadTemperature	7
+../Core/Src/sensors/max6675.c:58:19:MAX6675_AddDevice	4
+../Core/Src/sensors/max6675.c:167:19:MAX6675_GetTemperature	5
+../Core/Src/sensors/max6675.c:194:6:MAX6675_IsConnected	3

@@ -1,0 +1,123 @@
+!SESSION 2025-07-27 20:53:28.081 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-27 20:53:39.649
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-27 20:53:39.651
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-27 20:53:43.494
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-07-27 20:54:31.741
+!MESSAGE Indexed 'reflow_oven' (32 sources, 174 headers) in 6.18 sec: 19,213 declarations; 90,708 references; 1 unresolved inclusions; 92 syntax errors; 240 unresolved names (0.22%)
+!SESSION 2025-07-27 22:57:23.718 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-27 22:57:28.456
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-27 22:57:28.457
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-27 22:57:34.256
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-07-28 00:39:57.584 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data file:/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-28 00:40:01.726
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-28 00:40:01.727
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-28 00:40:07.363
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-07-28 00:40:31.220 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data file:/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-28 00:40:38.871
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-28 00:40:38.872
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-28 00:40:44.487
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.core.jobs 4 2 2025-07-28 01:03:07.958
+!MESSAGE An internal error occurred during: "Execute Debug Command".
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: assertion failed: The application has not been initialized.
+	at org.eclipse.core.runtime.Assert.isTrue(Assert.java:119)
+	at org.eclipse.core.internal.runtime.InternalPlatform.assertInitialized(InternalPlatform.java:185)
+	at org.eclipse.core.internal.runtime.InternalPlatform.getAdapterManager(InternalPlatform.java:206)
+	at org.eclipse.core.runtime.Platform.getAdapterManager(Platform.java:661)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunch.getAdapter(GdbLaunch.java:454)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunch.disconnect(GdbLaunch.java:338)
+	at org.eclipse.debug.internal.core.commands.DisconnectCommand.execute(DisconnectCommand.java:35)
+	at org.eclipse.debug.internal.core.commands.ForEachCommand.doExecute(ForEachCommand.java:36)
+	at org.eclipse.debug.core.commands.AbstractDebugCommand$1.run(AbstractDebugCommand.java:215)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2025-07-28 01:03:08.675 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data file:/media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-28 01:03:11.945
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-28 01:03:11.946
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-28 01:03:16.629
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-07-28 01:07:18.827 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-28 01:07:23.778
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-28 01:07:23.779
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-28 01:07:28.932
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-07-29 11:28:01.361 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-29 11:28:07.746
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-29 11:28:07.747
+!MESSAGE Log4j2 initialized with config file /media/adrian/usb_a/Chambas/Inbiodroid/Horno_reflujo/Firmware/stm32f411/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-29 11:28:12.430
+!MESSAGE Started RMI Server, listening on port 41337
