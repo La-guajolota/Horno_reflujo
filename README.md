@@ -242,10 +242,3 @@ Please report any bugs or suggest features by opening an issue on GitHub.
 ## 📄 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for more details. This means you are free to use, modify, and distribute the project, provided you include the original copyright and license notice.
-
----
-
-\<p align="center"\>
-\<b\>Made with ❤️ by the Open Source Community\</b\>\<br\>
-\<i\>If you find this project useful, please ⭐ star this repo\!\</i\>
-\</p\>
