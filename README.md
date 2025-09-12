@@ -1,47 +1,43 @@
 <!-- @format -->
 
-Of course. Here is the improved, corrected, and reorganized version of your project's README file.
-
----
-
 # 🔥 SMD Reflow Oven
 
-\<p align="center"\>
-\<img src="pictures/logo.png" alt="Project Logo" width="180" /\>
-\<img src="pictures/front.jpg" alt="Oven" width="350" /\>
-\</p\>
+<p align="center">
+    <img src="pictures/logo.png" alt="Project Logo" width="180" />
+    <img src="pictures/front.jpg" alt="Oven" width="350" />
+</p>
 
-\<p align="center"\>
-\<b\>An open-source solution for SMD soldering with reflow technology.\</b\>\<br\>
-\<i\>Modular, accessible, and designed for rapid prototyping and production.\</i\>
-\</p\>
+<p align="center">
+    <b>An open-source solution for SMD soldering with reflow technology.</b><br>
+    <i>Modular, accessible, and designed for rapid prototyping and production.</i>
+</p>
 
-\<p align="center"\>
-\<img alt="License" src="[https://img.shields.io/badge/license-MIT-blue.svg](https://img.shields.io/badge/license-MIT-blue.svg)"\>
-\<img alt="Status" src="[https://img.shields.io/badge/status-Active%20Development-green.svg](https://img.shields.io/badge/status-Active%20Development-green.svg)"\>
-\<img alt="Platform" src="[https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg](https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg)"\>
-\<img alt="Hardware" src="[https://img.shields.io/badge/hardware-Open%20Source-orange.svg](https://img.shields.io/badge/hardware-Open%20Source-orange.svg)"\>
-\<img alt="Web GUI" src="[https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg](https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg)"\>
-\</p\>
+<p align="center">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img alt="Status" src="https://img.shields.io/badge/status-Active%20Development-green.svg">
+    <img alt="Platform" src="https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg">
+    <img alt="Hardware" src="https://img.shields.io/badge/hardware-Open%20Source-orange.svg">
+    <img alt="Web GUI" src="https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg">
+</p>
 
 ---
 
 ## 📑 Table of Contents
 
-- [Overview](https://www.google.com/search?q=%23-overview)
-- [Project Demo](https://www.google.com/search?q=%23-project-demo)
-- [Workflow](https://www.google.com/search?q=%23-workflow)
-- [Technical Challenges](https://www.google.com/search?q=%23-technical-challenges)
-- [Repository Structure](https://www.google.com/search?q=%23-repository-structure)
-- [Requirements & Dependencies](https://www.google.com/search?q=%23-requirements--dependencies)
-- [Installation & Usage](https://www.google.com/search?q=%23%EF%B8%8F-installation--usage)
-- [To-Do List](https://www.google.com/search?q=%23-to-do-list)
-- [Possible Improvements](https://www.google.com/search?q=%23-possible-improvements)
-- [Safety Considerations](https://www.google.com/search?q=%23%EF%B8%8F-safety-considerations)
-- [Contributing](https://www.google.com/search?q=%23-contributing)
-- [Reference Links](https://www.google.com/search?q=%23-reference-links)
-- [Contributors](https://www.google.com/search?q=%23-contributors)
-- [License](https://www.google.com/search?q=%23-license)
+- [Overview](#-overview)
+- [Project Demo](#-project-demo)
+- [Workflow](#-workflow)
+- [Technical Challenges](#-technical-challenges)
+- [Repository Structure](#-repository-structure)
+- [Requirements & Dependencies](#-requirements--dependencies)
+- [Installation & Usage](#-installation--usage)
+- [To-Do List](#-to-do-list)
+- [Possible Improvements](#-possible-improvements)
+- [Safety Considerations](#-safety-considerations)
+- [Contributing](#-contributing)
+- [Reference Links](#-reference-links)
+- [Contributors](#-contributors)
+- [License](#-license)
 
 ---
 
@@ -56,61 +52,59 @@ The **SMD Reflow Oven** is an open-source project designed for precise SMD solde
 
 ## 📹 Project Demo
 
-See the oven in action\! This video demonstrates its current functionality and soldering capabilities.
+See the oven in action! This video demonstrates its current functionality and soldering capabilities.
 
-\<p align="center"\>
-\<a href="[https://youtu.be/XSk6v5LdElc?si=d4BS0npnXu5F3Sj0](https://youtu.be/XSk6v5LdElc?si=d4BS0npnXu5F3Sj0)" target="\_blank"\>
-\<b\>Watch a video demonstration of the oven in action\</b\>
-\</a\>
-\</p\>
+<p align="center">
+<a href="https://youtu.be/XSk6v5LdElc?si=d4BS0npnXu5F3Sj0" target="_blank">
+<b>Watch a video demonstration of the oven in action</b>
+</a>
+</p>
 
 ---
 
 ## 🔄 Workflow
 
-This section outlines the step-by-step process for soldering SMD components using the reflow oven.
+<details>
+<summary><b>Step-by-step SMD soldering process</b></summary>
 
-\<details\>
-\<summary\>\<b\>Click to expand the step-by-step SMD soldering process\</b\>\</summary\>
-
-### 1\. 📋 PCB Preparation
+### 1. 📋 PCB Preparation
 
 - Apply solder paste evenly using a stencil.
 - Carefully place the SMD components onto the pasted pads.
 
-\<p align="center"\>
-\<img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" /\>
-\</p\>
+<p align="center">
+<img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" />
+</p>
 
-### 2\. ⚙️ Oven Setup
+### 2. ⚙️ Oven Setup
 
 - Power the oven (120V AC).
 - Select the appropriate thermal profile for your solder type via the web GUI.
 - Verify that all safety systems are active.
 
-### 3\. 🔥 Soldering Process
+### 3. 🔥 Soldering Process
 
 - Place the prepared PCB inside the oven chamber.
 - Close the door securely and start the process from the interface.
 - Monitor the temperature curve in real-time to ensure it follows the selected profile.
 
-\<p align="center"\>
-\<img src="pictures/pcb-inside.jpg" alt="PCB Inside Oven" width="400" /\>
-\</p\>
+<p align="center">
+<img src="pictures/pcb-inside.jpg" alt="PCB Inside Oven" width="400" />
+</p>
 
-### 4\. 🔍 Final Inspection
+### 4. 🔍 Final Inspection
 
 - Wait for the **Cooldown** phase to complete before opening the door.
 - Allow the PCB to cool completely before handling.
 - Inspect the solder joints with a magnifier or microscope for any defects.
 - Perform electrical tests to check for shorts or open circuits.
 
-\<p align="center"\>
-\<a href="[https://youtube.com/shorts/ztY0c23UdZQ?si=FxfqCBQ48sNtS6zn](https://youtube.com/shorts/ztY0c23UdZQ?si=FxfqCBQ48sNtS6zn)" target="\_blank"\>
+<p align="center">
+<a href="https://youtube.com/shorts/ztY0c23UdZQ?si=FxfqCBQ48sNtS6zn" target="_blank">
 📺 Watch the final results on YouTube
-\</a\>
-\</p\>
-\</details\>
+</a>
+</p>
+</details>
 
 ---
 
