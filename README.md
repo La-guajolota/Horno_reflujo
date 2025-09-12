@@ -7,27 +7,6 @@
     <img src="pictures/front.jpg" alt="Oven" width="350" />
 </p>
 
-<p align="center">
-    <table>
-        <thead>
-            <tr>
-                <th>Contributor</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td align="center"><a href="https://github.com/La-guajolota">La-guajolota</a></td>
-                <td align="center">Firmware Development</td>
-            </tr>
-            <tr>
-                <td align="center"><a href="https://github.com/tonyg982">tonyg982</a></td>
-                <td align="center">Project Lead & Hardware Design</td>
-            </tr>
-        </tbody>
-    </table>
-</p>
-
 ## 📑 Table of Contents
 
 - [Overview](#-overview)
@@ -42,7 +21,6 @@
 - [Safety Considerations](#-safety-considerations)
 - [Contributing](#-contributing)
 - [Reference Links](#-reference-links)
-- [Contributors](#-contributors)
 - [License](#-license)
 
 ---
@@ -258,27 +236,6 @@ Please report any bugs or suggest features by opening an issue on GitHub.
 - [Nextion HMI Displays](https://nextion.tech/)
 - [SMD Soldering Guidelines](https://www.electronics-tutorials.ws/)
 - [Reflow Soldering Profiles](https://www.smta.org/)
-
----
-
-## 👥 Contributors
-
-\<table\>
-\<tr\>
-\<td align="center"\>
-\<a href="[https://github.com/La-guajolota](https://github.com/La-guajolota)"\>
-\<b\>La-guajolota\</b\>\<br\>
-\<sub\>Firmware Development\</sub\>
-\</a\>
-\</td\>
-\<td align="center"\>
-\<a href="[https://github.com/tonyg982](https://github.com/tonyg982)"\>
-\<b\>tonyg982\</b\>\<br\>
-\<sub\>Project Lead & Hardware Design\</sub\>
-\</a\>
-\</td\>
-\</tr\>
-\</table\>
 
 ---
 
