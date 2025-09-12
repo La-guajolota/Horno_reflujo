@@ -5,22 +5,11 @@
 <p align="center">
     <img src="pictures/logo.png" alt="Project Logo" width="180" />
     <img src="pictures/front.jpg" alt="Oven" width="350" />
-</p>
 
-<p align="center">
-    <b>An open-source solution for SMD soldering with reflow technology.</b><br>
-    <i>Modular, accessible, and designed for rapid prototyping and production.</i>
-</p>
-
-<p align="center">
-    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
-    <img alt="Status" src="https://img.shields.io/badge/status-Active%20Development-green.svg">
-    <img alt="Platform" src="https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg">
-    <img alt="Hardware" src="https://img.shields.io/badge/hardware-Open%20Source-orange.svg">
-    <img alt="Web GUI" src="https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg">
-</p>
-
----
+| Contributor                                     | Role                           |
+| ----------------------------------------------- | ------------------------------ |
+| [La-guajolota](https://github.com/La-guajolota) | Firmware Development           |
+| [tonyg982](https://github.com/tonyg982)         | Project Lead & Hardware Design |
 
 ## 📑 Table of Contents
 
