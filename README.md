@@ -57,7 +57,7 @@ See the oven in action! This video demonstrates its current functionality and so
 - Carefully place the SMD components onto the pasted pads.
 
 <p align="center">
-<img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" />
+<img src="/pictures/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" />
 </p>
 
 ### 2. ⚙️ Oven Setup
@@ -73,7 +73,7 @@ See the oven in action! This video demonstrates its current functionality and so
 - Monitor the temperature curve in real-time to ensure it follows the selected profile.
 
 <p align="center">
-<img src="pictures/pcb-inside.jpg" alt="PCB Inside Oven" width="400" />
+<img src="pictures/pcb-inside.png" alt="PCB Inside Oven" width="400" />
 </p>
 
 ### 4. 🔍 Final Inspection
