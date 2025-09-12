@@ -5,11 +5,28 @@
 <p align="center">
     <img src="pictures/logo.png" alt="Project Logo" width="180" />
     <img src="pictures/front.jpg" alt="Oven" width="350" />
+</p>
 
-| Contributor                                     | Role                           |
-| ----------------------------------------------- | ------------------------------ |
-| [La-guajolota](https://github.com/La-guajolota) | Firmware Development           |
-| [tonyg982](https://github.com/tonyg982)         | Project Lead & Hardware Design |
+<p align="center">
+    <table>
+        <thead>
+            <tr>
+                <th>Contributor</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center"><a href="https://github.com/La-guajolota">La-guajolota</a></td>
+                <td align="center">Firmware Development</td>
+            </tr>
+            <tr>
+                <td align="center"><a href="https://github.com/tonyg982">tonyg982</a></td>
+                <td align="center">Project Lead & Hardware Design</td>
+            </tr>
+        </tbody>
+    </table>
+</p>
 
 ## 📑 Table of Contents
 
