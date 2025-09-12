@@ -1,313 +1,261 @@
 <!-- @format -->
 
+Of course. Here is the improved, corrected, and reorganized version of your project's README file.
+
+---
+
 # 🔥 SMD Reflow Oven
 
-<p align="center">
-  <img src="pictures/logo.png" alt="Project Logo" width="240" height="240" style="vertical-align:middle; margin-right:40px;" />
-  <img src="pictures/front.jpg" alt="Oven" width="550" height="700" style="vertical-align:middle;" />
-</p>
+\<p align="center"\>
+\<img src="pictures/logo.png" alt="Project Logo" width="180" /\>
+\<img src="pictures/front.jpg" alt="Oven" width="350" /\>
+\</p\>
 
-<p align="center">
-  <b>Open-source hardware & firmware for SMD soldering with reflow technology</b><br>
-  Modular, accessible, and designed for rapid prototyping and production.
-</p>
+\<p align="center"\>
+\<b\>An open-source solution for SMD soldering with reflow technology.\</b\>\<br\>
+\<i\>Modular, accessible, and designed for rapid prototyping and production.\</i\>
+\</p\>
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
-  <img alt="Status" src="https://img.shields.io/badge/status-Active%20Development-green.svg">
-  <img alt="Platform" src="https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg">
-  <img alt="Hardware" src="https://img.shields.io/badge/hardware-Open%20Source-orange.svg">
-  <img alt="Web GUI" src="https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg">
-  <img alt="Issues" src="https://img.shields.io/github/issues/La-guajolota/Horno_reflujo.svg">
-  <img alt="Stars" src="https://img.shields.io/github/stars/La-guajolota/Horno_reflujo.svg?style=social">
-</p>
+\<p align="center"\>
+\<img alt="License" src="[https://img.shields.io/badge/license-MIT-blue.svg](https://img.shields.io/badge/license-MIT-blue.svg)"\>
+\<img alt="Status" src="[https://img.shields.io/badge/status-Active%20Development-green.svg](https://img.shields.io/badge/status-Active%20Development-green.svg)"\>
+\<img alt="Platform" src="[https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg](https://img.shields.io/badge/platform-STM32%20%7C%20ESP01-lightgrey.svg)"\>
+\<img alt="Hardware" src="[https://img.shields.io/badge/hardware-Open%20Source-orange.svg](https://img.shields.io/badge/hardware-Open%20Source-orange.svg)"\>
+\<img alt="Web GUI" src="[https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg](https://img.shields.io/badge/web%20GUI-Available-brightgreen.svg)"\>
+\</p\>
 
 ---
 
 ## 📑 Table of Contents
 
-1. [Overview](#overview)
-2. [Workflow](#workflow)
-3. [Technical Challenges](#technical-challenges)
-4. [Repository Structure](#repository-structure)
-5. [Requirements & Dependencies](#requirements--dependencies)
-6. [Installation & Usage](#installation--usage)
-7. [Images](#images)
-8. [Reference Links](#reference-links)
-9. [To-Do List](#to-do-list)
-10. [Possible Improvements](#possible-improvements)
-11. [Contributing](#contributing)
-12. [Considerations](#considerations)
-13. [Contributors](#contributors)
-14. [License](#license)
+- [Overview](https://www.google.com/search?q=%23-overview)
+- [Project Demo](https://www.google.com/search?q=%23-project-demo)
+- [Workflow](https://www.google.com/search?q=%23-workflow)
+- [Technical Challenges](https://www.google.com/search?q=%23-technical-challenges)
+- [Repository Structure](https://www.google.com/search?q=%23-repository-structure)
+- [Requirements & Dependencies](https://www.google.com/search?q=%23-requirements--dependencies)
+- [Installation & Usage](https://www.google.com/search?q=%23%EF%B8%8F-installation--usage)
+- [To-Do List](https://www.google.com/search?q=%23-to-do-list)
+- [Possible Improvements](https://www.google.com/search?q=%23-possible-improvements)
+- [Safety Considerations](https://www.google.com/search?q=%23%EF%B8%8F-safety-considerations)
+- [Contributing](https://www.google.com/search?q=%23-contributing)
+- [Reference Links](https://www.google.com/search?q=%23-reference-links)
+- [Contributors](https://www.google.com/search?q=%23-contributors)
+- [License](https://www.google.com/search?q=%23-license)
 
 ---
 
 ## 📝 Overview
 
-The SMD Reflow Oven project enables:
+The **SMD Reflow Oven** is an open-source project designed for precise SMD soldering. It utilizes configurable thermal profiles managed by an **STM32F411** microcontroller and a web-based GUI hosted on an **ESP01-S**. Key features include real-time PID temperature control, smart power management, and robust safety systems.
 
-- **Precise SMD Soldering**: Using solder paste and configurable thermal profiles, managed by a STM32F411 and ESP01-S1 web GUI
-- **Real-time Control**: Temperature curve control with PID feedback to prevent defects
-- **Smart Power Management**: Random-crossover electronics power control for heating elements and On/Off fan for chamber temperature homogenization
-- **Safety First**: Sensor malfunction detection, process monitoring, power supply fuse, and EMI filter
+> ✅ **Functional Demo**: All core features (PID control, temperature sensing, web GUI, and the reflow algorithm) are fully operational and ready for soldering SMD components.
+> 🚧 **Active Development**: Both the firmware and hardware are under continuous improvement.
 
-### Project Status
+---
 
-> ✅ **Functional Demo**: All core features (PID control, temperature sensing, web GUI, reflow algorithm) are working and ready for SMD component soldering.  
-> 🚧 **Active Development**: Both firmware and hardware are under continuous improvement.
+## 📹 Project Demo
+
+See the oven in action\! This video demonstrates its current functionality and soldering capabilities.
+
+\<p align="center"\>
+\<a href="[https://youtu.be/XSk6v5LdElc?si=d4BS0npnXu5F3Sj0](https://youtu.be/XSk6v5LdElc?si=d4BS0npnXu5F3Sj0)" target="\_blank"\>
+\<b\>Watch a video demonstration of the oven in action\</b\>
+\</a\>
+\</p\>
 
 ---
 
 ## 🔄 Workflow
 
-<details>
-<summary><b>Step-by-step SMD soldering process</b></summary>
+This section outlines the step-by-step process for soldering SMD components using the reflow oven.
 
-### 1. 📋 PCB Preparation
+\<details\>
+\<summary\>\<b\>Click to expand the step-by-step SMD soldering process\</b\>\</summary\>
 
-- Apply solder paste using a stencil (can be 3D printed)
-- Carefully place SMD components on the paste
+### 1\. 📋 PCB Preparation
 
-<p align="center">
-  <img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" />
-</p>
+- Apply solder paste evenly using a stencil.
+- Carefully place the SMD components onto the pasted pads.
 
-### 2. ⚙️ Oven Setup
+\<p align="center"\>
+\<img src="imagenes/pcb-stencil.jpg" alt="PCB Preparation Example" width="400" /\>
+\</p\>
 
-- Power the oven (120V AC)
-- Select appropriate thermal profile according to solder type
-- Configure PID gains via web GUI or source code
-- Verify safety systems are active
+### 2\. ⚙️ Oven Setup
 
-### 3. 🔥 Soldering Process
+- Power the oven (120V AC).
+- Select the appropriate thermal profile for your solder type via the web GUI.
+- Verify that all safety systems are active.
 
-- Insert prepared PCB into oven chamber
-- Close oven door securely
-- Press **Start Process** button
-- Monitor temperature curve in real-time
+### 3\. 🔥 Soldering Process
 
-<p align="center">
-  <img src="pictures/pcb-inside.jpg" alt="PCB Preparation Example 2" width="400" />
-</p>
+- Place the prepared PCB inside the oven chamber.
+- Close the door securely and start the process from the interface.
+- Monitor the temperature curve in real-time to ensure it follows the selected profile.
 
-### 4. 🔍 Final Inspection
+\<p align="center"\>
+\<img src="pictures/pcb-inside.jpg" alt="PCB Inside Oven" width="400" /\>
+\</p\>
 
-- Wait for CoolDown state completion
-- Open oven door completely for safety
-- Allow adequate cooling time before handling
-- Inspect solder joints with magnifier/microscope
-- Perform electrical tests to detect shorts
-- Manually correct any defective joints
+### 4\. 🔍 Final Inspection
 
-</details>
+- Wait for the **Cooldown** phase to complete before opening the door.
+- Allow the PCB to cool completely before handling.
+- Inspect the solder joints with a magnifier or microscope for any defects.
+- Perform electrical tests to check for shorts or open circuits.
+
+\<p align="center"\>
+\<a href="[https://youtube.com/shorts/ztY0c23UdZQ?si=FxfqCBQ48sNtS6zn](https://youtube.com/shorts/ztY0c23UdZQ?si=FxfqCBQ48sNtS6zn)" target="\_blank"\>
+📺 Watch the final results on YouTube
+\</a\>
+\</p\>
+\</details\>
 
 ---
 
 ## 🎯 Technical Challenges
 
-| Challenge                 | Solution Approach                                                     |
-| ------------------------- | --------------------------------------------------------------------- |
-| **Temperature Control**   | Uniform distribution, adaptable thermal curves, microcrack prevention |
-| **Risk Management**       | Automatic overheating detection, toxic vapor filtering                |
-| **Operational Precision** | Sensor calibration, heating/cooling stage synchronization             |
+| Challenge                 | Solution Approach                                                                                                           |
+| :------------------------ | :-------------------------------------------------------------------------------------------------------------------------- |
+| **Temperature Control**   | Ensure uniform heat distribution, implement adaptable thermal curves, and design profiles to prevent component microcracks. |
+| **Risk Management**       | Implement automatic overheating detection and shutoff, along with a system for filtering potentially toxic vapors.          |
+| **Operational Precision** | Calibrate sensors accurately and synchronize heating/cooling stages for reliable and repeatable results.                    |
 
 ---
 
 ## 📂 Repository Structure
 
+The **Serial Peripheral Interface (SPI)** is crucial in this project for fast communication between the STM32 microcontroller and peripherals like the **MAX6675 thermocouple sensors**, ensuring precise, real-time temperature readings for the PID control loop.
+
 ```
 .
-├── Firmware/                    # Firmware for ESP01, STM32, serial debug
-│   ├── esp01/                  # ESP01 microcontroller code
-│   │   ├── esp01_webGUI/       # Web GUI for ESP01
+├── Firmware/
+│   ├── esp01/
+│   │   ├── esp01_webGUI/       # Web GUI source code for ESP01
 │   │   └── serial_debug/       # Serial communication utilities
-│   └── web_scrap/              # Python scripts for oven data analysis
-├── nextionGUI/                 # Touchscreen HMI files and assets
-├── stm32f411/                  # STM32F411 code and Kalman filter design
-├── Hardware/                   # KiCad PCB and schematic files
-│   ├── horno_no_modificado/    # Original oven hardware
-│   └── horno_reflujo/          # Reflow oven hardware, BOM, backups
-├── imagenes/                   # Images and diagrams
-├── LICENSE                     # MIT License
-└── README.md                   # Main project guide
+│   └── web_scrap/              # Python scripts for data analysis
+├── Hardware/
+│   ├── horno_no_modificado/    # Original oven hardware files
+│   └── horno_reflujo/          # Reflow oven schematics, PCB, BOM
+├── nextionGUI/                 # Touchscreen HMI files (if used)
+├── stm32f411/                  # STM32F411 source code & Kalman filter design
+├── imagenes/                   # Project images and diagrams
+├── pictures/                   # Additional project photos
+├── LICENSE                     # Project license
+└── README.md                   # This guide
 ```
 
 ---
 
 ## 📦 Requirements & Dependencies
 
-### Software Requirements
+### Software
 
-- **PlatformIO** - Firmware development environment
-- **Python 3.x** - Data analysis scripts
-- **KiCad** - Hardware design and PCB layout
-- **STM32CubeIDE** - STM32 development (optional)
+- **PlatformIO**: Recommended for firmware development.
+- **Python 3.x**: For data analysis and utility scripts.
+- **KiCad**: For viewing and editing hardware schematics and PCB layouts.
+- **STM32CubeIDE**: Optional, for STM32-specific development.
 
-### Hardware Requirements
+### Hardware
 
-- STM32F411 microcontroller
-- ESP01-S1 WiFi module
-- Temperature sensors (thermocouples)
-- Heating elements and control circuitry
-- Power supply (120V AC input)
-- Safety components (fuses, EMI filters)
+- Refer to the **Bill of Materials (BOM)** located in the `Hardware/horno_reflujo/` directory for a complete list of components.
 
 ---
 
 ## 🛠️ Installation & Usage
 
-### Quick Start
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/La-guajolota/Horno_reflujo.git
-   cd Horno_reflujo
-   ```
-
-2. **Setup firmware environment:**
-
-   - Install PlatformIO IDE or CLI
-   - Navigate to firmware directories for specific setup instructions
-
-3. **Hardware assembly:**
-
-   - Follow hardware documentation in `Hardware/` directory
-   - Refer to schematic files and BOM for component assembly
-
-4. **Calibration:**
-   - Perform temperature sensor calibration
-   - Test safety systems before first use
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/La-guajolota/Horno_reflujo.git
+    cd Horno_reflujo
+    ```
+2.  **Setup Firmware:**
+    - Open the `Firmware/` and `stm32f411/` directories in PlatformIO.
+    - Follow the specific setup instructions within each folder to compile and upload the firmware.
+3.  **Assemble Hardware:**
+    - Use the schematics and PCB files in the `Hardware/` directory as a guide.
+    - Solder and assemble all components according to the BOM.
+4.  **Calibrate & Test:**
+    - Before the first use, perform temperature sensor calibration.
+    - Test all safety systems to ensure they are functioning correctly.
 
 ---
 
-## 🖼️ Images
-
-<p align="center">
-  <img src="pictures/montada.jpg" alt="Oven Front Panel" width="350" /><br>
-  <img src="pictures/inside.jpg" alt="Inside oven" width="350" />
-</p>
-
----
-
-## 📝 To-Do List
+## 📋 To-Do List
 
 ### High Priority
 
-- [ ] Complete documentation for hardware assembly
-- [ ] Add unit tests for critical firmware functions
-- [ ] Implement emergency stop button functionality
-- [ ] Create calibration procedures documentation
-- [ ] Add thermal profile validation algorithms
+- [ ] Complete the documentation for hardware assembly.
+- [ ] Implement a physical emergency stop button.
+- [ ] Create a detailed guide for sensor calibration procedures.
+- [ ] Add unit tests for critical firmware functions.
 
 ### Medium Priority
 
-- [ ] Develop mobile app interface
-- [ ] Add data logging and analysis features
-- [ ] Implement automatic thermal profile optimization
-- [ ] Create 3D printable enclosure designs
-- [ ] Add multi-language support for web GUI
+- [ ] Develop a mobile-friendly interface or a dedicated app.
+- [ ] Add data logging and analysis features to track performance.
+- [ ] Create 3D printable designs for the enclosure.
+- [ ] Add multi-language support to the web GUI.
 
 ### Low Priority
 
-- [ ] Integration with PCB design software
-- [ ] Cloud connectivity for remote monitoring
-- [ ] Machine learning for process optimization
-- [ ] Support for different oven sizes
-- [ ] Advanced diagnostics and maintenance alerts
+- [ ] Integrate with PCB design software for profile suggestions.
+- [ ] Add cloud connectivity for remote monitoring.
+- [ ] Research machine learning for process optimization.
 
 ---
 
 ## 🚀 Possible Improvements
 
-### 🔧 Firmware Enhancements
+### Firmware Enhancements
 
-- **Advanced PID Control**: Auto-tuning algorithms and adaptive control
-- **Enhanced Safety**: Redundant safety systems and fail-safe mechanisms
-- **User Interface**: Intuitive touchscreen, OLED display, and rotary encoder input
-- **Connectivity**: IoT integration for remote monitoring and control
-- **Ventilation Control**: Automated toxic vapor management system
+- **Advanced PID Control**: Implement auto-tuning algorithms and adaptive control for even greater precision.
+- **Enhanced Safety**: Add redundant sensors and fail-safe mechanisms.
+- **Intuitive UI**: Improve the user interface with a touchscreen, OLED display, or rotary encoder.
+- **IoT Integration**: Allow for remote monitoring and control over the internet.
+- **Ventilation Control**: Develop an automated system to manage toxic vapor extraction.
 
-### 🔩 Hardware Upgrades
+### Hardware Upgrades
 
-- **Improved Insulation**: Better thermal efficiency and safety
-- **Enhanced Sensors**: Higher accuracy temperature measurement
-- **Modular Design**: Support for different oven sizes and configurations
-- **Power Efficiency**: Optimized heating element control
-- **Safety Features**: Enhanced electrical isolation and emergency systems
+- **Improved Insulation**: Enhance thermal efficiency and user safety.
+- **High-Accuracy Sensors**: Upgrade to more precise temperature sensors.
+- **Modular Design**: Create a modular system to support different oven sizes.
+- **Power Efficiency**: Optimize heating element control to reduce energy consumption.
+- **Electrical Isolation**: Improve electrical isolation between high-voltage and low-voltage circuits.
+
+---
+
+## ⚠️ Safety Considerations
+
+- ⚡ **High Voltage**: This project involves **120V AC**. Exercise extreme caution and ensure all connections are properly insulated.
+- 🌡️ **High Temperatures**: The oven reaches temperatures capable of causing severe burns. Use protective equipment.
+- 💨 **Ventilation**: Solder paste fumes can be toxic. Operate the oven in a well-ventilated area.
+- 🔧 **Grounding**: Ensure the oven chassis is properly grounded to prevent electrical shock.
+- 📏 **Calibration**: Regularly calibrate temperature sensors to maintain accuracy and prevent overheating.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Here's how you can help:
+Contributions are welcome\! If you'd like to help improve this project, please follow these steps:
 
-### How to Contribute
+1.  **Fork the repository.**
+2.  Create a new branch: `git checkout -b feature/your-amazing-feature`
+3.  Make your changes and commit them: `git commit -m 'Add your amazing feature'`
+4.  Push to your branch: `git push origin feature/your-amazing-feature`
+5.  **Open a Pull Request** and describe the changes you've made.
 
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes**: Follow our coding standards
-4. **Test thoroughly**: Ensure your changes don't break existing functionality
-5. **Commit your changes**: `git commit -m 'Add amazing feature'`
-6. **Push to the branch**: `git push origin feature/amazing-feature`
-7. **Open a Pull Request**
-
-### Areas Where We Need Help
-
-- 📖 **Documentation**: Improve guides, add translations
-- 🧪 **Testing**: Help test on different hardware configurations
-- 🎨 **UI/UX**: Enhance web interface design and user experience
-- 🔧 **Hardware**: PCB layout improvements and new features
-- 🐛 **Bug Reports**: Found an issue? Please report it!
-- 💡 **Feature Ideas**: Suggest new functionality
-
-### Code Style Guidelines
-
-- Use consistent indentation (4 spaces)
-- Add comments for complex logic
-- Follow existing naming conventions
-- Include appropriate error handling
-- Update documentation for new features
-
-### Reporting Issues
-
-Please use our GitHub Issues template and include:
-
-- Detailed description of the problem
-- Steps to reproduce
-- Expected vs actual behavior
-- Hardware/software versions
-- Log files or error messages
-
----
-
-## ⚠️ Considerations
-
-### Safety Guidelines
-
-- ⚡ **High Voltage Warning**: This project involves 120V AC - exercise extreme caution
-- 🌡️ **Temperature Hazard**: Oven reaches high temperatures - use protective equipment
-- 💨 **Ventilation Required**: Ensure proper ventilation when operating
-- 🔧 **Electrical Safety**: Consider chassis earthing and logic ground isolation
-- 📏 **Regular Calibration**: Maintain temperature sensor accuracy
-
-### Best Practices
-
-- Always use protective equipment when handling solder paste and PCBs
-- Perform regular maintenance and calibration checks
-- Keep emergency stop procedures readily accessible
-- Follow local electrical safety codes and regulations
+Please report any bugs or suggest features by opening an issue on GitHub.
 
 ---
 
 ## 🔗 Reference Links
 
 - [PlatformIO Documentation](https://docs.platformio.org/)
-- [KiCad EDA](https://www.kicad.org/)
+- [KiCad EDA Software](https://www.kicad.org/)
 - [STM32 Documentation](https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html)
-- [Nextion HMI](https://nextion.tech/)
-- [Python Serial](https://pyserial.readthedocs.io/en/latest/)
+- [Nextion HMI Displays](https://nextion.tech/)
 - [SMD Soldering Guidelines](https://www.electronics-tutorials.ws/)
 - [Reflow Soldering Profiles](https://www.smta.org/)
 
@@ -315,50 +263,32 @@ Please use our GitHub Issues template and include:
 
 ## 👥 Contributors
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/La-guajolota">
-        <b>La-guajolota</b><br>
-        <sub>Firmware Development</sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/tonyg982">
-        <b>tonyg982</b><br>
-        <sub>Project Lead & Hardware Design</sub>
-      </a>
-    </td>
-  </tr>
-</table>
-
-### Want to become a contributor?
-
-Check out our [Contributing Guide](#contributing) above and join our growing community!
+\<table\>
+\<tr\>
+\<td align="center"\>
+\<a href="[https://github.com/La-guajolota](https://github.com/La-guajolota)"\>
+\<b\>La-guajolota\</b\>\<br\>
+\<sub\>Firmware Development\</sub\>
+\</a\>
+\</td\>
+\<td align="center"\>
+\<a href="[https://github.com/tonyg982](https://github.com/tonyg982)"\>
+\<b\>tonyg982\</b\>\<br\>
+\<sub\>Project Lead & Hardware Design\</sub\>
+\</a\>
+\</td\>
+\</tr\>
+\</table\>
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
-
-### What this means:
-
-- ✅ Commercial use allowed
-- ✅ Modification allowed
-- ✅ Distribution allowed
-- ✅ Private use allowed
-- ❗ License and copyright notice required
+This project is licensed under the **MIT License**. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for more details. This means you are free to use, modify, and distribute the project, provided you include the original copyright and license notice.
 
 ---
 
-<p align="center">
-  <b>Made with ❤️ by the Open Source Community</b><br>
-  <i>Star ⭐ this repo if you find it useful!</i>
-</p>
-
----
-
-<p align="center">
-  <sub>For questions or support, please open an issue or contact the maintainers.</sub>
-</p>
+\<p align="center"\>
+\<b\>Made with ❤️ by the Open Source Community\</b\>\<br\>
+\<i\>If you find this project useful, please ⭐ star this repo\!\</i\>
+\</p\>

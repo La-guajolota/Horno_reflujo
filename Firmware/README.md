@@ -1,45 +1,45 @@
 <!-- @format -->
 
-# Firmware para Horno de Reflujo
+# Reflow Oven Firmware
 
-Este directorio contiene el firmware y utilidades de software para el proyecto de horno de reflujo. Aquí se encuentran los archivos y documentación necesarios para el desarrollo, prueba y comunicación con los diferentes módulos electrónicos del sistema.
+This directory contains the firmware and software utilities for the reflow oven project. Here you will find the files and documentation needed for development, testing, and communication with the system's electronic modules.
 
-## Estructura del Proyecto
+## Project Structure
 
-- **esp01/**: Código y recursos para el microcontrolador ESP01.
-  - **esp01_webGUI/**: Proyecto PlatformIO para el ESP01 con interfaz web.
-  - **serial_debug/**: Scripts de Python para depuración y comunicación serial.
-    - `serialTest.py`: Pruebas de comunicación serial.
-    - `serialUtils.py`: Utilidades para manejo de datos seriales.
-  - **web_scrap/**: Herramientas para análisis de datos y web scraping.
-    - `fopdt.py`, `stepResponse.py`: Modelado y análisis de respuesta de sistemas.
-    - `regresion_horno.xlsx`, `regresion_horno2.xlsx`: Datos de regresión y análisis.
-    - `web_client.py`: Cliente web para interacción y pruebas.
+- **esp01/**: Code and resources for the ESP01 microcontroller.
+  - **esp01_webGUI/**: PlatformIO project for ESP01 with web interface.
+  - **serial_debug/**: Python scripts for debugging and serial communication.
+    - `serialTest.py`: Serial communication tests.
+    - `serialUtils.py`: Utilities for handling serial data.
+  - **web_scrap/**: Tools for data analysis and web scraping.
+    - `fopdt.py`, `stepResponse.py`: System response modeling and analysis.
+    - `regresion_horno.xlsx`, `regresion_horno2.xlsx`: Regression data and analysis.
+    - `web_client.py`: Web client for interaction and testing.
 
-## Características
+## Features
 
-- Proyectos PlatformIO listos para microcontroladores ESP01.
-- Scripts de depuración y comunicación serial en Python.
-- Herramientas para análisis de datos y modelado de sistemas térmicos.
-- Documentación y ejemplos para facilitar el desarrollo y pruebas.
+- PlatformIO projects ready for ESP01 microcontrollers.
+- Python scripts for debugging and serial communication.
+- Tools for data analysis and thermal system modeling.
+- Documentation and examples to facilitate development and testing.
 
-## Cómo empezar
+## Getting Started
 
-1. **Clona el repositorio**
+1. **Clone the repository**
    ```sh
    git clone <repo-url>
    ```
-2. **Explora los subdirectorios**
-   - Abre los proyectos PlatformIO en `esp01_webGUI/` para desarrollo en ESP01.
-   - Utiliza los scripts Python en `serial_debug/` y `web_scrap/` para pruebas y análisis.
-3. **Consulta la documentación**
-   - Revisa los archivos README y los scripts para instrucciones específicas de uso.
+2. **Explore the subdirectories**
+   - Open the PlatformIO projects in `esp01_webGUI/` for ESP01 development.
+   - Use the Python scripts in `serial_debug/` and `web_scrap/` for testing and analysis.
+3. **Check the documentation**
+   - Review the README files and scripts for specific usage instructions.
 
 ## TODO
 
 - [ ] Add detailed assembly instructions for the oven hardware
 - [ ] Include safety guidelines and troubleshooting tips
-- [ ] Translate documentation to Engliish
+- [ ] Translate documentation to English
 
 ## Contact
 

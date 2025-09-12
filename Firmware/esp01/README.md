@@ -48,6 +48,12 @@ esp01/
   - Manual and automatic control modes
   - WiFi configuration
 
+#### Demo Video: Serial Debugging
+
+Watch a demonstration of the serial debugging process:
+
+[![Serial Debugging Demo](https://img.youtube.com/vi/IHum8HfZeck/0.jpg)](https://www.youtube.com/watch?v=IHum8HfZeck&t=20s)
+
 ### 2. **serial_debug/**
 
 - **Purpose:**  
@@ -56,6 +62,12 @@ esp01/
   - Log oven data
   - Send commands via USB serial
   - Debug and test firmware responses
+
+#### Demo Video: Serial Debugging
+
+Watch a demonstration of the serial debugging process:
+
+[![Serial Debugging Demo](https://img.youtube.com/vi/9pXTcgZ716o/0.jpg)](https://youtu.be/9pXTcgZ716o?si=rt7RkFcWNmk9EqP8)
 
 ### 3. **web_scrap/**
 
