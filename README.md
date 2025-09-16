@@ -174,13 +174,11 @@ The **Serial Peripheral Interface (SPI)** is crucial in this project for fast co
 - [ ] Develop a mobile-friendly interface or a dedicated app.
 - [ ] Add data logging and analysis features to track performance.
 - [ ] Create 3D printable designs for the enclosure.
-- [ ] Add multi-language support to the web GUI.
 
 ### Low Priority
 
 - [ ] Integrate with PCB design software for profile suggestions.
 - [ ] Add cloud connectivity for remote monitoring.
-- [ ] Research machine learning for process optimization.
 
 ---
 
@@ -230,12 +228,13 @@ Please report any bugs or suggest features by opening an issue on GitHub.
 
 ## 🔗 Reference Links
 
-- [PlatformIO Documentation](https://docs.platformio.org/)
-- [KiCad EDA Software](https://www.kicad.org/)
-- [STM32 Documentation](https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html)
-- [Nextion HMI Displays](https://nextion.tech/)
-- [SMD Soldering Guidelines](https://www.electronics-tutorials.ws/)
-- [Reflow Soldering Profiles](https://www.smta.org/)
+- [Nextion HMI Displays](https://nextion.tech/) – Official site for Nextion touchscreen displays.
+- [gerber_to_scad (GitHub)](https://github.com/kirberich/gerber_to_scad) – Tool for generating 3D stencils from Gerber files.
+- [SMD Soldering Guidelines](https://www.surfacemountprocess.com/reflow-soldering-process.html) – Comprehensive guide to the reflow soldering process.
+- [Reflow Soldering Profiles (SMTA)](https://www.smta.org/) – Industry resources and recommended thermal profiles.
+- [DIY Reflow Oven on Instructables](https://www.instructables.com/DIY-REFLOW-OVEN/) – Step-by-step guide for building a reflow oven with open-source firmware.
+- [Hack Your Toaster Oven to Become a Thermocouple Measurement System (All About Circuits)](https://www.allaboutcircuits.com/projects/hack-your-toaster-oven-to-become-a-thermocouple-measurement-system/) – Reference for thermocouple integration and reflow process insights.
+- [Better SPI Bus Design in 3 Steps (DorkbotPDX)](https://dorkbotpdx.org/blog/paul/better_spi_bus_design_in_3_steps/) – Key considerations for reliable MAX6675 sensor communication.
 
 ---
 
