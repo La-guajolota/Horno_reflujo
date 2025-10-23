@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# 🔥 SMD Reflow Oven
+# 🔥 Homemade SMD Reflow Oven 🔥
 
 <p align="center">
     <img src="pictures/logo.png" alt="Project Logo" width="180" />
@@ -108,20 +108,17 @@ The **Serial Peripheral Interface (SPI)** is crucial in this project for fast co
 
 ```
 .
-├── Firmware/
-│   ├── esp01/
-│   │   ├── esp01_webGUI/       # Web GUI source code for ESP01
-│   │   └── serial_debug/       # Serial communication utilities
-│   └── web_scrap/              # Python scripts for data analysis
-├── Hardware/
-│   ├── horno_no_modificado/    # Original oven hardware files
-│   └── horno_reflujo/          # Reflow oven schematics, PCB, BOM
-├── nextionGUI/                 # Touchscreen HMI files (if used)
-├── stm32f411/                  # STM32F411 source code & Kalman filter design
-├── imagenes/                   # Project images and diagrams
-├── pictures/                   # Additional project photos
+├── Firmware/                   # Firmware for all microcontrollers
+│   ├── esp01/                  # ESP-01S firmware and related tools
+│   ├── nextionGUI/             # Nextion HMI screen GUI files
+│   └── stm32f411/              # STM32F411 firmware and related tools
+├── Hardware/                   # Hardware design files (schematics, PCB)
+│   ├── horno_no_modificado/  # Original, unmodified oven schematics
+│   └── horno_reflujo/        # Custom reflow oven hardware
+├── pictures/                   # Project images and photos
+├── .gitignore                  # Git ignore file
 ├── LICENSE                     # Project license
-└── README.md                   # This guide
+└── README.md                   # This README file
 ```
 
 ---

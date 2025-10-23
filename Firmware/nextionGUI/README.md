@@ -1,53 +1,40 @@
-<!-- @format -->
+# 🖼️ Nextion GUI 🖼️
 
-# Nextion GUI
+<p align="center">
+  <img src="../../pictures/gui_reflow_params.png" alt="Nextion GUI Banner" width="600"/>
+</p>
 
-This folder contains the graphical user interface (GUI) project for the Nextion touchscreen display used in the reflow oven system.
-
----
-
-## Contents
-
-- **HMI Project Files:**  
-  Editable `.hmi` files for the Nextion Editor.
-- **Assets:**  
-  Images, fonts, and icons for the oven interface.
-- **Exported TFT:**  
-  Compiled `.tft` files ready to upload to the display.
+This folder contains the graphical user interface (GUI) project for the **Nextion HMI touchscreen display**.
 
 ---
 
-## Features
+## 📂 Contents
 
-- Real-time temperature display
-- Oven profile selection
-- Manual and automatic control buttons
-- Error and status notifications
-
----
-
-## Getting Started
-
-1. Open the `.hmi` file in the Nextion Editor.
-2. Edit screens and assets as needed.
-3. Compile and upload the `.tft` file to your Nextion display.
+- **Reflow.HMI**: The main project file for the Nextion Editor.
+- **fuentes/**: Custom fonts used in the GUI.
+- **imagenes/**: Image assets for the interface.
 
 ---
 
-## To-Do
+## ✨ Features
+
+- 🌡️ Real-time temperature display
+- 📈 Oven profile selection
+- 🔘 Manual and automatic control buttons
+- ⚠️ Error and status notifications
 
 ---
 
-## Note
+## 🚀 Getting Started
 
-The Nextion GUI was never included in the practical implementation of the reflow oven project. However, if you acquire a Nextion touchscreen display, it is possible to use this GUI. Designing the interface with Nextion Editor is much easier and faster, and the display is touch-enabled. Communication with the main MCU is done via UART.
-
-This folder contains the graphical user interface (GUI) project for the Nextion touchscreen display, which can be used in the reflow oven system if desired.
+1. **Open in Nextion Editor**: Open the `Reflow.HMI` file in the [Nextion Editor](https://nextion.tech/nextion-editor/).
+2. **Customize**: Edit the screens, UI elements, and assets as needed.
+3. **Compile & Upload**: Compile the project to generate a `.tft` file and upload it to your Nextion display.
 
 ---
 
-## Example Video
+## 📝 Note
 
-For a demonstration of the Nextion GUI in action, watch the following YouTube video:
+The Nextion GUI was **not included in the final implementation** of the reflow oven. However, the files are available here if you wish to use a Nextion touchscreen display. Communication with the main MCU is done via UART, and designing the interface with the Nextion Editor is a fast and easy way to create a touch-enabled GUI.
 
-[Nextion GUI Demo](https://youtube.com/shorts/_j2yINKcmlk?si=kRPrA2X6i5ZX8LdD)
+For a demonstration of the Nextion GUI in action, watch this [YouTube video](https://youtube.com/shorts/_j2yINKcmlk?si=kRPrA2X6i5ZX8LdD).

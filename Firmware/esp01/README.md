@@ -1,29 +1,14 @@
-<!-- @format -->
+# 📶 ESP01 Firmware & Tools 📶
 
-# ESP01 Firmware & Tools
+<p align="center">
+  <img src="../../pictures/gui_reflow_pid.png" alt="ESP01 Banner" width="600"/>
+</p>
 
 Welcome to the **ESP01** section of the Reflow Oven Firmware project! This folder contains everything needed to enable wireless control, monitoring, and data analysis for your reflow oven using the ESP8266 microcontroller.
 
-## Folder Structure
+---
 
-## Example Usage of the GUI (Web Interface)
-
-Below are three screenshots of the web GUI, each illustrating its main functions:
-
-### 1. Main Screen
-
-![Main Screen](/pictures/gui_reflow_main.png)
-This view displays the general status of the oven, including the current temperature and the progress of the reflow profile.
-
-### 2. Reflow Parameters
-
-![Reflow Parameters](/pictures/gui_reflow_params.png)
-Here you can adjust the parameters of the reflow process, such as the time and temperature for each stage.
-
-### 3. PID Configuration
-
-![PID Configuration](/pictures/gui_reflow_pid.png)
-In this section, you can set the PID values for temperature control, allowing fine-tuning of the oven's behavior.
+## 📂 Folder Structure
 
 ```
 esp01/
@@ -34,7 +19,7 @@ esp01/
 
 ---
 
-## Components
+## 🛠️ Components
 
 ### 1. **esp01_webGUI/**
 
@@ -43,44 +28,32 @@ esp01/
 - **Tech:**  
   PlatformIO, Arduino framework, HTML/CSS/JS for the web interface.
 - **Features:**
-  - Real-time temperature monitoring
-  - Oven profile selection
-  - Manual and automatic control modes
-  - WiFi configuration
-
-#### Demo Video: Serial Debugging
-
-Watch a demonstration of the serial debugging process:
-
-[![Serial Debugging Demo](https://img.youtube.com/vi/IHum8HfZeck/0.jpg)](https://www.youtube.com/watch?v=IHum8HfZeck&t=20s)
+  - 📡 Real-time temperature monitoring
+  - 🎛️ Oven profile selection
+  - 🕹️ Manual and automatic control modes
+  - 🌐 WiFi configuration
 
 ### 2. **serial_debug/**
 
 - **Purpose:**  
   Python utilities for serial communication and debugging.
 - **Features:**
-  - Log oven data
-  - Send commands via USB serial
-  - Debug and test firmware responses
-
-#### Demo Video: Serial Debugging
-
-Watch a demonstration of the serial debugging process:
-
-[![Serial Debugging Demo](https://img.youtube.com/vi/9pXTcgZ716o/0.jpg)](https://youtu.be/9pXTcgZ716o?si=rt7RkFcWNmk9EqP8)
+  - 📝 Log oven data
+  - 📤 Send commands via USB serial
+  - 🐛 Debug and test firmware responses
 
 ### 3. **web_scrap/**
 
 - **Purpose:**  
   Scripts for data analysis, regression, and client-side logging.
 - **Features:**
-  - Analyze thermal profiles
-  - Generate reports
-  - Excel integration for advanced analysis
+  - 📈 Analyze thermal profiles
+  - 📄 Generate reports
+  - 📊 Excel integration for advanced data visualization
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 1. **Web GUI Firmware**
 
@@ -99,7 +72,7 @@ Watch a demonstration of the serial debugging process:
 
 ---
 
-## To-Do List
+## ✅ To-Do List
 
 - [ ] Add OTA (Over-the-Air) firmware update support
 - [ ] Improve mobile responsiveness of the web GUI
@@ -110,6 +83,6 @@ Watch a demonstration of the serial debugging process:
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Pull requests and suggestions are welcome! Please open an issue for bugs or feature requests.

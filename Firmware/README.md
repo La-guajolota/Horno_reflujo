@@ -1,46 +1,34 @@
-<!-- @format -->
+# 펌웨어 | Firmware 펌웨어
 
-# Reflow Oven Firmware
+<p align="center">
+  <img src="../pictures/gui_reflow_main.png" alt="Firmware Banner" width="600"/>
+</p>
 
-This directory contains the firmware and software utilities for the reflow oven project. Here you will find the files and documentation needed for development, testing, and communication with the system's electronic modules.
+This directory contains all the firmware for the microcontrollers used in the **SMD Reflow Oven** project.
 
-## Project Structure
+---
 
-- **esp01/**: Code and resources for the ESP01 microcontroller.
-  - **esp01_webGUI/**: PlatformIO project for ESP01 with web interface.
-  - **serial_debug/**: Python scripts for debugging and serial communication.
-    - `serialTest.py`: Serial communication tests.
-    - `serialUtils.py`: Utilities for handling serial data.
-  - **web_scrap/**: Tools for data analysis and web scraping.
-    - `fopdt.py`, `stepResponse.py`: System response modeling and analysis.
-    - `regresion_horno.xlsx`, `regresion_horno2.xlsx`: Regression data and analysis.
-    - `web_client.py`: Web client for interaction and testing.
+## 📂 Subdirectories
 
-## Features
+Here's a breakdown of what you'll find in each subfolder:
 
-- PlatformIO projects ready for ESP01 microcontrollers.
-- Python scripts for debugging and serial communication.
-- Tools for data analysis and thermal system modeling.
-- Documentation and examples to facilitate development and testing.
+- ###  esp01/
+  This folder holds the firmware for the **ESP-01S** module, which is responsible for hosting the web-based GUI. It includes the PlatformIO project and related tools for debugging and data analysis.
 
-## Getting Started
+- ### nextionGUI/
+  Contains the files for the **Nextion HMI** touchscreen display. This includes the `.HMI` file that defines the graphical user interface and custom fonts.
 
-1. **Clone the repository**
-   ```sh
-   git clone <repo-url>
-   ```
-2. **Explore the subdirectories**
-   - Open the PlatformIO projects in `esp01_webGUI/` for ESP01 development.
-   - Use the Python scripts in `serial_debug/` and `web_scrap/` for testing and analysis.
-3. **Check the documentation**
-   - Review the README files and scripts for specific usage instructions.
+- ### stm32f411/
+  This is where the main control firmware for the **STM32F411** microcontroller is located. This firmware manages the PID temperature control, thermal profiles, and all core functionalities of the oven. It also includes design files for a Kalman filter used for temperature sensing.
 
-## TODO
+---
 
-- [ ] Add detailed assembly instructions for the oven hardware
-- [ ] Include safety guidelines and troubleshooting tips
-- [ ] Translate documentation to English
+## 🚀 Getting Started
 
-## Contact
+To work with the firmware in this directory, you will need:
 
-For questions or contributions, please open an issue or contact the project maintainer.
+- **PlatformIO** for the `esp01` and `stm32f411` projects.
+- **Nextion Editor** for the `nextionGUI` files.
+- **Python 3.x** for the utility scripts.
+
+Each subdirectory contains a more detailed `README.md` file with specific instructions on how to use its contents.
